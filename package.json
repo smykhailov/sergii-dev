@@ -1,11 +1,14 @@
 {
-  "name": "sergii-mykhailov-software-engineer",
+  "name": "sergii-dev",
   "version": "1.0.0",
   "private": true,
   "description": "Sergii Mykhailov - Software Engineer",
   "author": "Sergii Mykhailov",
   "keywords": [
-    "gatsby"
+    "Sergii Mykhailov",
+    "blog",
+    "development",
+    "software engineering"
   ],
   "scripts": {
     "develop": "gatsby develop",
@@ -26,5 +29,8 @@
     "gatsby-source-filesystem": "^2.8.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.1.3"
   }
 }
