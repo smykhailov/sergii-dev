@@ -13,5 +13,11 @@ module.exports = {
       },
       __key: "pages",
     },
+    {
+      resolve: "gatsby-plugin-tsconfig-paths",
+      options: {
+        baseUrl: "./src",
+      },
+    },
   ],
 };
