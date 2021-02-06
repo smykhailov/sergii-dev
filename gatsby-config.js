@@ -5,14 +5,25 @@ module.exports = {
   },
   plugins: [
     "gatsby-plugin-emotion",
-    "gatsby-plugin-mdx",
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        extensions: [`.mdx`, `.md`],
+      },
+    },
     {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "pages",
         path: "./src/pages/",
       },
-      __key: "pages",
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `posts`,
+        path: `${__dirname}/src/posts/`,
+      },
     },
     {
       resolve: "gatsby-plugin-tsconfig-paths",

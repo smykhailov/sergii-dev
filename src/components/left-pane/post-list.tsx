@@ -1,15 +1,44 @@
-import React from "react";
+import React, { FC } from "react";
+import { graphql, useStaticQuery } from "gatsby";
 
-const PostList = () => {
+const PostList: FC<{}> = () => {
+  const { nodes } = usePostListQuery();
+
   return (
     <div>
       <ul>
-        <li>Post 1</li>
-        <li>Post 2</li>
-        <li>Post 3</li>
+        {nodes.map(({ excerpt, frontmatter }: any) => (
+          <li>
+            <h1>{frontmatter.title}</h1>
+            <p>{frontmatter.date}</p>
+            <p>{excerpt}</p>
+          </li>
+        ))}
       </ul>
     </div>
   );
+};
+
+export const usePostListQuery = () => {
+  const { allMdx } = useStaticQuery(graphql`
+    query PostListQuery {
+      allMdx(
+        sort: { fields: [frontmatter___date], order: DESC }
+        filter: { frontmatter: { published: { eq: true } } }
+      ) {
+        nodes {
+          id
+          excerpt(pruneLength: 250)
+          frontmatter {
+            title
+            date
+          }
+        }
+      }
+    }
+  `);
+
+  return allMdx;
 };
 
 export default PostList;
