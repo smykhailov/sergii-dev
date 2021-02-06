@@ -1,18 +1,42 @@
-import React from "react";
+import React, { FC } from "react";
+import { graphql } from "gatsby";
+
 import Layout from "@components/layout";
 
-const IndexPage = () => {
+const IndexPage: FC<{ data: TData }> = (props) => {
+  const { title, description } = props.data.site.siteMetadata;
+
   return (
     <Layout>
-      <main style={pageStyles}>Main page</main>
+      <main>
+        <h2>Main page</h2>
+        <div>
+          <h1>{title}</h1>
+          <p>{description}</p>
+        </div>
+      </main>
     </Layout>
   );
 };
 
-const pageStyles = {
-  color: "#232129",
-  padding: "96px",
-  fontFamily: "-apple-system, Roboto, sans-serif, serif",
+type TData = {
+  site: {
+    siteMetadata: {
+      title: string;
+      description: string;
+    };
+  };
 };
+
+export const query = graphql`
+  query HomePageQuery {
+    site {
+      siteMetadata {
+        title
+        description
+      }
+    }
+  }
+`;
 
 export default IndexPage;

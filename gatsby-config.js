@@ -1,6 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: "Sergii Mykhailov - Software Engineer",
+    description: "Work and Life",
   },
   plugins: [
     "gatsby-plugin-emotion",
