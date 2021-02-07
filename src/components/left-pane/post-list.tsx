@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { graphql, useStaticQuery } from "gatsby";
+import { graphql, Link, useStaticQuery } from "gatsby";
 
 const PostList: FC<{}> = () => {
   const { nodes } = usePostListQuery();
@@ -7,10 +7,12 @@ const PostList: FC<{}> = () => {
   return (
     <div>
       <ul>
-        {nodes.map(({ excerpt, frontmatter }: any) => (
-          <li>
-            <h1>{frontmatter.title}</h1>
-            <p>{frontmatter.date}</p>
+        {nodes.map(({ id, excerpt, frontmatter, fields }) => (
+          <li key={id}>
+            <Link to={fields.slug}>
+              <h1>{frontmatter.title}</h1>
+            </Link>
+            <p>{new Date(frontmatter.date).toLocaleDateString()}</p>
             <p>{excerpt}</p>
           </li>
         ))}
@@ -19,8 +21,24 @@ const PostList: FC<{}> = () => {
   );
 };
 
+type TData = {
+  allMdx: {
+    nodes: Array<{
+      id: string;
+      excerpt: string;
+      frontmatter: {
+        title: string;
+        date: string;
+      };
+      fields: {
+        slug: string;
+      };
+    }>;
+  };
+};
+
 export const usePostListQuery = () => {
-  const { allMdx } = useStaticQuery(graphql`
+  const { allMdx } = useStaticQuery<TData>(graphql`
     query PostListQuery {
       allMdx(
         sort: { fields: [frontmatter___date], order: DESC }
@@ -28,10 +46,14 @@ export const usePostListQuery = () => {
       ) {
         nodes {
           id
+          slug
           excerpt(pruneLength: 250)
           frontmatter {
             title
             date
+          }
+          fields {
+            slug
           }
         }
       }

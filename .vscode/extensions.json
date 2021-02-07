@@ -2,13 +2,14 @@
   "recommendations": [
     "aaron-bond.better-comments",
     "bierner.markdown-mermaid",
-    "DavidAnson.vscode-markdownlint",
+    "davidanson.vscode-markdownlint",
     "dbaeumer.vscode-eslint",
     "donjayamanne.githistory",
     "eamodio.gitlens",
     "esbenp.prettier-vscode",
     "shd101wyy.markdown-preview-enhanced",
     "streetsidesoftware.code-spell-checker",
-    "yzhang.markdown-all-in-one"
+    "yzhang.markdown-all-in-one",
+    "jsynowiec.vscode-insertdatestring"
   ]
 }
