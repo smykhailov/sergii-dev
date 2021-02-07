@@ -2,18 +2,18 @@ import React, { FC } from "react";
 import { graphql, Link, useStaticQuery } from "gatsby";
 
 const PostList: FC<{}> = () => {
-  const { nodes } = usePostListQuery();
+  const { edges } = usePostListQuery();
 
   return (
     <div>
       <ul>
-        {nodes.map(({ id, excerpt, frontmatter, fields }) => (
-          <li key={id}>
-            <Link to={fields.slug}>
-              <h1>{frontmatter.title}</h1>
+        {edges.map((edge) => (
+          <li key={edge.node.id}>
+            <Link to={edge.node.fields.slug}>
+              <strong>{edge.node.frontmatter.title}</strong>
             </Link>
-            <p>{new Date(frontmatter.date).toLocaleDateString()}</p>
-            <p>{excerpt}</p>
+            <p>{new Date(edge.node.frontmatter.date).toLocaleDateString()}</p>
+            <p>{edge.node.excerpt}</p>
           </li>
         ))}
       </ul>
@@ -23,15 +23,17 @@ const PostList: FC<{}> = () => {
 
 type TData = {
   allMdx: {
-    nodes: Array<{
-      id: string;
-      excerpt: string;
-      frontmatter: {
-        title: string;
-        date: string;
-      };
-      fields: {
-        slug: string;
+    edges: Array<{
+      node: {
+        id: string;
+        excerpt: string;
+        frontmatter: {
+          title: string;
+          date: string;
+        };
+        fields: {
+          slug: string;
+        };
       };
     }>;
   };
@@ -44,16 +46,18 @@ export const usePostListQuery = () => {
         sort: { fields: [frontmatter___date], order: DESC }
         filter: { frontmatter: { published: { eq: true } } }
       ) {
-        nodes {
-          id
-          slug
-          excerpt(pruneLength: 250)
-          frontmatter {
-            title
-            date
-          }
-          fields {
+        edges {
+          node {
+            id
             slug
+            excerpt(pruneLength: 250)
+            frontmatter {
+              title
+              date
+            }
+            fields {
+              slug
+            }
           }
         }
       }
