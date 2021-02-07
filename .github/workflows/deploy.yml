@@ -7,7 +7,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
+      - name: create CNAME file
+        run: |
+          echo "sergii.dev" > CNAME
+
       - uses: actions/checkout@v1
       - uses: enriikke/gatsby-gh-pages-action@v2
         with:
