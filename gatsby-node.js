@@ -5,12 +5,14 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
 
   if (node.internal.type === "Mdx") {
-    const value = createFilePath({ node, getNode });
+    // .substring(12) - removes date from slug
+    // 2020-10-24-first -> first
+    const value = createFilePath({ node, getNode }).substring(12);
 
     createNodeField({
       name: "slug",
       node,
-      value: `/posts${value}`,
+      value: `/posts/${value}`,
     });
   }
 };
