@@ -2,12 +2,13 @@ import React, { FC } from "react";
 import { graphql, Link } from "gatsby";
 
 import Layout from "@components/layout";
+import ArticlesList from "@components/left-pane/articles-list";
 
 const ArticlesPage: FC<{ data: TData }> = props => {
   const { edges } = props.data.allMdx;
 
   return (
-    <Layout>
+    <Layout aside={<ArticlesList />}>
       <main>
         <h1>Posts</h1>
         <ul>
@@ -45,7 +46,7 @@ type TData = {
 };
 
 export const query = graphql`
-  query PostsPageQuery {
+  query ArticlesPageQuery {
     allMdx(
       sort: { fields: [frontmatter___date], order: DESC }
       filter: { frontmatter: { published: { eq: true } } }

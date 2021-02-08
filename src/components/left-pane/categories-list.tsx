@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import { graphql, Link, useStaticQuery } from "gatsby";
 
-const ArticlesList: FC<{}> = () => {
-  const { edges } = useArticlesListQuery();
+const CategoriesList: FC<{}> = () => {
+  const { edges } = useCategoriesListQuery();
 
   return (
     <div>
@@ -39,9 +39,9 @@ type TData = {
   };
 };
 
-export const useArticlesListQuery = () => {
+export const useCategoriesListQuery = () => {
   const { allMdx } = useStaticQuery<TData>(graphql`
-    query ArticlesListQuery {
+    query CategoriesListQuery {
       allMdx(
         sort: { fields: [frontmatter___date], order: DESC }
         filter: { frontmatter: { published: { eq: true } } }
@@ -67,4 +67,4 @@ export const useArticlesListQuery = () => {
   return allMdx;
 };
 
-export default ArticlesList;
+export default CategoriesList;

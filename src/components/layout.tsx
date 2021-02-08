@@ -4,30 +4,31 @@ import { Global, css } from "@emotion/react";
 import styled from "@emotion/styled";
 import emotionReset from "emotion-reset";
 
-import Header from "@components/header";
 import Footer from "@components/footer";
 import AppBar from "./app-bar";
-import PostList from "./left-pane/articles-list";
 
-const Layout: FC<{}> = props => {
+const Layout: FC<{ aside?: React.ReactChild }> = props => {
   return (
     <Wrapper>
       <Global styles={globalStyles} />
-      <Header />
-      <AppBar />
-      <aside>
-        <PostList />
-      </aside>
-      {props.children}
+      <Container>
+        <AppBar />
+        {props.aside && <aside>{props.aside}</aside>}
+        {props.children}
+      </Container>
       <Footer />
     </Wrapper>
   );
 };
 
-const Wrapper = styled("div")`
-  border: 2px solid green;
-  padding: 10px;
-`;
+const Wrapper = styled.div({
+  display: "flex",
+  flexDirection: "column",
+});
+
+const Container = styled.div({
+  display: "flex",
+});
 
 const globalStyles = css`
   ${emotionReset}
