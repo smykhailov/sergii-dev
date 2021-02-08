@@ -6,10 +6,19 @@ const AppBar = () => {
     <nav>
       <ul>
         <li>
+          <Link to="/articles">Articles</Link>
+        </li>
+        <li>
+          <Link to="/categories">Categories</Link>
+        </li>
+        <li>
+          <Link to="/projects">Projects</Link>
+        </li>
+        <li>
           <Link to="/cv">CV</Link>
         </li>
         <li>
-          <Link to="/posts">Posts</Link>
+          <span>Settings</span>
         </li>
       </ul>
     </nav>

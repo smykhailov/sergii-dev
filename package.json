@@ -17,7 +17,7 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,mdx}\"",
-      "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "license": "0BSD",
   "dependencies": {
@@ -25,6 +25,7 @@
     "@emotion/styled": "^11.0.0",
     "@mdx-js/mdx": "^1.6.22",
     "@mdx-js/react": "^1.6.22",
+    "emotion-reset": "^3.0.0",
     "gatsby": "^2.26.1",
     "gatsby-plugin-emotion": "^5.1.0",
     "gatsby-plugin-mdx": "^1.10.0",
@@ -34,7 +35,7 @@
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
-    "typescript": "^4.1.3",
-    "prettier": "2.2.1"
+    "prettier": "2.2.1",
+    "typescript": "^4.1.3"
   }
 }

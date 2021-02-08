@@ -3,7 +3,7 @@ import { graphql, Link } from "gatsby";
 
 import Layout from "@components/layout";
 
-const PostsPage: FC<{ data: TData }> = (props) => {
+const ArticlesPage: FC<{ data: TData }> = props => {
   const { edges } = props.data.allMdx;
 
   return (
@@ -11,7 +11,7 @@ const PostsPage: FC<{ data: TData }> = (props) => {
       <main>
         <h1>Posts</h1>
         <ul>
-          {edges.map((edge) => (
+          {edges.map(edge => (
             <li key={edge.node.id}>
               <Link to={edge.node.fields.slug}>
                 <h2>{edge.node.frontmatter.title}</h2>
@@ -67,4 +67,4 @@ export const query = graphql`
   }
 `;
 
-export default PostsPage;
+export default ArticlesPage;
