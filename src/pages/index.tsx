@@ -3,8 +3,8 @@ import { graphql } from "gatsby";
 
 import Layout from "@components/layout";
 
-const IndexPage: FC<{ data: TData }> = (props) => {
-  const { title, description } = props.data.site.siteMetadata;
+const IndexPage: FC<{ data: GatsbyTypes.HomePageDataQuery }> = props => {
+  const { title, description } = props.data.site?.siteMetadata!;
 
   return (
     <Layout>
@@ -19,17 +19,8 @@ const IndexPage: FC<{ data: TData }> = (props) => {
   );
 };
 
-type TData = {
-  site: {
-    siteMetadata: {
-      title: string;
-      description: string;
-    };
-  };
-};
-
 export const query = graphql`
-  query HomePageQuery {
+  query HomePageData {
     site {
       siteMetadata {
         title

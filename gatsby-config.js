@@ -5,6 +5,8 @@ module.exports = {
   },
   plugins: [
     "gatsby-plugin-emotion",
+    "gatsby-plugin-typescript",
+    "gatsby-plugin-typescript-checker",
     {
       resolve: "gatsby-plugin-mdx",
       options: {
@@ -29,6 +31,19 @@ module.exports = {
       resolve: "gatsby-plugin-tsconfig-paths",
       options: {
         baseUrl: "./src",
+      },
+    },
+    {
+      resolve: `gatsby-plugin-typegen`,
+      options: {
+        outputPath: `src/generated/gatsby-types.d.ts`,
+        emitSchema: {
+          "src/generated/gatsby-schema.graphql": true,
+          "src/generated/gatsby-introspection.json": true,
+        },
+        emitPluginDocuments: {
+          "src/generated/gatsby-plugin-documents.graphql": true,
+        },
       },
     },
   ],

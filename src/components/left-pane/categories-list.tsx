@@ -7,52 +7,44 @@ const CategoriesList: FC<{}> = () => {
   return (
     <div>
       <ul>
-        {edges.map(edge => (
-          <li key={edge.node.id}>
-            <Link to={edge.node.fields.slug}>
-              <strong>{edge.node.frontmatter.title}</strong>
-            </Link>
-            <p>{new Date(edge.node.frontmatter.date).toLocaleDateString()}</p>
-            <p>{edge.node.excerpt}</p>
-          </li>
-        ))}
+        {edges.map(edge => {
+          if (!edge.node.fields?.slug || !edge.node.frontmatter?.date) {
+            return null;
+          }
+
+          const {
+            id,
+            fields: { slug },
+            frontmatter: { title, date },
+          } = edge.node;
+
+          return (
+            <li key={id}>
+              <Link to={slug}>
+                <strong>{title}</strong>
+              </Link>
+              <p>{new Date(date).toLocaleDateString()}</p>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
 };
 
-type TData = {
-  allMdx: {
-    edges: Array<{
-      node: {
-        id: string;
-        excerpt: string;
-        frontmatter: {
-          title: string;
-          date: string;
-        };
-        fields: {
-          slug: string;
-        };
-      };
-    }>;
-  };
-};
-
 export const useCategoriesListQuery = () => {
-  const { allMdx } = useStaticQuery<TData>(graphql`
-    query CategoriesListQuery {
+  const { allMdx } = useStaticQuery<GatsbyTypes.CategoriesListQuery>(graphql`
+    query CategoriesList {
       allMdx(
-        sort: { fields: [frontmatter___date], order: DESC }
+        sort: { fields: [frontmatter___category], order: ASC }
         filter: { frontmatter: { published: { eq: true } } }
       ) {
         edges {
           node {
             id
-            slug
-            excerpt(pruneLength: 250)
             frontmatter {
               title
+              category
               date
             }
             fields {
