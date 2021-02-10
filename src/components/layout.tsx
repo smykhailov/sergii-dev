@@ -1,22 +1,44 @@
 import React, { FC } from "react";
 
-import Header from "@components/header";
+import { Global, css } from "@emotion/react";
+import styled from "@emotion/styled";
+import emotionReset from "emotion-reset";
+
 import Footer from "@components/footer";
 import AppBar from "./app-bar";
-import PostList from "./left-pane/post-list";
 
-const Layout: FC<{}> = (props) => {
+const Layout: FC<{ aside?: React.ReactChild }> = props => {
   return (
-    <div>
-      <Header />
-      <AppBar />
-      <aside>
-        <PostList />
-      </aside>
-      {props.children}
+    <Wrapper>
+      <Global styles={globalStyles} />
+      <Container>
+        <AppBar />
+        {props.aside && <aside>{props.aside}</aside>}
+        {props.children}
+      </Container>
       <Footer />
-    </div>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div({
+  display: "flex",
+  flexDirection: "column",
+});
+
+const Container = styled.div({
+  display: "flex",
+});
+
+const globalStyles = css`
+  ${emotionReset}
+
+  *, *::after, *::before {
+    box-sizing: border-box;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+  }
+`;
 
 export default Layout;

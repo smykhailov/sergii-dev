@@ -5,7 +5,7 @@ import { MDXRenderer } from "gatsby-plugin-mdx";
 
 import Layout from "./layout";
 
-const PostLayout: FC<{ data: TData }> = (props) => {
+const Article: FC<{ data: TData }> = props => {
   const { frontmatter, body } = props.data.mdx;
   return (
     <Layout>
@@ -40,4 +40,4 @@ export const query = graphql`
   }
 `;
 
-export default PostLayout;
+export default Article;

@@ -5,10 +5,12 @@ module.exports = {
   },
   plugins: [
     "gatsby-plugin-emotion",
+    "gatsby-plugin-typescript",
+    "gatsby-plugin-typescript-checker",
     {
-      resolve: `gatsby-plugin-mdx`,
+      resolve: "gatsby-plugin-mdx",
       options: {
-        extensions: [`.mdx`, `.md`],
+        extensions: [".mdx", ".md"],
       },
     },
     {
@@ -19,16 +21,29 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: "gatsby-source-filesystem",
       options: {
-        name: `posts`,
-        path: `${__dirname}/src/posts/`,
+        name: "articles",
+        path: "./src/articles/",
       },
     },
     {
       resolve: "gatsby-plugin-tsconfig-paths",
       options: {
         baseUrl: "./src",
+      },
+    },
+    {
+      resolve: `gatsby-plugin-typegen`,
+      options: {
+        outputPath: `src/generated/gatsby-types.d.ts`,
+        emitSchema: {
+          "src/generated/gatsby-schema.graphql": true,
+          "src/generated/gatsby-introspection.json": true,
+        },
+        emitPluginDocuments: {
+          "src/generated/gatsby-plugin-documents.graphql": true,
+        },
       },
     },
   ],
