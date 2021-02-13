@@ -1,35 +1,54 @@
 import React, { FC } from "react";
 import { graphql, Link, useStaticQuery } from "gatsby";
+import slugify from "slugify";
 
 const CategoriesList: FC<{}> = () => {
-  const { edges } = useCategoriesListQuery();
+  const categories = useCategories();
 
   return (
     <div>
       <ul>
-        {edges.map(edge => {
-          if (!edge.node.fields?.slug || !edge.node.frontmatter?.date) {
-            return null;
-          }
-
-          const {
-            id,
-            fields: { slug },
-            frontmatter: { title, date },
-          } = edge.node;
-
+        {categories.map(category => {
           return (
-            <li key={id}>
-              <Link to={slug}>
-                <strong>{title}</strong>
+            <li key={category.slug}>
+              <Link to={category.slug}>
+                <strong>{category.title}</strong>
               </Link>
-              <p>{new Date(date).toLocaleDateString()}</p>
             </li>
           );
         })}
       </ul>
     </div>
   );
+};
+
+type TCategory = {
+  slug: string;
+  title: string;
+};
+
+const useCategories = (): TCategory[] => {
+  const { edges } = useCategoriesListQuery();
+
+  const categories = edges
+    .filter((item, idx, arr) => {
+      return (
+        arr.findIndex(
+          x => x.node.frontmatter?.category === item.node.frontmatter?.category
+        ) === idx
+      );
+    })
+    .map(edge => {
+      let slug = slugify(edge.node.frontmatter?.category!).toLocaleLowerCase();
+      let title = edge.node.frontmatter?.category!;
+
+      return {
+        slug,
+        title,
+      };
+    });
+
+  return categories;
 };
 
 export const useCategoriesListQuery = () => {
