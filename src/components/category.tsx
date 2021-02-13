@@ -4,14 +4,14 @@ import { graphql } from "gatsby";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 
 import Layout from "./layout";
-import ArticlesList from "./left-pane/articles-list";
+import CategoriesList from "./left-pane/categories-list";
 
-const Article: FC<{ data: TData }> = props => {
+const Category: FC<{ data: TData }> = props => {
   const { frontmatter, body } = props.data.mdx;
   return (
-    <Layout aside={<ArticlesList />}>
+    <Layout aside={<CategoriesList />}>
       <main>
-        <h1>{frontmatter.title}</h1>
+        <h1>{frontmatter.category}</h1>
         <p>{new Date(frontmatter.date).toLocaleString()}</p>
         <MDXRenderer>{body}</MDXRenderer>
       </main>
@@ -23,22 +23,22 @@ type TData = {
   mdx: {
     body: string;
     frontmatter: {
-      title: string;
+      category: string;
       date: string;
     };
   };
 };
 
 export const query = graphql`
-  query ArticleById($id: String!) {
+  query CategoryById($id: String!) {
     mdx(id: { eq: $id }) {
       body
       frontmatter {
-        title
+        category
         date
       }
     }
   }
 `;
 
-export default Article;
+export default Category;

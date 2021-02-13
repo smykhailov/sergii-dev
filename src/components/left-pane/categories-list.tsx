@@ -39,7 +39,9 @@ const useCategories = (): TCategory[] => {
       );
     })
     .map(edge => {
-      let slug = slugify(edge.node.frontmatter?.category!).toLocaleLowerCase();
+      let slug = `/categories/${slugify(
+        edge.node.frontmatter?.category!
+      ).toLocaleLowerCase()}`;
       let title = edge.node.frontmatter?.category!;
 
       return {
