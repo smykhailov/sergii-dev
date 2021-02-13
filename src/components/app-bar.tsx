@@ -1,24 +1,44 @@
-import { Link } from "gatsby";
 import React from "react";
+import { Link } from "gatsby";
+
+import HomeIcon from "../assets/home.svg";
+import ArticlesIcon from "../assets/files.svg";
+import CategoriesIcon from "../assets/file-submodule.svg";
+import ProjectsIcon from "../assets/source-control.svg";
+import CVIcon from "../assets/person.svg";
+import SettingsIcon from "../assets/settings-gear.svg";
 
 const AppBar = () => {
   return (
     <nav>
       <ul>
         <li>
-          <Link to="/articles">Articles</Link>
+          <Link to="/">
+            <HomeIcon />
+          </Link>
         </li>
         <li>
-          <Link to="/categories">Categories</Link>
+          <Link to="/articles">
+            <ArticlesIcon />
+          </Link>
         </li>
         <li>
-          <Link to="/projects">Projects</Link>
+          <Link to="/categories">
+            <CategoriesIcon />
+          </Link>
         </li>
         <li>
-          <Link to="/cv">CV</Link>
+          <Link to="/projects">
+            <ProjectsIcon />
+          </Link>
         </li>
         <li>
-          <span>Settings</span>
+          <Link to="/cv">
+            <CVIcon />
+          </Link>
+        </li>
+        <li>
+          <SettingsIcon />
         </li>
       </ul>
     </nav>

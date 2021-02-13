@@ -1,6 +1,7 @@
 {
   "cSpell.words": [
-    "frontmatter"
+    "frontmatter",
+    "submodule"
   ],
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",

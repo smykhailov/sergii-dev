@@ -34,15 +34,23 @@ module.exports = {
       },
     },
     {
+      resolve: "gatsby-plugin-react-svg",
+      options: {
+        rule: {
+          include: /assets/,
+        },
+      },
+    },
+    {
       resolve: "gatsby-plugin-typegen",
       options: {
-        outputPath: "src/generated/gatsby-types.d.ts",
+        outputPath: "./src/generated/gatsby-types.d.ts",
         emitSchema: {
-          "src/generated/gatsby-schema.graphql": true,
-          "src/generated/gatsby-introspection.json": true,
+          "./src/generated/gatsby-schema.graphql": true,
+          "./src/generated/gatsby-introspection.json": true,
         },
         emitPluginDocuments: {
-          "src/generated/gatsby-plugin-documents.graphql": true,
+          "./src/generated/gatsby-plugin-documents.graphql": true,
         },
       },
     },
