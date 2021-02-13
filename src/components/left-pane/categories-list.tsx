@@ -3,16 +3,18 @@ import { graphql, Link, useStaticQuery } from "gatsby";
 import slugify from "slugify";
 
 const CategoriesList: FC<{}> = () => {
-  const categories = useCategories();
+  const { distinct: categories } = useCategoriesListQuery();
 
   return (
     <div>
       <ul>
         {categories.map(category => {
+          const slug = `/categories/${slugify(category).toLocaleLowerCase()}`;
+
           return (
-            <li key={category.slug}>
-              <Link to={category.slug}>
-                <strong>{category.title}</strong>
+            <li key={slug}>
+              <Link to={slug}>
+                <strong>{category}</strong>
               </Link>
             </li>
           );
@@ -22,37 +24,6 @@ const CategoriesList: FC<{}> = () => {
   );
 };
 
-type TCategory = {
-  slug: string;
-  title: string;
-};
-
-const useCategories = (): TCategory[] => {
-  const { edges } = useCategoriesListQuery();
-
-  const categories = edges
-    .filter((item, idx, arr) => {
-      return (
-        arr.findIndex(
-          x => x.node.frontmatter?.category === item.node.frontmatter?.category
-        ) === idx
-      );
-    })
-    .map(edge => {
-      let slug = `/categories/${slugify(
-        edge.node.frontmatter?.category!
-      ).toLocaleLowerCase()}`;
-      let title = edge.node.frontmatter?.category!;
-
-      return {
-        slug,
-        title,
-      };
-    });
-
-  return categories;
-};
-
 export const useCategoriesListQuery = () => {
   const { allMdx } = useStaticQuery<GatsbyTypes.CategoriesListQuery>(graphql`
     query CategoriesList {
@@ -60,19 +31,7 @@ export const useCategoriesListQuery = () => {
         sort: { fields: [frontmatter___category], order: ASC }
         filter: { frontmatter: { published: { eq: true } } }
       ) {
-        edges {
-          node {
-            id
-            frontmatter {
-              title
-              category
-              date
-            }
-            fields {
-              slug
-            }
-          }
-        }
+        distinct(field: frontmatter___category)
       }
     }
   `);
