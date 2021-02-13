@@ -1,29 +1,21 @@
 import React, { FC } from "react";
 import { graphql, Link, useStaticQuery } from "gatsby";
+import slugify from "slugify";
 
 const CategoriesList: FC<{}> = () => {
-  const { edges } = useCategoriesListQuery();
+  const { distinct: categories } = useCategoriesListQuery();
 
   return (
     <div>
       <ul>
-        {edges.map(edge => {
-          if (!edge.node.fields?.slug || !edge.node.frontmatter?.date) {
-            return null;
-          }
-
-          const {
-            id,
-            fields: { slug },
-            frontmatter: { title, date },
-          } = edge.node;
+        {categories.map(category => {
+          const slug = `/categories/${slugify(category).toLocaleLowerCase()}`;
 
           return (
-            <li key={id}>
+            <li key={slug}>
               <Link to={slug}>
-                <strong>{title}</strong>
+                <strong>{category}</strong>
               </Link>
-              <p>{new Date(date).toLocaleDateString()}</p>
             </li>
           );
         })}
@@ -39,19 +31,7 @@ export const useCategoriesListQuery = () => {
         sort: { fields: [frontmatter___category], order: ASC }
         filter: { frontmatter: { published: { eq: true } } }
       ) {
-        edges {
-          node {
-            id
-            frontmatter {
-              title
-              category
-              date
-            }
-            fields {
-              slug
-            }
-          }
-        }
+        distinct(field: frontmatter___category)
       }
     }
   `);

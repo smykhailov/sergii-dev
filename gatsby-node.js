@@ -1,5 +1,18 @@
 const path = require("path");
 const { createFilePath } = require("gatsby-source-filesystem");
+const slugify = require("slugify");
+
+exports.onCreateWebpackConfig = ({ stage, actions }) => {
+  if (stage.startsWith("develop")) {
+    actions.setWebpackConfig({
+      resolve: {
+        alias: {
+          "react-dom": "@hot-loader/react-dom",
+        },
+      },
+    });
+  }
+};
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
@@ -26,6 +39,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         edges {
           node {
             id
+            frontmatter {
+              category
+            }
             fields {
               slug
             }
@@ -43,6 +59,16 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const posts = result.data.allMdx.edges;
 
   posts.forEach(({ node }) => {
+    createPage({
+      path: `/categories/${slugify(
+        node.frontmatter.category
+      ).toLocaleLowerCase()}`,
+      component: path.resolve("./src/components/category.tsx"),
+      context: {
+        category: node.frontmatter.category,
+      },
+    });
+
     createPage({
       path: node.fields.slug,
       component: path.resolve("./src/components/article.tsx"),

@@ -4,32 +4,23 @@ import { graphql } from "gatsby";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 
 import Layout from "./layout";
+import ArticlesList from "./left-pane/articles-list";
 
-const Article: FC<{ data: TData }> = props => {
-  const { frontmatter, body } = props.data.mdx;
+const Article: FC<{ data: GatsbyTypes.ArticleByIdQuery }> = props => {
+  const { frontmatter, body } = props.data.mdx!;
   return (
-    <Layout>
+    <Layout aside={<ArticlesList />}>
       <main>
-        <h1>{frontmatter.title}</h1>
-        <p>{new Date(frontmatter.date).toLocaleString()}</p>
+        <h1>{frontmatter?.title}</h1>
+        <p>{new Date(frontmatter?.date!).toLocaleString()}</p>
         <MDXRenderer>{body}</MDXRenderer>
       </main>
     </Layout>
   );
 };
 
-type TData = {
-  mdx: {
-    body: string;
-    frontmatter: {
-      title: string;
-      date: string;
-    };
-  };
-};
-
 export const query = graphql`
-  query PostsById($id: String!) {
+  query ArticleById($id: String!) {
     mdx(id: { eq: $id }) {
       body
       frontmatter {

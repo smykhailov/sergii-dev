@@ -34,9 +34,9 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-typegen`,
+      resolve: "gatsby-plugin-typegen",
       options: {
-        outputPath: `src/generated/gatsby-types.d.ts`,
+        outputPath: "src/generated/gatsby-types.d.ts",
         emitSchema: {
           "src/generated/gatsby-schema.graphql": true,
           "src/generated/gatsby-introspection.json": true,

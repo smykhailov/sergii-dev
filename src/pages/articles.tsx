@@ -12,7 +12,7 @@ const ArticlesPage: FC<{
   return (
     <Layout aside={<ArticlesList />}>
       <main>
-        <h1>Posts</h1>
+        <h1>Articles</h1>
         <ul>
           {edges.map(edge => {
             if (!edge.node.fields?.slug || !edge.node.frontmatter?.date) {
@@ -33,6 +33,7 @@ const ArticlesPage: FC<{
                 </Link>
                 <p>{new Date(date).toLocaleDateString()}</p>
                 <p>{excerpt}</p>
+                <hr />
               </li>
             );
           })}
