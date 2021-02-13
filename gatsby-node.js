@@ -64,7 +64,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         node.frontmatter.category
       ).toLocaleLowerCase()}`,
       component: path.resolve("./src/components/category.tsx"),
-      context: { id: node.id },
+      context: {
+        category: node.frontmatter.category,
+      },
     });
 
     createPage({

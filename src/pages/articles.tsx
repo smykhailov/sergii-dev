@@ -33,6 +33,7 @@ const ArticlesPage: FC<{
                 </Link>
                 <p>{new Date(date).toLocaleDateString()}</p>
                 <p>{excerpt}</p>
+                <hr />
               </li>
             );
           })}
