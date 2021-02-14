@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "gatsby";
+import styled from "@emotion/styled";
 
 import HomeIcon from "../assets/home.svg";
 import ArticlesIcon from "../assets/files.svg";
@@ -10,7 +11,7 @@ import SettingsIcon from "../assets/settings-gear.svg";
 
 const AppBar = () => {
   return (
-    <nav>
+    <Nav>
       <ul>
         <li>
           <Link to="/">
@@ -37,12 +38,28 @@ const AppBar = () => {
             <CVIcon />
           </Link>
         </li>
+      </ul>
+      <ul>
         <li>
           <SettingsIcon />
         </li>
       </ul>
-    </nav>
+    </Nav>
   );
 };
+
+const Nav = styled.nav(props => ({
+  display: "flex",
+  backgroundColor: props.theme.colors.backgroundPrimary,
+  flexDirection: "column",
+  flexBasis: "48px",
+  justifyContent: "space-between",
+
+  "& a, & svg": {
+    height: 32,
+    width: 32,
+    margin: 4,
+  },
+}));
 
 export default AppBar;
