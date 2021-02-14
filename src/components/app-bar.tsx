@@ -1,28 +1,133 @@
+import React, { FC } from "react";
 import { Link } from "gatsby";
-import React from "react";
+import styled from "@emotion/styled";
 
-const AppBar = () => {
+import startsWith from "lodash/startsWith";
+
+import HomeIcon from "../assets/home.svg";
+import ArticlesIcon from "../assets/files.svg";
+import CategoriesIcon from "../assets/file-submodule.svg";
+import ProjectsIcon from "../assets/source-control.svg";
+import CVIcon from "../assets/person.svg";
+import SettingsIcon from "../assets/settings-gear.svg";
+
+const AppBar: FC<{ location: Location }> = props => {
+  const items: TNavItem[] = [
+    {
+      to: "/",
+      title: "Home",
+      icon: <HomeIcon />,
+    },
+    {
+      to: "/articles",
+      title: "Articles",
+      icon: <ArticlesIcon />,
+    },
+    {
+      to: "/categories",
+      title: "Categories",
+      icon: <CategoriesIcon />,
+    },
+    {
+      to: "/projects",
+      title: "Projects",
+      icon: <ProjectsIcon />,
+    },
+    {
+      to: "/cv",
+      title: "CV",
+      icon: <CVIcon />,
+    },
+  ];
+
   return (
-    <nav>
+    <Nav>
+      <ul>
+        {items.map(item => (
+          <NavItem
+            location={props.location}
+            key={item.to}
+            to={item.to}
+            title={item.title}
+            icon={item.icon}
+          />
+        ))}
+      </ul>
       <ul>
         <li>
-          <Link to="/articles">Articles</Link>
-        </li>
-        <li>
-          <Link to="/categories">Categories</Link>
-        </li>
-        <li>
-          <Link to="/projects">Projects</Link>
-        </li>
-        <li>
-          <Link to="/cv">CV</Link>
-        </li>
-        <li>
-          <span>Settings</span>
+          <a href="#" title="Settings">
+            <SettingsIcon />
+          </a>
         </li>
       </ul>
-    </nav>
+    </Nav>
   );
 };
+
+const NavItem: FC<TNavItem & { location: Location }> = props => {
+  let isActive = props.to === location.pathname;
+  if (props.to !== location.pathname && props.to !== "/")
+    isActive = startsWith(location.pathname, props.to);
+
+  return (
+    <li>
+      <div className={isActive ? "active" : undefined}></div>
+      <Link
+        to={props.to}
+        className={isActive ? "active" : undefined}
+        title={props.title}
+      >
+        {props.icon}
+      </Link>
+    </li>
+  );
+};
+
+type TNavItem = {
+  to: string;
+  title: string;
+  icon: JSX.Element;
+};
+
+const Nav = styled.nav(props => ({
+  display: "flex",
+  backgroundColor: props.theme.colors.backgroundPrimary,
+  flexDirection: "column",
+  flexBasis: "48px",
+  justifyContent: "space-between",
+
+  "& li, li > a": {
+    width: 48,
+    height: 48,
+    backgroundColor: "transparent",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    color: props.theme.colors.appBar.textColor,
+    zIndex: 10,
+  },
+
+  "& li > a:hover": {
+    color: props.theme.colors.appBar.textHoverColor,
+  },
+
+  "& li": {
+    marginBottom: 4,
+  },
+
+  "& a.active": {
+    color: props.theme.colors.appBar.textActiveColor,
+  },
+
+  "& li > div.active": {
+    position: "absolute",
+    left: 0,
+    width: 2,
+    height: 48,
+    borderLeftStyle: "solid",
+    borderLeftWidth: 2,
+    borderLeftColor: props.theme.colors.appBar.textActiveColor,
+  },
+}));
 
 export default AppBar;

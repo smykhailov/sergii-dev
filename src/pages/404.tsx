@@ -1,9 +1,9 @@
-import React from "react";
+import React, { FC } from "react";
 import Layout from "@components/layout";
 
-const NotFoundPage = () => {
+const NotFoundPage: FC<{ location: Location }> = props => {
   return (
-    <Layout>
+    <Layout location={props.location}>
       <main>
         <title>Not found</title>
         <h1>Page not found</h1>

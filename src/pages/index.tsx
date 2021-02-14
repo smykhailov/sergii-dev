@@ -3,11 +3,14 @@ import { graphql } from "gatsby";
 
 import Layout from "@components/layout";
 
-const IndexPage: FC<{ data: GatsbyTypes.HomePageDataQuery }> = props => {
+const IndexPage: FC<{
+  data: GatsbyTypes.HomePageDataQuery;
+  location: Location;
+}> = props => {
   const { title, description } = props.data.site?.siteMetadata!;
 
   return (
-    <Layout>
+    <Layout location={props.location}>
       <main>
         <h2>Main page</h2>
         <div>

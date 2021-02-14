@@ -1,6 +1,8 @@
 {
   "cSpell.words": [
-    "frontmatter"
+    "Monokai",
+    "frontmatter",
+    "submodule"
   ],
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",

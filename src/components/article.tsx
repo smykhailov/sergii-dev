@@ -6,10 +6,13 @@ import { MDXRenderer } from "gatsby-plugin-mdx";
 import Layout from "./layout";
 import ArticlesList from "./left-pane/articles-list";
 
-const Article: FC<{ data: GatsbyTypes.ArticleByIdQuery }> = props => {
+const Article: FC<{
+  data: GatsbyTypes.ArticleByIdQuery;
+  location: Location;
+}> = props => {
   const { frontmatter, body } = props.data.mdx!;
   return (
-    <Layout aside={<ArticlesList />}>
+    <Layout aside={<ArticlesList />} location={props.location}>
       <main>
         <h1>{frontmatter?.title}</h1>
         <p>{new Date(frontmatter?.date!).toLocaleString()}</p>
