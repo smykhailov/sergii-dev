@@ -10,20 +10,21 @@ const Category: FC<{
   pageContext: {
     category: string;
   };
+  location: Location;
 }> = props => {
   const { edges } = props.data.allMdx;
 
   return (
-    <Layout aside={<CategoriesList />}>
+    <Layout aside={<CategoriesList />} location={props.location}>
       <main>
         <h2>{props.pageContext.category}</h2>
         {edges.map(edge => (
-          <>
+          <React.Fragment key={edge.node.id}>
             <h1>{edge.node.frontmatter?.title}</h1>
             <p>{new Date(edge.node.frontmatter?.date!).toLocaleString()}</p>
             <p>{edge.node.excerpt}</p>
             <hr />
-          </>
+          </React.Fragment>
         ))}
       </main>
     </Layout>
@@ -40,6 +41,7 @@ export const query = graphql`
     ) {
       edges {
         node {
+          id
           excerpt
           frontmatter {
             category

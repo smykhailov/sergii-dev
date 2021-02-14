@@ -7,15 +7,16 @@ import slugify from "slugify";
 
 const CategoriesPage: FC<{
   data: GatsbyTypes.CategoriesPageDataQuery;
+  location: Location;
 }> = props => {
   return (
-    <Layout aside={<CategoriesList />}>
+    <Layout aside={<CategoriesList />} location={props.location}>
       <main>
         <h2>Categories</h2>
 
         {props.data.allMdx.group.map(group => {
           return (
-            <>
+            <React.Fragment key={group.fieldValue}>
               <Link
                 to={`/categories/${slugify(
                   group.fieldValue!
@@ -30,7 +31,7 @@ const CategoriesPage: FC<{
                 </Link>
               ))}
               <hr />
-            </>
+            </React.Fragment>
           );
         })}
       </main>

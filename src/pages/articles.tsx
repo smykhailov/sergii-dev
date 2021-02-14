@@ -6,11 +6,12 @@ import ArticlesList from "@components/left-pane/articles-list";
 
 const ArticlesPage: FC<{
   data: GatsbyTypes.ArticlesPageDataQuery;
+  location: Location;
 }> = props => {
   const { edges } = props.data.allMdx;
 
   return (
-    <Layout aside={<ArticlesList />}>
+    <Layout aside={<ArticlesList />} location={props.location}>
       <main>
         <h1>Articles</h1>
         <ul>

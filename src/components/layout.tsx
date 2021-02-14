@@ -11,13 +11,13 @@ import AppBar from "@components/app-bar";
 
 const theme = oneMonokaiTheme;
 
-const Layout: FC<{ aside?: React.ReactChild }> = props => {
+const Layout: FC<{ aside?: React.ReactChild; location: Location }> = props => {
   return (
     <ThemeProvider theme={oneMonokaiTheme}>
       <Wrapper>
         <Global styles={globalStyles} />
         <Container>
-          <AppBar />
+          <AppBar location={location} />
           {props.aside && <aside>{props.aside}</aside>}
           {props.children}
         </Container>
