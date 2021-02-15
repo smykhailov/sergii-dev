@@ -65,9 +65,9 @@ const AppBar: FC<{ location: Location }> = props => {
 };
 
 const NavItem: FC<TNavItem & { location: Location }> = props => {
-  let isActive = props.to === location.pathname;
-  if (props.to !== location.pathname && props.to !== "/")
-    isActive = startsWith(location.pathname, props.to);
+  let isActive = props.to === props.location.pathname;
+  if (props.to !== props.location.pathname && props.to !== "/")
+    isActive = startsWith(props.location.pathname, props.to);
 
   return (
     <li>
