@@ -17,7 +17,7 @@ const Layout: FC<{ aside?: React.ReactChild; location: Location }> = props => {
       <Wrapper>
         <Global styles={globalStyles} />
         <Container>
-          <AppBar location={location} />
+          <AppBar location={props.location} />
           {props.aside && <aside>{props.aside}</aside>}
           {props.children}
         </Container>
