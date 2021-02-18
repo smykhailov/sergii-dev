@@ -7,19 +7,24 @@ const CategoriesList: FC<{}> = () => {
 
   return (
     <div>
-      <ul>
-        {categories.map(category => {
-          const slug = `/categories/${slugify(category).toLocaleLowerCase()}`;
+      <div>
+        <h3>Caategories</h3>
+      </div>
+      <div>
+        <ul>
+          {categories.map(category => {
+            const slug = `/categories/${slugify(category).toLocaleLowerCase()}`;
 
-          return (
-            <li key={slug}>
-              <Link to={slug}>
-                <strong>{category}</strong>
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
+            return (
+              <li key={slug}>
+                <Link to={slug}>
+                  <strong>{category}</strong>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </div>
   );
 };

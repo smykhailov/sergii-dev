@@ -16,6 +16,10 @@ declare module "@emotion/react" {
         textActiveColor: Property.Color;
         textHoverColor: Property.Color;
       };
+
+      footer: {
+        textColor: Property.Color;
+      };
     };
   }
 }

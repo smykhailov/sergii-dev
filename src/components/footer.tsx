@@ -44,7 +44,7 @@ const FooterContainer = styled.footer(props => ({
   display: "flex",
   justifyContent: "space-between",
   lineHeight: "22px",
-  color: props.theme.colors.textColor,
+  color: props.theme.colors.footer.textColor,
   backgroundColor: props.theme.colors.backgroundSecondary,
 
   "& > p": {
@@ -53,7 +53,7 @@ const FooterContainer = styled.footer(props => ({
   },
 
   "& * > a": {
-    color: props.theme.colors.textColor,
+    color: props.theme.colors.footer.textColor,
     lineHeight: 0,
   },
 
