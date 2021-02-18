@@ -34,7 +34,7 @@ const ArticlesList: FC<{}> = () => {
   );
 };
 
-export const useArticlesListQuery = () => {
+const useArticlesListQuery = () => {
   const { allMdx } = useStaticQuery<GatsbyTypes.ArticlesListQuery>(graphql`
     query ArticlesList {
       allMdx(
