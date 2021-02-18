@@ -4,7 +4,9 @@ export const oneMonokaiTheme: Theme = {
   colors: {
     backgroundPrimary: "#282C34",
     backgroundSecondary: "#21252B",
-    textColor: "rgba(215, 218, 224)",
+    backgroundPrimaryActive: "#2F333D",
+    textColor: "rgb(157, 165, 180)",
+    textActiveColor: "rgba(215, 218, 224)",
 
     appBar: {
       backgroundColor: "#2F333D",

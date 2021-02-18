@@ -5,14 +5,16 @@ declare module "@emotion/react" {
   export interface Theme {
     colors: {
       backgroundPrimary: Property.BackgroundColor;
+      backgroundPrimaryActive: Property.BackgroundColor;
       backgroundSecondary: Property.BackgroundColor;
-      textColor: string;
+      textColor: Property.Color;
+      textActiveColor: Property.Color;
 
       appBar: {
         backgroundColor: Property.BackgroundColor;
-        textColor: string;
-        textActiveColor: string;
-        textHoverColor: string;
+        textColor: Property.Color;
+        textActiveColor: Property.Color;
+        textHoverColor: Property.Color;
       };
     };
   }
