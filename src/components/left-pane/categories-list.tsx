@@ -24,7 +24,7 @@ const CategoriesList: FC<{}> = () => {
   );
 };
 
-export const useCategoriesListQuery = () => {
+const useCategoriesListQuery = () => {
   const { allMdx } = useStaticQuery<GatsbyTypes.CategoriesListQuery>(graphql`
     query CategoriesList {
       allMdx(

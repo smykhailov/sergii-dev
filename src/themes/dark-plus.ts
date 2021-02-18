@@ -3,8 +3,10 @@ import { Theme } from "@emotion/react";
 export const darkPlusTheme: Theme = {
   colors: {
     backgroundPrimary: "#282C34",
+    backgroundPrimaryActive: "#2F333D",
     backgroundSecondary: "#21252B",
     textColor: "rgba(215, 218, 224)",
+    textActiveColor: "rgba(215, 218, 224)",
 
     appBar: {
       backgroundColor: "#2F333D",

@@ -2,6 +2,10 @@ module.exports = {
   siteMetadata: {
     title: "Sergii Mykhailov - Software Engineer",
     description: "Work and Life",
+    github: {
+      url: "https://github.com/smykhailov/",
+      description: "Sergii's GitHub Profile",
+    },
   },
   plugins: [
     "gatsby-plugin-emotion",

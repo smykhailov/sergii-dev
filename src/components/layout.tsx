@@ -46,6 +46,8 @@ const globalStyles = css`
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     font-family: Segoe WPC, Segoe UI, sans-serif;
+    font-size: 13px;
+    line-height: 1.4em;
   }
 
   a,
@@ -54,7 +56,6 @@ const globalStyles = css`
   a:focus,
   a:active {
     text-decoration: none;
-    color: ${theme.colors.textColor};
     outline: 0;
   }
 
@@ -62,6 +63,7 @@ const globalStyles = css`
   a:active {
     text-decoration: underline;
     outline: 0;
+    color: ${theme.colors.textActiveColor};
   }
 `;
 

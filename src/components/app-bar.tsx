@@ -115,7 +115,7 @@ const Nav = styled.nav(props => ({
     marginBottom: 4,
   },
 
-  "& a.active": {
+  "& li > .active": {
     color: props.theme.colors.appBar.textActiveColor,
   },
 
