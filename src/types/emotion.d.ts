@@ -17,6 +17,10 @@ declare module "@emotion/react" {
         textHoverColor: Property.Color;
       };
 
+      leftPane: {
+        backgroundColor: Property.Color;
+      };
+
       footer: {
         textColor: Property.Color;
       };

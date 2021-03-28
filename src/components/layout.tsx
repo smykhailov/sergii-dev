@@ -42,6 +42,7 @@ const Aside = styled.div(props => ({
   display: "flex",
   flexDirection: "column",
   flexBasis: "320px",
+  minWidth: "300px",
   backgroundColor: props.theme.colors.backgroundSecondary,
   color: props.theme.colors.textColor,
   lineHeight: "22px",

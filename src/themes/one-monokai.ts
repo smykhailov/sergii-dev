@@ -15,6 +15,10 @@ export const oneMonokaiTheme: Theme = {
       textHoverColor: "rgb(248, 250, 253)",
     },
 
+    leftPane: {
+      backgroundColor: "#2C313A",
+    },
+
     footer: {
       textColor: "rgb(157, 165, 180)",
     },
