@@ -91,7 +91,7 @@ type TNavItem = {
 
 const Nav = styled.nav(props => ({
   display: "flex",
-  backgroundColor: props.theme.colors.backgroundPrimary,
+  backgroundColor: props.theme.colors.appBar.backgroundColor,
   flexDirection: "column",
   flexBasis: "48px",
   justifyContent: "space-between",

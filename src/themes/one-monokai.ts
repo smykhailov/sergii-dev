@@ -5,7 +5,7 @@ export const oneMonokaiTheme: Theme = {
     backgroundPrimary: "#282C34",
     backgroundSecondary: "#21252B",
     backgroundPrimaryActive: "#2F333D",
-    textColor: "rgb(157, 165, 180)",
+    textColor: "#CCC",
     textActiveColor: "rgba(215, 218, 224)",
 
     appBar: {
@@ -13,6 +13,15 @@ export const oneMonokaiTheme: Theme = {
       textColor: "rgba(215, 218, 224, 0.4)",
       textActiveColor: "rgb(248, 250, 253)",
       textHoverColor: "rgb(248, 250, 253)",
+    },
+
+    leftPane: {
+      backgroundColor: "#2C313A",
+      backgroundColorHover: "#292D35",
+    },
+
+    footer: {
+      textColor: "rgb(157, 165, 180)",
     },
   },
 };

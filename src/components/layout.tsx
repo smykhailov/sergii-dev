@@ -18,8 +18,8 @@ const Layout: FC<{ aside?: React.ReactChild; location: Location }> = props => {
         <Global styles={globalStyles} />
         <Container>
           <AppBar location={props.location} />
-          {props.aside && <aside>{props.aside}</aside>}
-          {props.children}
+          {props.aside && <Aside>{props.aside}</Aside>}
+          <Content>{props.children}</Content>
         </Container>
         <Footer />
       </Wrapper>
@@ -38,6 +38,24 @@ const Container = styled.div({
   flex: 1,
 });
 
+const Aside = styled.div(props => ({
+  display: "flex",
+  flexDirection: "column",
+  flexBasis: "320px",
+  minWidth: "300px",
+  backgroundColor: props.theme.colors.backgroundSecondary,
+  color: props.theme.colors.textColor,
+  lineHeight: "22px",
+}));
+
+const Content = styled.div(props => ({
+  display: "flex",
+  flex: 1,
+  backgroundColor: props.theme.colors.backgroundPrimary,
+  color: props.theme.colors.textColor,
+  lineHeight: "22px",
+}));
+
 const globalStyles = css`
   ${emotionReset}
 
@@ -47,7 +65,6 @@ const globalStyles = css`
     -webkit-font-smoothing: antialiased;
     font-family: Segoe WPC, Segoe UI, sans-serif;
     font-size: 13px;
-    line-height: 1.4em;
   }
 
   a,
