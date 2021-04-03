@@ -2,43 +2,40 @@ import React, { FC } from "react";
 import { graphql, Link, useStaticQuery } from "gatsby";
 import styled from "@emotion/styled";
 
+import LeftPaneContainer from "./left-pane-container";
+
 const ArticlesList: FC<{}> = () => {
   const { edges } = useArticlesListQuery();
 
   return (
-    <Container>
-      <TitleContainer>
-        <Title>Articles</Title>
-      </TitleContainer>
-      <ContentContainer>
-        <Articles>
-          {edges.map(edge => {
-            if (!edge.node.fields?.slug || !edge.node.frontmatter?.date) {
-              return null;
-            }
+    <LeftPaneContainer title="Articles">
+      <Articles>
+        {edges.map(edge => {
+          if (!edge.node.fields?.slug || !edge.node.frontmatter?.date) {
+            return null;
+          }
 
-            const {
-              id,
-              excerpt,
-              fields: { slug },
-              frontmatter: { title, date },
-            } = edge.node;
+          const {
+            id,
+            excerpt,
+            fields: { slug },
+            frontmatter: { title, date },
+          } = edge.node;
 
-            return (
-              <li key={id}>
-                <Link to={slug} activeClassName="active">
-                  <p>
-                    <strong>{title}</strong>
-                    <span>{new Date(date).toLocaleDateString()}</span>
-                  </p>
-                  <p>{excerpt}</p>
-                </Link>
-              </li>
-            );
-          })}
-        </Articles>
-      </ContentContainer>
-    </Container>
+          return (
+            <li key={id}>
+              <Link to={slug} activeClassName="active" title={title}>
+                <p>
+                  <strong>{title}</strong>
+                  <span>{new Date(date).toLocaleDateString()}</span>
+                </p>
+                <span>{excerpt}</span>
+              </Link>
+            </li>
+          );
+        })}
+      </Articles>
+    </LeftPaneContainer>
   );
 };
 
@@ -53,7 +50,7 @@ const useArticlesListQuery = () => {
           node {
             id
             slug
-            excerpt(pruneLength: 250)
+            excerpt(pruneLength: 80)
             frontmatter {
               title
               date
@@ -70,34 +67,6 @@ const useArticlesListQuery = () => {
   return allMdx;
 };
 
-const Container = styled.div(() => ({
-  display: "flex",
-  flexDirection: "column",
-}));
-
-const TitleContainer = styled.div(() => ({
-  height: 35,
-  paddingLeft: 8,
-  paddingRight: 8,
-  lineHeight: "1.4em",
-}));
-
-const Title = styled.h3(() => ({
-  paddingLeft: 12,
-  paddingRight: 12,
-  textTransform: "uppercase",
-  fontSize: 13,
-  lineHeight: "35px",
-  whiteSpace: "nowrap",
-  textOverflow: "ellipsis",
-  overflow: "hidden",
-}));
-
-const ContentContainer = styled.div(() => ({
-  lineHeight: "1.4em",
-  height: "100%",
-}));
-
 const Articles = styled.ul(props => ({
   lineHeight: "1.4em",
 
@@ -111,6 +80,7 @@ const Articles = styled.ul(props => ({
     paddingRight: 16,
   },
   "& > li > a:hover": {
+    backgroundColor: props.theme.colors.leftPane.backgroundColorHover,
     color: props.theme.colors.textActiveColor,
     textDecoration: "none",
     cursor: "pointer",
@@ -122,15 +92,25 @@ const Articles = styled.ul(props => ({
 
   "& > li > a strong": {
     fontWeight: "bold",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
   },
 
-  "& > li > a span": {
+  "& > li > a > p > span": {
     fontSize: 11,
+    opacity: 0.85,
   },
 
   "& > li > a > p": {
     display: "flex",
     justifyContent: "space-between",
+  },
+
+  "& > li > a > span": {
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
   },
 }));
 

@@ -17,6 +17,7 @@ export const darkPlusTheme: Theme = {
 
     leftPane: {
       backgroundColor: "#2C313A",
+      backgroundColorHover: "#292D35",
     },
 
     footer: {

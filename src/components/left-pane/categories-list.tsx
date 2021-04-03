@@ -3,30 +3,40 @@ import { graphql, Link, useStaticQuery } from "gatsby";
 import slugify from "slugify";
 import styled from "@emotion/styled";
 
+import LeftPaneContainer from "./left-pane-container";
+
 const CategoriesList: FC<{}> = () => {
-  const { distinct: categories } = useCategoriesListQuery();
+  const { distinct: categories, group } = useCategoriesListQuery();
 
   return (
-    <Container>
-      <TitleContainer>
-        <Title>Categories</Title>
-      </TitleContainer>
-      <ContentContainer>
-        <Categories>
-          {categories.map(category => {
-            const slug = `/categories/${slugify(category).toLocaleLowerCase()}`;
+    <LeftPaneContainer title="Categories">
+      <Categories>
+        {categories.map((category, idx) => {
+          const slug = `/categories/${slugify(category).toLocaleLowerCase()}`;
+          const articlesCount = group[idx]?.totalCount || 0;
+          let amountOfArticles = "There is no articles in this category yet";
 
-            return (
-              <li key={slug}>
-                <Link to={slug}>
+          if (articlesCount > 0) {
+            if (articlesCount === 1) {
+              amountOfArticles = "1 article";
+            } else {
+              amountOfArticles = `${articlesCount} articles`;
+            }
+          }
+
+          return (
+            <li key={slug}>
+              <Link to={slug}>
+                <p>
                   <strong>{category}</strong>
-                </Link>
-              </li>
-            );
-          })}
-        </Categories>
-      </ContentContainer>
-    </Container>
+                </p>
+                <p>{amountOfArticles}</p>
+              </Link>
+            </li>
+          );
+        })}
+      </Categories>
+    </LeftPaneContainer>
   );
 };
 
@@ -38,6 +48,9 @@ const useCategoriesListQuery = () => {
         filter: { frontmatter: { published: { eq: true } } }
       ) {
         distinct(field: frontmatter___category)
+        group(field: frontmatter___category) {
+          totalCount
+        }
       }
     }
   `);
@@ -45,40 +58,37 @@ const useCategoriesListQuery = () => {
   return allMdx;
 };
 
-const Container = styled.div(() => ({
-  display: "flex",
-  flexDirection: "column",
-}));
-
-const TitleContainer = styled.div(() => ({
-  height: 35,
-  paddingLeft: 8,
-  paddingRight: 8,
+const Categories = styled.ul(props => ({
   lineHeight: "1.4em",
-}));
 
-const Title = styled.h3(() => ({
-  paddingLeft: 12,
-  paddingRight: 12,
-  textTransform: "uppercase",
-  fontSize: 13,
-  lineHeight: "35px",
-  whiteSpace: "nowrap",
-  textOverflow: "ellipsis",
-  overflow: "hidden",
-}));
+  "& > li > a": {
+    display: "flex",
+    flexDirection: "column",
+    color: props.theme.colors.textActiveColor,
+    paddingTop: 6,
+    paddingBottom: 6,
+    paddingLeft: 16,
+    paddingRight: 16,
+  },
+  "& > li > a:hover": {
+    backgroundColor: props.theme.colors.leftPane.backgroundColorHover,
+    color: props.theme.colors.textActiveColor,
+    textDecoration: "none",
+    cursor: "pointer",
+  },
 
-const ContentContainer = styled.div(() => ({
-  paddingLeft: 8,
-  paddingRight: 8,
-  lineHeight: "1.4em",
-  height: "100%",
-}));
+  "& > li > a.active": {
+    backgroundColor: props.theme.colors.leftPane.backgroundColor,
+  },
 
-const Categories = styled.ul(() => ({
-  paddingLeft: 12,
-  paddingRight: 12,
-  lineHeight: "1.4em",
+  "& > li > a strong": {
+    fontWeight: "bold",
+  },
+
+  "& > li > a span": {
+    fontSize: 11,
+    opacity: 0.85,
+  },
 
   "& > li > a > p": {
     display: "flex",
