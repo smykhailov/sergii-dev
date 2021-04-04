@@ -6,7 +6,7 @@ const NotFoundPage: FC<{ location: Location }> = props => {
     <Layout location={props.location}>
       <main>
         <title>Not found</title>
-        <h1>Page not found</h1>
+        <p>Page not found</p>
       </main>
     </Layout>
   );

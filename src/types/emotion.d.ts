@@ -9,6 +9,7 @@ declare module "@emotion/react" {
       backgroundSecondary: Property.BackgroundColor;
       textColor: Property.Color;
       textActiveColor: Property.Color;
+      selectionColor: Property.Color;
 
       appBar: {
         backgroundColor: Property.BackgroundColor;
@@ -20,6 +21,12 @@ declare module "@emotion/react" {
       leftPane: {
         backgroundColor: Property.Color;
         backgroundColorHover: Property.Color;
+      };
+
+      main: {
+        backgroundColor: Property.Color;
+        titleContainerBackgroundColor: Property.Color;
+        titleBackgroundColor: Property.Color;
       };
 
       footer: {

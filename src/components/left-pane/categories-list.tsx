@@ -86,6 +86,7 @@ const Categories = styled.ul(props => ({
   },
 
   "& > li > a span": {
+    marginLeft: 16,
     fontSize: 11,
     opacity: 0.85,
   },

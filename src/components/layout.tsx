@@ -27,18 +27,22 @@ const Layout: FC<{ aside?: React.ReactChild; location: Location }> = props => {
   );
 };
 
-const Wrapper = styled.div({
+const Wrapper = styled.div(props => ({
   display: "flex",
   flexDirection: "column",
   height: "100vh",
-});
+
+  "& ::selection": {
+    background: props.theme.colors.selectionColor,
+  },
+}));
 
 const Container = styled.div({
   display: "flex",
   flex: 1,
 });
 
-const Aside = styled.div(props => ({
+const Aside = styled.aside(props => ({
   display: "flex",
   flexDirection: "column",
   flexBasis: "320px",
@@ -46,6 +50,15 @@ const Aside = styled.div(props => ({
   backgroundColor: props.theme.colors.backgroundSecondary,
   color: props.theme.colors.textColor,
   lineHeight: "22px",
+
+  "-webkit-touch-callout": "none" /* iOS Safari */,
+  "-webkit-user-select": "none" /* Safari */,
+  "-khtml-user-select": "none" /* Konqueror HTML */,
+  "-moz-user-select": "none" /* Old versions of Firefox */,
+  "-ms-user-select": "none" /* Internet Explorer/Edge */,
+  "user-select":
+    "none" /* Non-prefixed version, currently
+          supported by Chrome, Edge, Opera and Firefox */,
 }));
 
 const Content = styled.div(props => ({
