@@ -4,6 +4,7 @@ import Layout from "@components/layout";
 import CategoriesList from "@components/left-pane/categories-list";
 import { graphql, Link } from "gatsby";
 import slugify from "slugify";
+import ContentContainer from "@components/content";
 
 const CategoriesPage: FC<{
   data: GatsbyTypes.CategoriesPageDataQuery;
@@ -11,9 +12,7 @@ const CategoriesPage: FC<{
 }> = props => {
   return (
     <Layout aside={<CategoriesList />} location={props.location}>
-      <main>
-        <h2>Categories</h2>
-
+      <ContentContainer title="Categories">
         {props.data.allMdx.group.map(group => {
           return (
             <React.Fragment key={group.fieldValue}>
@@ -34,7 +33,7 @@ const CategoriesPage: FC<{
             </React.Fragment>
           );
         })}
-      </main>
+      </ContentContainer>
     </Layout>
   );
 };

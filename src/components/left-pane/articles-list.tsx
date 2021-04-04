@@ -98,6 +98,7 @@ const Articles = styled.ul(props => ({
   },
 
   "& > li > a > p > span": {
+    marginLeft: 16,
     fontSize: 11,
     opacity: 0.85,
   },

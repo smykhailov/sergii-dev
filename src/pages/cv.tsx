@@ -1,13 +1,12 @@
 import React, { FC } from "react";
 
 import Layout from "@components/layout";
+import ContentContainer from "@components/content";
 
 const CVPage: FC<{ location: Location }> = props => {
   return (
     <Layout location={props.location}>
-      <main>
-        <h2>CV</h2>
-      </main>
+      <ContentContainer title="CV"></ContentContainer>
     </Layout>
   );
 };

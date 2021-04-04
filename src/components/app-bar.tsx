@@ -53,6 +53,7 @@ const AppBar: FC<{ location: Location }> = props => {
           />
         ))}
       </ul>
+      {/* TODO: Think about posibility to move this into one list but position bottom visually - this is good for a11y */}
       <ul>
         <li>
           <a href="#" title="Settings">
