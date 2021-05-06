@@ -60,8 +60,8 @@ const ArticleContainer = styled.main({
   fontSize: "14px",
 
   "& p": {
-    marginTop: "0.6em",
-    marginBottom: "0.6em",
+    marginTop: "1.8em",
+    marginBottom: "1.8em",
   },
 
   "& strong": {
@@ -78,15 +78,15 @@ const ArticleContainer = styled.main({
   "& h2": {
     fontWeight: "bold",
     fontSize: "140%",
-    marginTop: "0.2em",
-    marginBottom: "0.6em",
+    marginTop: "0.15em",
+    marginBottom: "0.5em",
   },
 
   "& h3": {
     fontWeight: "bold",
     fontSize: "130%",
-    marginTop: "0.2em",
-    marginBottom: "0.6em",
+    marginTop: "0.1em",
+    marginBottom: "0.4em",
   },
 
   "& h4": {
