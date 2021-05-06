@@ -31,6 +31,7 @@ const TitleContainer = styled.div(props => ({
   backgroundColor: props.theme.colors.main.titleContainerBackgroundColor,
   fontFamily: "Segoe WPC, Segoe UI, sans-serif",
   fontSize: 13,
+  fontWeight: 400,
   height: 35,
 }));
 

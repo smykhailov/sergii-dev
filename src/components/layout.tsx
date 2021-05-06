@@ -50,6 +50,7 @@ const Aside = styled.aside(props => ({
   color: props.theme.colors.textColor,
   fontFamily: "Segoe WPC, Segoe UI, sans-serif",
   fontSize: 13,
+  fontWeight: 400,
   lineHeight: 22,
 
   "-webkit-touch-callout": "none" /* iOS Safari */,
