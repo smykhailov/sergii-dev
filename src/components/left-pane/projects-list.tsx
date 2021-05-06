@@ -16,8 +16,6 @@ const ProjectsList: FC<{}> = () => {
   );
 };
 
-const Projects = styled.ul(() => ({
-  lineHeight: "1.4em",
-}));
+const Projects = styled.ul(() => ({}));
 
 export default ProjectsList;

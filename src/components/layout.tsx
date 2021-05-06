@@ -2,7 +2,6 @@ import React, { FC } from "react";
 
 import { Global, css, ThemeProvider } from "@emotion/react";
 import styled from "@emotion/styled";
-import emotionReset from "emotion-reset";
 
 import { oneMonokaiTheme } from "@themes/one-monokai";
 
@@ -49,7 +48,9 @@ const Aside = styled.aside(props => ({
   minWidth: "300px",
   backgroundColor: props.theme.colors.backgroundSecondary,
   color: props.theme.colors.textColor,
-  lineHeight: "22px",
+  fontFamily: "Segoe WPC, Segoe UI, sans-serif",
+  fontSize: 13,
+  lineHeight: 22,
 
   "-webkit-touch-callout": "none" /* iOS Safari */,
   "-webkit-user-select": "none" /* Safari */,
@@ -59,6 +60,22 @@ const Aside = styled.aside(props => ({
   "user-select":
     "none" /* Non-prefixed version, currently
           supported by Chrome, Edge, Opera and Firefox */,
+
+  "& ul": {
+    listStyle: "none",
+    margin: 0,
+    padding: 0,
+  },
+
+  "& ul li": {
+    margin: 0,
+    padding: 0,
+  },
+
+  "& ul li p": {
+    margin: 0,
+    padding: 0,
+  },
 }));
 
 const Content = styled.div(props => ({
@@ -66,18 +83,23 @@ const Content = styled.div(props => ({
   flex: 1,
   backgroundColor: props.theme.colors.backgroundPrimary,
   color: props.theme.colors.textColor,
-  lineHeight: "22px",
+  // lineHeight: "22px",
 }));
 
 const globalStyles = css`
-  ${emotionReset}
-
-  html, *, *::after, *::before {
+  html,
+  *,
+  *::after,
+  *::before {
     box-sizing: border-box;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
-    font-family: Segoe WPC, Segoe UI, sans-serif;
-    font-size: 13px;
+    // font-family: Segoe WPC, Segoe UI, sans-serif;
+    // font-size: 13px;
+  }
+
+  html {
+    overflow: hidden;
   }
 
   a,
@@ -89,12 +111,12 @@ const globalStyles = css`
     outline: 0;
   }
 
-  a:hover,
-  a:active {
-    text-decoration: underline;
-    outline: 0;
-    color: ${theme.colors.textActiveColor};
-  }
+  // a:hover,
+  // a:active {
+  //   text-decoration: underline;
+  //   outline: 0;
+  //   color: ${theme.colors.textActiveColor};
+  // }
 `;
 
 export default Layout;

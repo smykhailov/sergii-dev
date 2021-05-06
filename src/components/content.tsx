@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
 import React, { FC } from "react";
+import styled from "@emotion/styled";
 
 const ContentContainer: FC<{
   title: string;
@@ -22,13 +22,15 @@ const ArticleContainer = styled.div(props => ({
   display: "flex",
   flexDirection: "column",
   flex: 1,
-  lineHeight: "1.4em",
+  // lineHeight: "1.4em",
   backgroundColor: props.theme.colors.main.backgroundColor,
 }));
 
 const TitleContainer = styled.div(props => ({
   display: "flex",
   backgroundColor: props.theme.colors.main.titleContainerBackgroundColor,
+  fontFamily: "Segoe WPC, Segoe UI, sans-serif",
+  fontSize: 13,
   height: 35,
 }));
 
@@ -60,9 +62,9 @@ const Article = styled.article(() => ({
   flexDirection: "column",
   overflowY: "auto",
   padding: "6px 18px",
-  lineHeight: "1.8em",
-  fontFamily: "consolas",
-  fontSize: "14px",
+  // lineHeight: "1.8em",
+  // fontFamily: "consolas",
+  // fontSize: "14px",
 }));
 
 export default ContentContainer;
