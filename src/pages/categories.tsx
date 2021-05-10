@@ -1,9 +1,9 @@
 import React, { FC } from "react";
+import { graphql, Link } from "gatsby";
+import styled from "@emotion/styled";
 
 import Layout from "@components/layout";
 import CategoriesList from "@components/left-pane/categories-list";
-import { graphql, Link } from "gatsby";
-import slugify from "slugify";
 import ContentContainer from "@components/content";
 
 const CategoriesPage: FC<{
@@ -16,20 +16,34 @@ const CategoriesPage: FC<{
         {props.data.allMdx.group.map(group => {
           return (
             <React.Fragment key={group.fieldValue}>
-              <Link
-                to={`/categories/${slugify(
-                  group.fieldValue!
-                ).toLocaleLowerCase()}`}
-              >
-                <h3>{group.fieldValue!}</h3>
-              </Link>
+              <CategoryGroup>
+                <h2>{group.fieldValue!}</h2>
+              </CategoryGroup>
               {group.nodes.slice(0, 3).map(node => (
-                <Link key={node.fields?.slug!} to={node.fields?.slug!}>
-                  <h4>{node.frontmatter?.title}</h4>
-                  <p>{node.excerpt}</p>
-                </Link>
+                <ArticleItemContainer>
+                  <ArticleItemHeader>
+                    <Link key={node.fields?.slug!} to={node.fields?.slug!}>
+                      <h3>{node.frontmatter?.title}</h3>
+                    </Link>
+                  </ArticleItemHeader>
+                  <ArticleItemBody>
+                    <a href="/">#hello</a>
+                    <a href="/">#react</a>
+                    <a href="/">#web</a>
+                  </ArticleItemBody>
+                  <ArticleItemFooter>
+                    <div>
+                      <span>
+                        {new Date(node.frontmatter?.date!).toLocaleDateString()}{" "}
+                        - 10 min read
+                      </span>
+                    </div>
+                    <div>
+                      <a href="/">78 Comments</a>
+                    </div>
+                  </ArticleItemFooter>
+                </ArticleItemContainer>
               ))}
-              <hr />
             </React.Fragment>
           );
         })}
@@ -60,5 +74,62 @@ export const query = graphql`
     }
   }
 `;
+
+const CategoryGroup = styled.div({
+  marginTop: 18,
+  marginBottom: 6,
+
+  "& h2": {
+    margin: 0,
+  },
+});
+
+const ArticleItemContainer = styled.div(props => ({
+  display: "flex",
+  flexDirection: "column",
+  margin: "9px 0",
+  padding: "12px",
+  backgroundColor: props.theme.colors.main.titleContainerBackgroundColor,
+
+  ":hover": {
+    backgroundColor: props.theme.colors.main.backgroundHoverColor,
+  },
+}));
+
+const ArticleItemHeader = styled.div({
+  display: "flex",
+
+  "& h3": {
+    margin: 0,
+  },
+
+  "& a": {
+    opacity: 0.85,
+  },
+
+  "& a:hover": {
+    opacity: 1,
+  },
+});
+
+const ArticleItemBody = styled.div({
+  display: "flex",
+  margin: "12px 0",
+
+  "& a": {
+    marginRight: 12,
+    opacity: 0.85,
+  },
+
+  "& a:hover": {
+    opacity: 1,
+  },
+});
+
+const ArticleItemFooter = styled.div({
+  display: "flex",
+  justifyContent: "space-between",
+  fontSize: 13,
+});
 
 export default CategoriesPage;

@@ -12,8 +12,9 @@ const typography = new Typography({
     },
     options: {},
   }),
-  headerFontFamily: ["consolas"],
-  // bodyFontFamily: ["consolas"],
+  //headerFontFamily: ["consolas"],
+  //bodyFontFamily: ["consolas"],
+  headerFontFamily: ["Segoe UI"],
   bodyFontFamily: ["Segoe UI"],
 });
 

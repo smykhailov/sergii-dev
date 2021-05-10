@@ -53,12 +53,12 @@ const Aside = styled.aside(props => ({
   fontWeight: 400,
   lineHeight: 22,
 
-  "-webkit-touch-callout": "none" /* iOS Safari */,
-  "-webkit-user-select": "none" /* Safari */,
-  "-khtml-user-select": "none" /* Konqueror HTML */,
-  "-moz-user-select": "none" /* Old versions of Firefox */,
-  "-ms-user-select": "none" /* Internet Explorer/Edge */,
-  "user-select":
+  WebkitTouchCallout: "none" /* iOS Safari */,
+  WebkitUserSelect: "none" /* Safari */,
+  KhtmlUserSelect: "none" /* Konqueror HTML */,
+  MozUserSelect: "none" /* Old versions of Firefox */,
+  MsUserSelect: "none" /* Internet Explorer/Edge */,
+  userSelect:
     "none" /* Non-prefixed version, currently
           supported by Chrome, Edge, Opera and Firefox */,
 
@@ -84,7 +84,10 @@ const Content = styled.div(props => ({
   flex: 1,
   backgroundColor: props.theme.colors.backgroundPrimary,
   color: props.theme.colors.textColor,
-  // lineHeight: "22px",
+
+  "& a": {
+    color: props.theme.colors.linkColor,
+  },
 }));
 
 const globalStyles = css`

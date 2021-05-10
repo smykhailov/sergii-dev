@@ -10,6 +10,7 @@ declare module "@emotion/react" {
       textColor: Property.Color;
       textActiveColor: Property.Color;
       selectionColor: Property.Color;
+      linkColor: Property.Color;
 
       appBar: {
         backgroundColor: Property.BackgroundColor;
@@ -25,6 +26,7 @@ declare module "@emotion/react" {
 
       main: {
         backgroundColor: Property.Color;
+        backgroundHoverColor: Property.Color;
         titleContainerBackgroundColor: Property.Color;
         titleBackgroundColor: Property.Color;
       };
