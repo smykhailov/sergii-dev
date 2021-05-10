@@ -12,6 +12,12 @@ declare module "@emotion/react" {
       selectionColor: Property.Color;
       linkColor: Property.Color;
 
+      scrollBar: {
+        borderColor: Property.Color;
+        thumbBackgroundColor: Property.Color;
+        thumbBackgroundHoverColor: Property.Color;
+      };
+
       appBar: {
         backgroundColor: Property.BackgroundColor;
         textColor: Property.Color;

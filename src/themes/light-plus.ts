@@ -10,6 +10,12 @@ export const lightPlusTheme: Theme = {
     selectionColor: "#3E4450",
     linkColor: "#3794ff",
 
+    scrollBar: {
+      borderColor: "#555",
+      thumbBackgroundColor: "#383e49",
+      thumbBackgroundHoverColor: "#414854",
+    },
+
     appBar: {
       backgroundColor: "#2F333D",
       textColor: "rgba(215, 218, 224, 0.4)",

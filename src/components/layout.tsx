@@ -98,8 +98,6 @@ const globalStyles = css`
     box-sizing: border-box;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
-    // font-family: Segoe WPC, Segoe UI, sans-serif;
-    // font-size: 13px;
   }
 
   html {
@@ -115,12 +113,26 @@ const globalStyles = css`
     outline: 0;
   }
 
-  // a:hover,
-  // a:active {
-  //   text-decoration: underline;
-  //   outline: 0;
-  //   color: ${theme.colors.textActiveColor};
-  // }
+  ::-webkit-scrollbar {
+    width: 14px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-left: 1px solid ${theme.colors.scrollBar.borderColor};
+    border-top: 1px solid ${theme.colors.scrollBar.borderColor};
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: ${theme.colors.scrollBar.thumbBackgroundColor};
+    border-left: 1px solid transparent;
+    border-top: 1px solid transparent;
+    background-clip: content-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: ${theme.colors.scrollBar.thumbBackgroundHoverColor};
+  }
 `;
 
 export default Layout;
