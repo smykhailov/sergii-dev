@@ -4,6 +4,8 @@ import { graphql } from "gatsby";
 
 import Layout from "./layout";
 import CategoriesList from "./left-pane/categories-list";
+import ContentContainer from "./content";
+import ArticleListItem from "./article-list-item";
 
 const Category: FC<{
   data: GatsbyTypes.CategoryArticlesByCategoryQuery;
@@ -16,17 +18,16 @@ const Category: FC<{
 
   return (
     <Layout aside={<CategoriesList />} location={props.location}>
-      <main>
-        <h2>{props.pageContext.category}</h2>
+      <ContentContainer title={props.pageContext.category}>
         {edges.map(edge => (
-          <React.Fragment key={edge.node.id}>
-            <h1>{edge.node.frontmatter?.title}</h1>
-            <p>{new Date(edge.node.frontmatter?.date!).toLocaleString()}</p>
-            <p>{edge.node.excerpt}</p>
-            <hr />
-          </React.Fragment>
+          <ArticleListItem
+            id={edge.node.id}
+            slug={edge.node.fields?.slug!}
+            title={edge.node.frontmatter?.title!}
+            date={edge.node.frontmatter?.date!}
+          />
         ))}
-      </main>
+      </ContentContainer>
     </Layout>
   );
 };
@@ -42,7 +43,9 @@ export const query = graphql`
       edges {
         node {
           id
-          excerpt
+          fields {
+            slug
+          }
           frontmatter {
             category
             title

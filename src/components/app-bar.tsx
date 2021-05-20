@@ -56,7 +56,7 @@ const AppBar: FC<{ location: Location }> = props => {
       {/* TODO: Think about posibility to move this into one list but position bottom visually - this is good for a11y */}
       <ul>
         <li>
-          <a href="#" title="Settings">
+          <a href="/" title="Settings">
             <SettingsIcon />
           </a>
         </li>
@@ -96,6 +96,12 @@ const Nav = styled.nav(props => ({
   flexDirection: "column",
   flexBasis: "48px",
   justifyContent: "space-between",
+
+  "& ul": {
+    listStyle: "none",
+    margin: 0,
+    padding: 0,
+  },
 
   "& li, li > a": {
     width: 48,

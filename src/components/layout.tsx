@@ -2,7 +2,6 @@ import React, { FC } from "react";
 
 import { Global, css, ThemeProvider } from "@emotion/react";
 import styled from "@emotion/styled";
-import emotionReset from "emotion-reset";
 
 import { oneMonokaiTheme } from "@themes/one-monokai";
 
@@ -49,16 +48,35 @@ const Aside = styled.aside(props => ({
   minWidth: "300px",
   backgroundColor: props.theme.colors.backgroundSecondary,
   color: props.theme.colors.textColor,
-  lineHeight: "22px",
+  fontFamily: "Segoe WPC, Segoe UI, sans-serif",
+  fontSize: 13,
+  fontWeight: 400,
+  lineHeight: 22,
 
-  "-webkit-touch-callout": "none" /* iOS Safari */,
-  "-webkit-user-select": "none" /* Safari */,
-  "-khtml-user-select": "none" /* Konqueror HTML */,
-  "-moz-user-select": "none" /* Old versions of Firefox */,
-  "-ms-user-select": "none" /* Internet Explorer/Edge */,
-  "user-select":
+  WebkitTouchCallout: "none" /* iOS Safari */,
+  WebkitUserSelect: "none" /* Safari */,
+  KhtmlUserSelect: "none" /* Konqueror HTML */,
+  MozUserSelect: "none" /* Old versions of Firefox */,
+  MsUserSelect: "none" /* Internet Explorer/Edge */,
+  userSelect:
     "none" /* Non-prefixed version, currently
           supported by Chrome, Edge, Opera and Firefox */,
+
+  "& ul": {
+    listStyle: "none",
+    margin: 0,
+    padding: 0,
+  },
+
+  "& ul li": {
+    margin: 0,
+    padding: 0,
+  },
+
+  "& ul li p": {
+    margin: 0,
+    padding: 0,
+  },
 }));
 
 const Content = styled.div(props => ({
@@ -66,18 +84,24 @@ const Content = styled.div(props => ({
   flex: 1,
   backgroundColor: props.theme.colors.backgroundPrimary,
   color: props.theme.colors.textColor,
-  lineHeight: "22px",
+
+  "& a": {
+    color: props.theme.colors.linkColor,
+  },
 }));
 
 const globalStyles = css`
-  ${emotionReset}
-
-  html, *, *::after, *::before {
+  html,
+  *,
+  *::after,
+  *::before {
     box-sizing: border-box;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
-    font-family: Segoe WPC, Segoe UI, sans-serif;
-    font-size: 13px;
+  }
+
+  html {
+    overflow: hidden;
   }
 
   a,
@@ -89,11 +113,25 @@ const globalStyles = css`
     outline: 0;
   }
 
-  a:hover,
-  a:active {
-    text-decoration: underline;
-    outline: 0;
-    color: ${theme.colors.textActiveColor};
+  ::-webkit-scrollbar {
+    width: 14px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-left: 1px solid ${theme.colors.scrollBar.borderColor};
+    border-top: 1px solid ${theme.colors.scrollBar.borderColor};
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: ${theme.colors.scrollBar.thumbBackgroundColor};
+    border-left: 1px solid transparent;
+    border-top: 1px solid transparent;
+    background-clip: content-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: ${theme.colors.scrollBar.thumbBackgroundHoverColor};
   }
 `;
 

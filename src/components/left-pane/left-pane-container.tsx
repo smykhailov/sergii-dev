@@ -17,28 +17,29 @@ const LeftPaneContainer: FC<{
 const Container = styled.div(() => ({
   display: "flex",
   flexDirection: "column",
+  lineHeight: "1.4em",
 }));
 
 const TitleContainer = styled.div(() => ({
   height: 35,
   paddingLeft: 8,
   paddingRight: 8,
-  lineHeight: "1.4em",
 }));
 
 const Title = styled.h3(() => ({
+  lineHeight: "35px",
   paddingLeft: 12,
   paddingRight: 12,
   textTransform: "uppercase",
-  fontSize: 13,
-  lineHeight: "35px",
+  fontFamily: "inherit",
+  fontSize: "inherit",
+  fontWeight: "inherit",
   whiteSpace: "nowrap",
   textOverflow: "ellipsis",
   overflow: "hidden",
 }));
 
 const ContentContainer = styled.div(() => ({
-  lineHeight: "1.4em",
   height: "100%",
 }));
 

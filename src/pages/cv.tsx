@@ -6,7 +6,9 @@ import ContentContainer from "@components/content";
 const CVPage: FC<{ location: Location }> = props => {
   return (
     <Layout location={props.location}>
-      <ContentContainer title="CV"></ContentContainer>
+      <ContentContainer title="CV - Sergii Mykhailov">
+        <p>TODO: Add CV</p>
+      </ContentContainer>
     </Layout>
   );
 };

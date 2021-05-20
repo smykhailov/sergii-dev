@@ -8,6 +8,13 @@ export const darkPlusTheme: Theme = {
     textColor: "#CCC",
     textActiveColor: "rgba(215, 218, 224)",
     selectionColor: "#3E4450",
+    linkColor: "#3794ff",
+
+    scrollBar: {
+      borderColor: "#555",
+      thumbBackgroundColor: "#383e49",
+      thumbBackgroundHoverColor: "#414854",
+    },
 
     appBar: {
       backgroundColor: "#2F333D",
@@ -23,6 +30,7 @@ export const darkPlusTheme: Theme = {
 
     main: {
       backgroundColor: "#282C34",
+      backgroundHoverColor: "#333A42",
       titleContainerBackgroundColor: "#21252B",
       titleBackgroundColor: "#383E49",
     },

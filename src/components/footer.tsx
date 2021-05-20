@@ -43,12 +43,14 @@ const useFooterDataQuery = () => {
 const FooterContainer = styled.footer(props => ({
   display: "flex",
   justifyContent: "space-between",
-  lineHeight: "22px",
   color: props.theme.colors.footer.textColor,
   backgroundColor: props.theme.colors.backgroundSecondary,
+  fontFamily: "Segoe WPC, Segoe UI, sans-serif",
+  fontSize: 13,
 
   "& > p": {
     display: "flex",
+    margin: 0,
     paddingInline: "3px",
   },
 

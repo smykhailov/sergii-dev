@@ -59,8 +59,6 @@ const useCategoriesListQuery = () => {
 };
 
 const Categories = styled.ul(props => ({
-  lineHeight: "1.4em",
-
   "& > li > a": {
     display: "flex",
     flexDirection: "column",

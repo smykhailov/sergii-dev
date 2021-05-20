@@ -1,10 +1,11 @@
 import React, { FC } from "react";
+import { graphql } from "gatsby";
+import styled from "@emotion/styled";
 
 import Layout from "@components/layout";
 import CategoriesList from "@components/left-pane/categories-list";
-import { graphql, Link } from "gatsby";
-import slugify from "slugify";
 import ContentContainer from "@components/content";
+import ArticleListItem from "@components/article-list-item";
 
 const CategoriesPage: FC<{
   data: GatsbyTypes.CategoriesPageDataQuery;
@@ -16,20 +17,17 @@ const CategoriesPage: FC<{
         {props.data.allMdx.group.map(group => {
           return (
             <React.Fragment key={group.fieldValue}>
-              <Link
-                to={`/categories/${slugify(
-                  group.fieldValue!
-                ).toLocaleLowerCase()}`}
-              >
-                <h3>{group.fieldValue!}</h3>
-              </Link>
+              <CategoryGroup>
+                <h2>{group.fieldValue!}</h2>
+              </CategoryGroup>
               {group.nodes.slice(0, 3).map(node => (
-                <Link key={node.fields?.slug!} to={node.fields?.slug!}>
-                  <h4>{node.frontmatter?.title}</h4>
-                  <p>{node.excerpt}</p>
-                </Link>
+                <ArticleListItem
+                  id={node.id}
+                  slug={node.fields?.slug!}
+                  title={node.frontmatter?.title!}
+                  date={node.frontmatter?.date!}
+                />
               ))}
-              <hr />
             </React.Fragment>
           );
         })}
@@ -47,6 +45,7 @@ export const query = graphql`
       group(field: frontmatter___category) {
         fieldValue
         nodes {
+          id
           fields {
             slug
           }
@@ -54,11 +53,19 @@ export const query = graphql`
             date
             title
           }
-          excerpt
         }
       }
     }
   }
 `;
+
+const CategoryGroup = styled.div({
+  marginTop: 18,
+  marginBottom: 6,
+
+  "& h2": {
+    margin: 0,
+  },
+});
 
 export default CategoriesPage;
