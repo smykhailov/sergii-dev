@@ -22,7 +22,6 @@ const ArticleContainer = styled.div(props => ({
   display: "flex",
   flexDirection: "column",
   flex: 1,
-  // lineHeight: "1.4em",
   backgroundColor: props.theme.colors.main.backgroundColor,
 }));
 
@@ -63,9 +62,6 @@ const Article = styled.article(() => ({
   flexDirection: "column",
   overflowY: "auto",
   padding: "6px 18px",
-  // lineHeight: "1.8em",
-  // fontFamily: "consolas",
-  // fontSize: "14px",
 }));
 
 export default ContentContainer;

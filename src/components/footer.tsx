@@ -47,7 +47,6 @@ const FooterContainer = styled.footer(props => ({
   backgroundColor: props.theme.colors.backgroundSecondary,
   fontFamily: "Segoe WPC, Segoe UI, sans-serif",
   fontSize: 13,
-  // lineHeight: "22px",
 
   "& > p": {
     display: "flex",
