@@ -12,7 +12,9 @@ const CategoriesList: FC<{}> = () => {
     <LeftPaneContainer title="Categories">
       <Categories>
         {categories.map((category, idx) => {
-          const slug = `/categories/${slugify(category).toLocaleLowerCase()}`;
+          const slug = `/categories/${slugify(
+            category
+          ).toLocaleLowerCase()}.html`;
           const articlesCount = group[idx]?.totalCount || 0;
           let amountOfArticles = "There is no articles in this category yet";
 
@@ -44,11 +46,11 @@ const useCategoriesListQuery = () => {
   const { allMdx } = useStaticQuery<GatsbyTypes.CategoriesListQuery>(graphql`
     query CategoriesList {
       allMdx(
-        sort: { fields: [frontmatter___category], order: ASC }
+        sort: { fields: [frontmatter___categories], order: ASC }
         filter: { frontmatter: { published: { eq: true } } }
       ) {
-        distinct(field: frontmatter___category)
-        group(field: frontmatter___category) {
+        distinct(field: frontmatter___categories)
+        group(field: frontmatter___categories) {
           totalCount
         }
       }

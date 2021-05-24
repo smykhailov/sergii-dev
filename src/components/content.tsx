@@ -32,6 +32,17 @@ const TitleContainer = styled.div(props => ({
   fontSize: 13,
   fontWeight: 400,
   height: 35,
+  // TODO: Add the shadow onScroll
+  // $(window).scroll(function() {
+  //   var scroll = $(window).scrollTop();
+  //   if (scroll > 0) {
+  //       $("#header").addClass("active");
+  //   }
+  //   else {
+  //       $("#header").removeClass("active");
+  //   }
+  // });
+  // boxShadow: "0 4px 5px -2px black",
 }));
 
 const Title = styled.div(props => ({

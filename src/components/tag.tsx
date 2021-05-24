@@ -7,7 +7,7 @@ import CategoriesList from "./left-pane/categories-list";
 import ContentContainer from "./content";
 import ArticleListItem from "./article-list-item";
 
-const Category: FC<{
+const Tag: FC<{
   data: GatsbyTypes.CategoryArticlesByCategoryQuery;
   pageContext: {
     category: string;
@@ -33,12 +33,10 @@ const Category: FC<{
 };
 
 export const query = graphql`
-  query CategoryArticlesByCategory($category: String!) {
+  query CategoryArticlesByTag($tag: String!) {
     allMdx(
       sort: { fields: [frontmatter___date], order: DESC }
-      filter: {
-        frontmatter: { categories: { eq: $category }, published: { eq: true } }
-      }
+      filter: { frontmatter: { tags: { eq: $tag }, published: { eq: true } } }
     ) {
       edges {
         node {
@@ -49,7 +47,7 @@ export const query = graphql`
           frontmatter {
             title
             date
-            categories
+            tags
           }
         }
       }
@@ -57,4 +55,4 @@ export const query = graphql`
   }
 `;
 
-export default Category;
+export default Tag;

@@ -42,7 +42,7 @@ export const query = graphql`
       sort: { fields: [frontmatter___date], order: DESC }
       filter: { frontmatter: { published: { eq: true } } }
     ) {
-      group(field: frontmatter___category) {
+      group(field: frontmatter___categories) {
         fieldValue
         nodes {
           id
