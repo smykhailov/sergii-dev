@@ -7,6 +7,7 @@ import startsWith from "lodash/startsWith";
 import HomeIcon from "../assets/home.svg";
 import ArticlesIcon from "../assets/files.svg";
 import CategoriesIcon from "../assets/file-submodule.svg";
+import TagIcon from "../assets/tag.svg";
 import ProjectsIcon from "../assets/source-control.svg";
 import CVIcon from "../assets/person.svg";
 import SettingsIcon from "../assets/settings-gear.svg";
@@ -27,6 +28,11 @@ const AppBar: FC<{ location: Location }> = props => {
       to: "/categories",
       title: "Categories",
       icon: <CategoriesIcon />,
+    },
+    {
+      to: "/tags",
+      title: "Tags",
+      icon: <TagIcon />,
     },
     {
       to: "/projects",

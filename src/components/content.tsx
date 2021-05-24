@@ -52,7 +52,7 @@ const Title = styled.div(props => ({
 
   "& > span": {
     margin: "0 12px",
-    maxWidth: 120,
+    maxWidth: 160,
     whiteSpace: "nowrap",
     textOverflow: "ellipsis",
     overflow: "hidden",
