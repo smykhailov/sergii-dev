@@ -3,22 +3,22 @@ import React, { FC } from "react";
 import { graphql } from "gatsby";
 
 import Layout from "./layout";
-import CategoriesList from "./left-pane/categories-list";
+import TagsList from "./left-pane/tags-list";
 import ContentContainer from "./content";
 import ArticleListItem from "./article-list-item";
 
-const Category: FC<{
+const Tag: FC<{
   data: GatsbyTypes.CategoryArticlesByCategoryQuery;
   pageContext: {
-    category: string;
+    tag: string;
   };
   location: Location;
 }> = props => {
   const { edges } = props.data.allMdx;
 
   return (
-    <Layout aside={<CategoriesList />} location={props.location}>
-      <ContentContainer title={props.pageContext.category}>
+    <Layout aside={<TagsList />} location={props.location}>
+      <ContentContainer title={`#${props.pageContext.tag}`}>
         {edges.map(edge => (
           <ArticleListItem
             id={edge.node.id}
@@ -34,12 +34,10 @@ const Category: FC<{
 };
 
 export const query = graphql`
-  query CategoryArticlesByCategory($category: String!) {
+  query CategoryArticlesByTag($tag: String!) {
     allMdx(
       sort: { fields: [frontmatter___date], order: DESC }
-      filter: {
-        frontmatter: { categories: { eq: $category }, published: { eq: true } }
-      }
+      filter: { frontmatter: { tags: { eq: $tag }, published: { eq: true } } }
     ) {
       edges {
         node {
@@ -50,7 +48,6 @@ export const query = graphql`
           frontmatter {
             title
             date
-            categories
             tags
           }
         }
@@ -59,4 +56,4 @@ export const query = graphql`
   }
 `;
 
-export default Category;
+export default Tag;

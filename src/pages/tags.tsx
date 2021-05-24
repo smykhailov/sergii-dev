@@ -3,23 +3,23 @@ import { graphql } from "gatsby";
 import styled from "@emotion/styled";
 
 import Layout from "@components/layout";
-import CategoriesList from "@components/left-pane/categories-list";
+import TagsList from "@components/left-pane/tags-list";
 import ContentContainer from "@components/content";
 import ArticleListItem from "@components/article-list-item";
 
-const CategoriesPage: FC<{
+const TagsPage: FC<{
   data: GatsbyTypes.CategoriesPageDataQuery;
   location: Location;
 }> = props => {
   return (
-    <Layout aside={<CategoriesList />} location={props.location}>
-      <ContentContainer title="Categories">
+    <Layout aside={<TagsList />} location={props.location}>
+      <ContentContainer title="Tags">
         {props.data.allMdx.group.map(group => {
           return (
             <React.Fragment key={group.fieldValue}>
-              <CategoryGroup>
-                <h2>{group.fieldValue!}</h2>
-              </CategoryGroup>
+              <TagsGroup>
+                <h2>#{group.fieldValue!}</h2>
+              </TagsGroup>
               {group.nodes.slice(0, 3).map(node => (
                 <ArticleListItem
                   id={node.id}
@@ -38,12 +38,12 @@ const CategoriesPage: FC<{
 };
 
 export const query = graphql`
-  query CategoriesPageData {
+  query TagsPageData {
     allMdx(
       sort: { fields: [frontmatter___date], order: DESC }
       filter: { frontmatter: { published: { eq: true } } }
     ) {
-      group(field: frontmatter___categories) {
+      group(field: frontmatter___tags) {
         fieldValue
         nodes {
           id
@@ -61,7 +61,7 @@ export const query = graphql`
   }
 `;
 
-const CategoryGroup = styled.div({
+const TagsGroup = styled.div({
   marginTop: 18,
   marginBottom: 6,
 
@@ -70,4 +70,4 @@ const CategoryGroup = styled.div({
   },
 });
 
-export default CategoriesPage;
+export default TagsPage;

@@ -5,16 +5,16 @@ import styled from "@emotion/styled";
 
 import LeftPaneContainer from "./left-pane-container";
 
-const CategoriesList: FC<{}> = () => {
-  const { distinct: categories, group } = useCategoriesListQuery();
+const TagsList: FC<{}> = () => {
+  const { distinct: tags, group } = useTagsListQuery();
 
   return (
-    <LeftPaneContainer title="Categories">
-      <Categories>
-        {categories.map((category, idx) => {
-          const slug = `/categories/${slugify(category).toLocaleLowerCase()}`;
+    <LeftPaneContainer title="Tags">
+      <Tags>
+        {tags.map((tag: string, idx: number) => {
+          const slug = `/tags/${slugify(tag).toLocaleLowerCase()}`;
           const articlesCount = group[idx]?.totalCount || 0;
-          let amountOfArticles = "There is no articles in this category yet";
+          let amountOfArticles = "There is no articles with this tag yet";
 
           if (articlesCount > 0) {
             if (articlesCount === 1) {
@@ -28,27 +28,27 @@ const CategoriesList: FC<{}> = () => {
             <li key={slug}>
               <Link to={slug}>
                 <p>
-                  <strong>{category}</strong>
+                  <strong>{tag}</strong>
                 </p>
                 <p>{amountOfArticles}</p>
               </Link>
             </li>
           );
         })}
-      </Categories>
+      </Tags>
     </LeftPaneContainer>
   );
 };
 
-const useCategoriesListQuery = () => {
-  const { allMdx } = useStaticQuery<GatsbyTypes.CategoriesListQuery>(graphql`
-    query CategoriesList {
+const useTagsListQuery = () => {
+  const { allMdx } = useStaticQuery<GatsbyTypes.TagsListQuery>(graphql`
+    query TagsList {
       allMdx(
-        sort: { fields: [frontmatter___categories], order: ASC }
+        sort: { fields: [frontmatter___tags], order: ASC }
         filter: { frontmatter: { published: { eq: true } } }
       ) {
-        distinct(field: frontmatter___categories)
-        group(field: frontmatter___categories) {
+        distinct(field: frontmatter___tags)
+        group(field: frontmatter___tags) {
           totalCount
         }
       }
@@ -58,7 +58,7 @@ const useCategoriesListQuery = () => {
   return allMdx;
 };
 
-const Categories = styled.ul(props => ({
+const Tags = styled.ul(props => ({
   "& > li > a": {
     display: "flex",
     flexDirection: "column",
@@ -95,4 +95,4 @@ const Categories = styled.ul(props => ({
   },
 }));
 
-export default CategoriesList;
+export default TagsList;

@@ -32,6 +32,9 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions;
+  const postPage = path.resolve("./src/components/article.tsx");
+  const tagPage = path.resolve("./src/components/tag.tsx");
+  const categoryPage = path.resolve("./src/components/category.tsx");
 
   const result = await graphql(`
     query AllMdx {
@@ -40,7 +43,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           node {
             id
             frontmatter {
-              category
+              categories
+              tags
             }
             fields {
               slug
@@ -52,28 +56,54 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   `);
 
   if (result.errors) {
+    console.error(result.errors);
     reporter.panicOnBuild('🚨  ERROR: Loading "createPages" query');
   }
+
+  const tagSet = new Set();
+  const categorySet = new Set();
 
   // Create blog post pages.
   const posts = result.data.allMdx.edges;
 
-  posts.forEach(({ node }) => {
-    createPage({
-      path: `/categories/${slugify(
-        node.frontmatter.category
-      ).toLocaleLowerCase()}`,
-      component: path.resolve("./src/components/category.tsx"),
-      context: {
-        category: node.frontmatter.category,
-      },
-    });
+  posts.forEach(({ node, index }) => {
+    if (node.frontmatter.tags) {
+      node.frontmatter.tags.forEach(tag => {
+        tagSet.add(tag);
+      });
+    }
+
+    if (node.frontmatter.categories) {
+      node.frontmatter.categories.forEach(category => {
+        categorySet.add(category);
+      });
+    }
 
     createPage({
       path: node.fields.slug,
-      component: path.resolve("./src/components/article.tsx"),
+      component: postPage,
       // context: { slug: article.fields.slug },
       context: { id: node.id },
+    });
+
+    tagSet.forEach(tag => {
+      createPage({
+        path: `/tags/${slugify(tag).toLocaleLowerCase()}`,
+        component: tagPage,
+        context: {
+          tag,
+        },
+      });
+    });
+
+    categorySet.forEach(category => {
+      createPage({
+        path: `/categories/${slugify(category).toLocaleLowerCase()}`,
+        component: categoryPage,
+        context: {
+          category,
+        },
+      });
     });
   });
 };

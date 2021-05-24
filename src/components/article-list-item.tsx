@@ -2,12 +2,14 @@ import React, { FC } from "react";
 import styled from "@emotion/styled";
 
 import { Link } from "gatsby";
+import slugify from "slugify";
 
 const ArticleListItem: FC<{
   id: string;
   slug: string;
   title: string;
   date: string;
+  tags?: GatsbyTypes.Maybe<readonly GatsbyTypes.Maybe<string>[]>;
 }> = props => {
   return (
     <ArticleItemContainer key={props.id}>
@@ -17,9 +19,11 @@ const ArticleListItem: FC<{
         </Link>
       </ArticleItemHeader>
       <ArticleItemBody>
-        <a href="/">#hello</a>
-        <a href="/">#react</a>
-        <a href="/">#web</a>
+        {props.tags?.map(tag => (
+          <Link
+            to={`/tags/${slugify(tag as string).toLocaleLowerCase()}`}
+          >{`#${tag}`}</Link>
+        ))}
       </ArticleItemBody>
       <ArticleItemFooter>
         <div>
