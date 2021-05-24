@@ -23,11 +23,17 @@ const ArticlesPage: FC<{
           const {
             id,
             fields: { slug },
-            frontmatter: { title, date },
+            frontmatter: { title, date, tags },
           } = edge.node;
 
           return (
-            <ArticleListItem id={id} slug={slug!} title={title!} date={date!} />
+            <ArticleListItem
+              id={id}
+              slug={slug!}
+              title={title!}
+              date={date!}
+              tags={tags}
+            />
           );
         })}
       </ContentContainer>
@@ -50,6 +56,7 @@ export const query = graphql`
           frontmatter {
             title
             date
+            tags
           }
         }
       }

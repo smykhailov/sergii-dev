@@ -25,6 +25,7 @@ const Category: FC<{
             slug={edge.node.fields?.slug!}
             title={edge.node.frontmatter?.title!}
             date={edge.node.frontmatter?.date!}
+            tags={edge.node.frontmatter?.tags}
           />
         ))}
       </ContentContainer>
@@ -50,6 +51,7 @@ export const query = graphql`
             title
             date
             categories
+            tags
           }
         }
       }

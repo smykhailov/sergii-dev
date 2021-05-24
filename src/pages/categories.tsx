@@ -26,6 +26,7 @@ const CategoriesPage: FC<{
                   slug={node.fields?.slug!}
                   title={node.frontmatter?.title!}
                   date={node.frontmatter?.date!}
+                  tags={node.frontmatter?.tags}
                 />
               ))}
             </React.Fragment>
@@ -52,6 +53,7 @@ export const query = graphql`
           frontmatter {
             date
             title
+            tags
           }
         }
       }

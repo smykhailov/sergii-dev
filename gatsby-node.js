@@ -25,7 +25,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     createNodeField({
       name: "slug",
       node,
-      value: `/articles/${value.replace("/", "")}.html`,
+      value: `/articles/${value}`,
     });
   }
 };
@@ -88,7 +88,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
     tagSet.forEach(tag => {
       createPage({
-        path: `/tags/${slugify(tag).toLocaleLowerCase()}.html`,
+        path: `/tags/${slugify(tag).toLocaleLowerCase()}`,
         component: tagPage,
         context: {
           tag,
@@ -98,7 +98,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
     categorySet.forEach(category => {
       createPage({
-        path: `/categories/${slugify(category).toLocaleLowerCase()}.html`,
+        path: `/categories/${slugify(category).toLocaleLowerCase()}`,
         component: categoryPage,
         context: {
           category,

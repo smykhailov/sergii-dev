@@ -3,28 +3,29 @@ import React, { FC } from "react";
 import { graphql } from "gatsby";
 
 import Layout from "./layout";
-import CategoriesList from "./left-pane/categories-list";
+import TagsList from "./left-pane/tags-list";
 import ContentContainer from "./content";
 import ArticleListItem from "./article-list-item";
 
 const Tag: FC<{
   data: GatsbyTypes.CategoryArticlesByCategoryQuery;
   pageContext: {
-    category: string;
+    tag: string;
   };
   location: Location;
 }> = props => {
   const { edges } = props.data.allMdx;
 
   return (
-    <Layout aside={<CategoriesList />} location={props.location}>
-      <ContentContainer title={props.pageContext.category}>
+    <Layout aside={<TagsList />} location={props.location}>
+      <ContentContainer title={`#${props.pageContext.tag}`}>
         {edges.map(edge => (
           <ArticleListItem
             id={edge.node.id}
             slug={edge.node.fields?.slug!}
             title={edge.node.frontmatter?.title!}
             date={edge.node.frontmatter?.date!}
+            tags={edge.node.frontmatter?.tags}
           />
         ))}
       </ContentContainer>
