@@ -2,39 +2,57 @@ import React, { FC } from "react";
 import styled from "@emotion/styled";
 
 import LeftPaneContainer from "./left-pane-container";
+import { graphql, useStaticQuery } from "gatsby";
 
 const ProjectsList: FC<{}> = () => {
+  const { edges } = useGitHubProjectsListQuery();
+
   return (
     <LeftPaneContainer title="Projects">
       <Projects>
-        <li>
-          <a href="/">
-            <strong>Project 1</strong>
-          </a>
-        </li>
-        <li>
-          <a href="/">
-            <strong>Project 2</strong>
-          </a>
-        </li>
-        <li>
-          <a href="/">
-            <strong>Project 3</strong>
-          </a>
-        </li>
-        <li>
-          <a href="/">
-            <strong>Project 4</strong>
-          </a>
-        </li>
-        <li>
-          <a href="/">
-            <strong>Project 5</strong>
-          </a>
-        </li>
+        {edges.map(e => {
+          return e.node.data?.search?.edges!.map(item => (
+            <li>
+              <a href="/">
+                <strong>{item?.node?.name}</strong>
+                <p>{item?.node?.description}</p>
+              </a>
+            </li>
+          ));
+        })}
       </Projects>
     </LeftPaneContainer>
   );
+};
+
+const useGitHubProjectsListQuery = () => {
+  const { allGithubData } =
+    useStaticQuery<GatsbyTypes.GitHubProjectsListQuery>(graphql`
+      query GitHubProjectsList {
+        allGithubData {
+          edges {
+            node {
+              data {
+                search {
+                  edges {
+                    node {
+                      name
+                      description
+                      createdAt
+                      object {
+                        text
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `);
+
+  return allGithubData;
 };
 
 const Projects = styled.ul(props => ({
