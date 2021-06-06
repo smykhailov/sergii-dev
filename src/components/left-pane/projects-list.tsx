@@ -1,8 +1,9 @@
 import React, { FC } from "react";
+import slugify from "slugify";
 import styled from "@emotion/styled";
 
 import LeftPaneContainer from "./left-pane-container";
-import { graphql, useStaticQuery } from "gatsby";
+import { graphql, Link, useStaticQuery } from "gatsby";
 
 const ProjectsList: FC<{}> = () => {
   const { edges } = useGitHubProjectsListQuery();
@@ -13,10 +14,14 @@ const ProjectsList: FC<{}> = () => {
         {edges.map(e => {
           return e.node.data?.search?.edges!.map(item => (
             <li>
-              <a href="/">
+              <Link
+                to={`/projects/${slugify(
+                  item?.node?.name!
+                ).toLocaleLowerCase()}`}
+              >
                 <strong>{item?.node?.name}</strong>
                 <p>{item?.node?.description}</p>
-              </a>
+              </Link>
             </li>
           ));
         })}
