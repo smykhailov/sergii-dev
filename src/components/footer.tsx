@@ -14,6 +14,7 @@ const Footer = () => {
         <a
           href={data?.siteMetadata?.github?.url}
           target="_blank"
+          rel="noreferrer"
           title={data?.siteMetadata?.github?.description}
         >
           <GitHubIcon />
@@ -47,6 +48,8 @@ const FooterContainer = styled.footer(props => ({
   backgroundColor: props.theme.colors.backgroundSecondary,
   fontFamily: "Segoe WPC, Segoe UI, sans-serif",
   fontSize: 13,
+  paddingLeft: 6,
+  paddingRight: 6,
 
   "& > p": {
     display: "flex",
