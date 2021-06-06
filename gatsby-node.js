@@ -35,8 +35,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const postPage = path.resolve("./src/components/article.tsx");
   const tagPage = path.resolve("./src/components/tag.tsx");
   const categoryPage = path.resolve("./src/components/category.tsx");
+  const projectPage = path.resolve("./src/components/project.tsx");
 
-  const result = await graphql(`
+  const mdxResult = await graphql(`
     query AllMdx {
       allMdx {
         edges {
@@ -55,8 +56,36 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     }
   `);
 
-  if (result.errors) {
-    console.error(result.errors);
+  const projectResult = await graphql(`
+    query GitHubProjects {
+      allGithubData {
+        edges {
+          node {
+            data {
+              search {
+                edges {
+                  node {
+                    name
+                    createdAt
+                    description
+                    url
+                    homepageUrl
+                    object {
+                      text
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `);
+
+  if (mdxResult.errors || projectResult.errors) {
+    console.error(mdxResult.errors);
+    console.error(projectResult.errors);
     reporter.panicOnBuild('🚨  ERROR: Loading "createPages" query');
   }
 
@@ -64,9 +93,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const categorySet = new Set();
 
   // Create blog post pages.
-  const posts = result.data.allMdx.edges;
+  const posts = mdxResult.data.allMdx.edges;
 
-  posts.forEach(({ node, index }) => {
+  posts.forEach(({ node }) => {
     if (node.frontmatter.tags) {
       node.frontmatter.tags.forEach(tag => {
         tagSet.add(tag);
@@ -82,7 +111,6 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     createPage({
       path: node.fields.slug,
       component: postPage,
-      // context: { slug: article.fields.slug },
       context: { id: node.id },
     });
 
@@ -104,6 +132,17 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           category,
         },
       });
+    });
+  });
+
+  const projects =
+    projectResult.data.allGithubData.edges[0].node.data.search.edges;
+
+  projects.forEach(({ node }) => {
+    createPage({
+      path: `/projects/${slugify(node.name).toLocaleLowerCase()}`,
+      component: projectPage,
+      context: { data: node },
     });
   });
 };

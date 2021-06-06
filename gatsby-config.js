@@ -1,3 +1,8 @@
+const dotenv = require("dotenv");
+dotenv.config();
+
+const { githubApiQuery } = require("./github-api");
+
 module.exports = {
   siteMetadata: {
     title: "Sergii Mykhailov - Software Engineer",
@@ -63,6 +68,13 @@ module.exports = {
       options: {
         pathToConfigModule: "./src/typography-config",
         omitGoogleFont: true,
+      },
+    },
+    {
+      resolve: `gatsby-source-github-api`,
+      options: {
+        token: process.env.GH_PAT,
+        graphQLQuery: githubApiQuery,
       },
     },
   ],

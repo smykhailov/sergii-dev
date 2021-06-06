@@ -13,26 +13,28 @@ const ArticleListItem: FC<{
 }> = props => {
   return (
     <ArticleItemContainer key={props.id}>
-      <ArticleItemHeader>
-        <Link key={props.slug} to={props.slug}>
+      <Link key={props.slug} to={props.slug}>
+        <ArticleItemHeader>
           <h3>{props.title}</h3>
-        </Link>
-      </ArticleItemHeader>
-      <ArticleItemBody>
-        {props.tags?.map(tag => (
-          <Link
-            to={`/tags/${slugify(tag as string).toLocaleLowerCase()}`}
-          >{`#${tag}`}</Link>
-        ))}
-      </ArticleItemBody>
-      <ArticleItemFooter>
-        <div>
-          <span>{new Date(props.date).toLocaleDateString()} - 10 min read</span>
-        </div>
-        <div>
-          <a href="/">78 Comments</a>
-        </div>
-      </ArticleItemFooter>
+        </ArticleItemHeader>
+        <ArticleItemBody>
+          {props.tags?.map(tag => (
+            <Link
+              to={`/tags/${slugify(tag as string).toLocaleLowerCase()}`}
+            >{`#${tag}`}</Link>
+          ))}
+        </ArticleItemBody>
+        <ArticleItemFooter>
+          <div>
+            <span>
+              {new Date(props.date).toLocaleDateString()} - 10 min read
+            </span>
+          </div>
+          <div>
+            <a href="/">78 Comments</a>
+          </div>
+        </ArticleItemFooter>
+      </Link>
     </ArticleItemContainer>
   );
 };
@@ -49,21 +51,19 @@ const ArticleItemContainer = styled.div(props => ({
   },
 }));
 
-const ArticleItemHeader = styled.div({
+const ArticleItemHeader = styled.div(props => ({
   display: "flex",
 
   "& h3": {
     margin: 0,
-  },
-
-  "& a": {
+    color: props.theme.colors.textActiveColor,
     opacity: 0.85,
   },
 
-  "& a:hover": {
+  "& h3:hover": {
     opacity: 1,
   },
-});
+}));
 
 const ArticleItemBody = styled.div({
   display: "flex",
@@ -79,10 +79,11 @@ const ArticleItemBody = styled.div({
   },
 });
 
-const ArticleItemFooter = styled.div({
+const ArticleItemFooter = styled.div(props => ({
   display: "flex",
   justifyContent: "space-between",
   fontSize: 13,
-});
+  color: props.theme.colors.textActiveColor,
+}));
 
 export default ArticleListItem;
