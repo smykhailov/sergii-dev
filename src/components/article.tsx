@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import styled from "@emotion/styled";
 
 import { graphql } from "gatsby";
 import { MDXRenderer } from "gatsby-plugin-mdx";
@@ -6,7 +7,7 @@ import { MDXRenderer } from "gatsby-plugin-mdx";
 import Layout from "./layout";
 import ArticlesList from "./left-pane/articles-list";
 import ContentContainer from "./content";
-import styled from "@emotion/styled";
+import Comments from "./comments";
 
 const Article: FC<{
   data: GatsbyTypes.ArticleByIdQuery;
@@ -24,6 +25,10 @@ const Article: FC<{
         <main>
           <MDXRenderer>{body}</MDXRenderer>
         </main>
+        <Comments
+          slug={props.data.mdx?.fields?.slug!}
+          title={frontmatter?.title!}
+        />
       </ContentContainer>
     </Layout>
   );
@@ -38,6 +43,7 @@ export const query = graphql`
         date
       }
       fields {
+        slug
         readingTime {
           text
           minutes
