@@ -12,6 +12,8 @@ jobs:
       - name: create CNAME file
         run: |
           echo "sergii.dev" > CNAME
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
 
       - uses: actions/checkout@v1
       - uses: enriikke/gatsby-gh-pages-action@v2
