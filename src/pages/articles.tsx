@@ -22,7 +22,7 @@ const ArticlesPage: FC<{
 
           const {
             id,
-            fields: { slug },
+            fields: { slug, readingTime },
             frontmatter: { title, date, tags },
           } = edge.node;
 
@@ -32,6 +32,7 @@ const ArticlesPage: FC<{
               slug={slug!}
               title={title!}
               date={date!}
+              timeToRead={readingTime?.text!}
               tags={tags}
             />
           );
@@ -52,6 +53,11 @@ export const query = graphql`
           id
           fields {
             slug
+            readingTime {
+              text
+              minutes
+              time
+            }
           }
           frontmatter {
             title

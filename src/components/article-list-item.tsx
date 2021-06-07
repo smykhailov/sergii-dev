@@ -9,6 +9,7 @@ const ArticleListItem: FC<{
   slug: string;
   title: string;
   date: string;
+  timeToRead: string;
   tags?: GatsbyTypes.Maybe<readonly GatsbyTypes.Maybe<string>[]>;
 }> = props => {
   return (
@@ -27,7 +28,7 @@ const ArticleListItem: FC<{
         <ArticleItemFooter>
           <div>
             <span>
-              {new Date(props.date).toLocaleDateString()} - 10 min read
+              {new Date(props.date).toLocaleDateString()} - {props.timeToRead}
             </span>
           </div>
           <div>

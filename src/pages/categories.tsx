@@ -26,6 +26,7 @@ const CategoriesPage: FC<{
                   slug={node.fields?.slug!}
                   title={node.frontmatter?.title!}
                   date={node.frontmatter?.date!}
+                  timeToRead={node.fields?.readingTime?.text!}
                   tags={node.frontmatter?.tags}
                 />
               ))}
@@ -49,6 +50,11 @@ export const query = graphql`
           id
           fields {
             slug
+            readingTime {
+              text
+              minutes
+              time
+            }
           }
           frontmatter {
             date

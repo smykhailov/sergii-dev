@@ -20,6 +20,7 @@ const Article: FC<{
           <h1>{frontmatter?.title}</h1>
           <span>{new Date(frontmatter?.date!).toLocaleString()}</span>
         </HeaderContainer>
+        <p>{props.data.mdx?.fields?.readingTime?.text}</p>
         <main>
           <MDXRenderer>{body}</MDXRenderer>
         </main>
@@ -35,6 +36,13 @@ export const query = graphql`
       frontmatter {
         title
         date
+      }
+      fields {
+        readingTime {
+          text
+          minutes
+          time
+        }
       }
     }
   }
