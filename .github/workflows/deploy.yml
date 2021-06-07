@@ -13,6 +13,10 @@ jobs:
         run: |
           echo "sergii.dev" > CNAME
 
+      - name: Define ENV vars
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+
       - uses: actions/checkout@v1
       - uses: enriikke/gatsby-gh-pages-action@v2
         with:
