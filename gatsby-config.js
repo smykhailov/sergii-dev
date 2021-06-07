@@ -73,8 +73,14 @@ module.exports = {
     {
       resolve: `gatsby-source-github-api`,
       options: {
-        token: process.env.GH_PAT || secrets.GH_PAT,
+        token: process.env.GH_PAT,
         graphQLQuery: githubApiQuery,
+      },
+    },
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [`gatsby-remark-reading-time`],
       },
     },
   ],

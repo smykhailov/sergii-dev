@@ -25,6 +25,7 @@ const Tag: FC<{
             slug={edge.node.fields?.slug!}
             title={edge.node.frontmatter?.title!}
             date={edge.node.frontmatter?.date!}
+            timeToRead={edge.node.fields?.readingTime?.text!}
             tags={edge.node.frontmatter?.tags}
           />
         ))}
@@ -44,6 +45,11 @@ export const query = graphql`
           id
           fields {
             slug
+            readingTime {
+              text
+              minutes
+              time
+            }
           }
           frontmatter {
             title
