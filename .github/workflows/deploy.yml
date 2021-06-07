@@ -12,8 +12,6 @@ jobs:
       - name: create CNAME file
         run: |
           echo "sergii.dev" > CNAME
-
-      - name: Define ENV vars
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
 
