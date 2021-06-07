@@ -30,6 +30,7 @@
     "dotenv": "^10.0.0",
     "gatsby": "^3.5.1",
     "gatsby-plugin-emotion": "^6.5.0",
+    "gatsby-plugin-gitalk": "^1.2.2",
     "gatsby-plugin-mdx": "^2.5.1",
     "gatsby-plugin-react-svg": "^3.0.0",
     "gatsby-plugin-tsconfig-paths": "^1.0.2",

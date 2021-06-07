@@ -83,5 +83,17 @@ module.exports = {
         plugins: [`gatsby-remark-reading-time`],
       },
     },
+    {
+      resolve: `gatsby-plugin-gitalk`,
+      options: {
+        config: {
+          clientID: process.env.GH_COMMENTS_CLIENT_ID,
+          clientSecret: process.env.GH_COMMENTS_CLIENT_SECRET,
+          repo: "sergii-dev",
+          owner: "smykhailov",
+          admin: ["smykhailov"],
+        },
+      },
+    },
   ],
 };
