@@ -1,7 +1,8 @@
 const dotenv = require("dotenv");
 dotenv.config();
 
-const { githubApiQuery } = require("./github-api");
+// const { githubProjectsQuery, githubCommentsQuery } = require("./github-api");
+const { githubProjectsQuery } = require("./github-api");
 
 module.exports = {
   siteMetadata: {
@@ -74,7 +75,8 @@ module.exports = {
       resolve: `gatsby-source-github-api`,
       options: {
         token: process.env.GH_PAT,
-        graphQLQuery: githubApiQuery,
+        // graphQLQuery: [githubProjectsQuery, githubCommentsQuery],
+        graphQLQuery: githubProjectsQuery,
       },
     },
     {
