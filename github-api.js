@@ -1,5 +1,5 @@
-exports.githubApiQuery = `
-query {
+exports.githubProjectsQuery = `
+query GithubProjects {
   search(query: "is:public user:smykhailov", type: REPOSITORY, first: 50) {
     repositoryCount
     pageInfo {
@@ -25,3 +25,29 @@ query {
   }
 }
 `;
+
+// exports.githubCommentsQuery = `
+// query CommentsCount {
+//   comments: search(
+//     first: 100
+//     type: ISSUE
+//     query: "https://sergii.dev/articles/ state:open repo:smykhailov/sergii-dev"
+//   ) {
+//     issueCount
+//     pageInfo {
+//       hasNextPage
+//       endCursor
+//     }
+//     edges {
+//       node {
+//         ... on Issue {
+//           body
+//           comments {
+//             totalCount
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+// `;
