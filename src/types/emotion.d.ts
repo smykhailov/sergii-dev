@@ -42,7 +42,9 @@ declare module "@emotion/react" {
       };
 
       gitalk: {
-        beakColor: Property.Color;
+        linkColor: Property.Color;
+        popupBackgroundColor: Property.Color;
+        popupItemHoverColor: Property.Color;
       };
     };
   }

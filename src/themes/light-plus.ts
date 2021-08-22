@@ -40,7 +40,9 @@ export const lightPlusTheme: Theme = {
     },
 
     gitalk: {
-      beakColor: "#0f0",
+      linkColor: "#3794ff",
+      popupBackgroundColor: "rgb(29, 31, 35)",
+      popupItemHoverColor: "rgb(44, 49, 58)",
     },
   },
 };

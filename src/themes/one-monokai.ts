@@ -40,7 +40,9 @@ export const oneMonokaiTheme: Theme = {
     },
 
     gitalk: {
-      beakColor: "#3794ff",
+      linkColor: "#3794ff",
+      popupBackgroundColor: "rgb(29, 31, 35)",
+      popupItemHoverColor: "rgb(44, 49, 58)",
     },
   },
 };

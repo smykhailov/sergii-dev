@@ -21,40 +21,32 @@ const CommentsContainer = styled.div(props => ({
   },
 
   ".gt-container .gt-link": {
-    color: `${props.theme.colors.gitalk.beakColor} !important`,
+    color: `${props.theme.colors.gitalk.linkColor} !important`,
     textDecoration: "none",
     borderBottom: "none",
   },
 
   ".gt-container .gt-popup": {
-    backgroundColor: "rgb(29, 31, 35)",
+    backgroundColor: props.theme.colors.gitalk.popupBackgroundColor,
     border: "none",
-    color: "rgb(204, 204, 204)",
     padding: 0,
     fontSize: "13px",
   },
 
   ".gt-container .gt-action:hover": {
-    backgroundColor: "rgb(44, 49, 58)",
+    backgroundColor: props.theme.colors.gitalk.popupItemHoverColor,
   },
 
   ".gt-container .gt-copyright": {
     borderTop: "none",
     paddingTop: 0,
-    padding: "0 0.9375em 0",
+    margin: 0,
+    padding: "0 1.125em 0",
     marginBottom: "0.5em",
   },
 
   ".gt-container .gt-copyright:hover": {
-    backgroundColor: "rgb(44, 49, 58)",
-  },
-
-  ".gt-container .gt-link .gt-link-counts": {
-    color: `${props.theme.colors.gitalk.beakColor} !important`,
-  },
-
-  ".gt-container .gt-user .gt-ico svg": {
-    fill: props.theme.colors.gitalk.beakColor,
+    backgroundColor: props.theme.colors.gitalk.popupItemHoverColor,
   },
 
   ".gt-container .gt-comment-content": {
@@ -65,10 +57,6 @@ const CommentsContainer = styled.div(props => ({
     boxShadow: "none",
   },
 
-  ".gt-container .gt-comment-username": {
-    color: `${props.theme.colors.gitalk.beakColor} !important`,
-  },
-
   ".gt-container .gt-comment-admin .gt-comment-content": {
     backgroundColor: "transparent",
   },
@@ -77,17 +65,15 @@ const CommentsContainer = styled.div(props => ({
     color: `${props.theme.colors.textActiveColor} !important`,
   },
 
-  ".gt-container .gt-comment-reply svg": {
-    fill: `${props.theme.colors.gitalk.beakColor} !important`,
-  },
+  ".gt-container .gt-comment-reply svg, .gt-container .gt-header-controls-tip svg, .gt-container .gt-user .gt-ico svg":
+    {
+      fill: `${props.theme.colors.gitalk.linkColor} !important`,
+    },
 
-  ".gt-container .gt-header-controls-tip svg": {
-    fill: `${props.theme.colors.gitalk.beakColor} !important`,
-  },
-
-  ".gt-container .gt-header-controls-tip": {
-    color: `${props.theme.colors.gitalk.beakColor} !important`,
-  },
+  ".gt-container .gt-comment-username, .gt-container .gt-header-controls-tip, .gt-container .gt-link .gt-link-counts":
+    {
+      color: `${props.theme.colors.gitalk.linkColor} !important`,
+    },
 }));
 
 export default Comments;
