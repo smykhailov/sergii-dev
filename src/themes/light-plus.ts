@@ -38,5 +38,9 @@ export const lightPlusTheme: Theme = {
     footer: {
       textColor: "rgb(157, 165, 180)",
     },
+
+    gitalk: {
+      beakColor: "#0f0",
+    },
   },
 };

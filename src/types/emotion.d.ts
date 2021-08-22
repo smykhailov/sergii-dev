@@ -40,6 +40,10 @@ declare module "@emotion/react" {
       footer: {
         textColor: Property.Color;
       };
+
+      gitalk: {
+        beakColor: Property.Color;
+      };
     };
   }
 }

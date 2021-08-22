@@ -1,7 +1,7 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, MouseEvent, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 
-import { Link } from "gatsby";
+import { Link, navigate } from "gatsby";
 import slugify from "slugify";
 
 const ArticleListItem: FC<{
@@ -18,26 +18,41 @@ const ArticleListItem: FC<{
     const encodedSlug = encodeURIComponent(props.slug);
     const url = `https://api.github.com/search/issues?q=%22Gitalk_${encodedSlug}%22+type:issue+in:body+label:Gitalk+repo:smykhailov%2Fsergii-dev&t=${Date.now()}`;
 
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        if (!data || data.items === undefined || data.items.length === 0) {
-          setCommentsCount(0);
-        } else {
-          setCommentsCount(data?.items[0]?.comments || 0);
-        }
-      });
+    let cancel = false;
+    const getCommentsCount = async () => {
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (cancel) {
+        return;
+      }
+
+      if (!data || data.items === undefined || data.items.length === 0) {
+        setCommentsCount(0);
+      } else {
+        setCommentsCount(data?.items[0]?.comments || 0);
+      }
+    };
+
+    getCommentsCount()
+      .then(() => console.debug("Comments count received"))
+      .catch(err => console.error("Cannot get comments count", err));
+
+    return () => {
+      cancel = true;
+    };
   });
 
   return (
     <ArticleItemContainer key={props.id}>
-      <Link key={props.slug} to={props.slug}>
+      <ItemButton to={props.slug}>
         <ArticleItemHeader>
           <h3>{props.title}</h3>
         </ArticleItemHeader>
         <ArticleItemBody>
           {props.tags?.map(tag => (
             <Link
+              key={tag}
               to={`/tags/${slugify(tag as string).toLocaleLowerCase()}`}
             >{`#${tag}`}</Link>
           ))}
@@ -56,9 +71,18 @@ const ArticleListItem: FC<{
             </a>
           </div>
         </ArticleItemFooter>
-      </Link>
+      </ItemButton>
     </ArticleItemContainer>
   );
+};
+
+const ItemButton: FC<{ to: string }> = props => {
+  const onClickHandler = (e: MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    navigate(props.to);
+  };
+
+  return <div onClick={onClickHandler}>{props.children}</div>;
 };
 
 const ArticleItemContainer = styled.div(props => ({
@@ -70,6 +94,7 @@ const ArticleItemContainer = styled.div(props => ({
 
   ":hover": {
     backgroundColor: props.theme.colors.main.backgroundHoverColor,
+    cursor: "pointer",
   },
 }));
 

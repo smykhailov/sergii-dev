@@ -38,5 +38,9 @@ export const oneMonokaiTheme: Theme = {
     footer: {
       textColor: "rgb(157, 165, 180)",
     },
+
+    gitalk: {
+      beakColor: "#3794ff",
+    },
   },
 };
