@@ -97,8 +97,16 @@ const CommentsContainer = styled.div(props => ({
     transition: "none",
     border: "none",
   },
+  ".gt-container .gt-header-textarea:hover, .gt-container .gt-header-preview:hover":
+    {
+      color: props.theme.colors.textColor,
+      backgroundColor: props.theme.colors.backgroundSecondary,
+    },
   ".gt-container .gt-header-textarea:focus": {
     border: "1px solid #007fd4",
+  },
+  ".gt-container .gt-error": {
+    textAlign: "left",
   },
 }));
 
