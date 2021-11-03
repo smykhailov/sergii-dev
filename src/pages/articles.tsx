@@ -29,6 +29,7 @@ const ArticlesPage: FC<{
           return (
             <ArticleListItem
               id={id}
+              key={id}
               slug={slug!}
               title={title!}
               date={date!}

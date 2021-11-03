@@ -23,6 +23,7 @@ const TagsPage: FC<{
               {group.nodes.slice(0, 3).map(node => (
                 <ArticleListItem
                   id={node.id}
+                  key={node.id}
                   slug={node.fields?.slug!}
                   title={node.frontmatter?.title!}
                   date={node.frontmatter?.date!}

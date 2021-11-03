@@ -40,6 +40,14 @@ declare module "@emotion/react" {
       footer: {
         textColor: Property.Color;
       };
+
+      gitalk: {
+        linkColor: Property.Color;
+        btnBackgroundColor: Property.Color;
+        btnTextColor: Property.Color;
+        popupBackgroundColor: Property.Color;
+        popupItemHoverColor: Property.Color;
+      };
     };
   }
 }
