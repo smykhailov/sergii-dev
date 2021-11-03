@@ -45,8 +45,10 @@ declare module "@emotion/react" {
         linkColor: Property.Color;
         btnBackgroundColor: Property.Color;
         btnTextColor: Property.Color;
+        btnTextHoverColor: Property.Color;
         popupBackgroundColor: Property.Color;
         popupItemHoverColor: Property.Color;
+        outlineColor: Property.Color;
       };
     };
   }

@@ -43,8 +43,10 @@ export const darkPlusTheme: Theme = {
       linkColor: "#3794ff",
       btnBackgroundColor: "rgb(82, 139, 255)",
       btnTextColor: "rgb(248, 250, 253)",
+      btnTextHoverColor: "rgb(149, 185, 255)",
       popupBackgroundColor: "rgb(29, 31, 35)",
       popupItemHoverColor: "rgb(44, 49, 58)",
+      outlineColor: "#007fd4",
     },
   },
 };
