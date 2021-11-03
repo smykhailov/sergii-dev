@@ -3,3 +3,4 @@ node_modules/
 public
 **/generated/**
 .env
+yarn-error.log
