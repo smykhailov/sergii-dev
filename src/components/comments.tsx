@@ -32,10 +32,11 @@ const CommentsContainer = styled.div(props => ({
     fontSize: "13px",
   },
   ".gt-container .gt-popup .gt-action.is--active:before": {
-    backgroundColor: `${props.theme.colors.textActiveColor} !important`,
+    backgroundColor: props.theme.colors.linkColor,
+    top: "0.8em",
   },
   ".gt-container .gt-popup .gt-action.text": {
-    color: `${props.theme.colors.textActiveColor} !important`,
+    color: props.theme.colors.textActiveColor,
   },
 
   ".gt-container .gt-copyright": {
@@ -93,6 +94,8 @@ const CommentsContainer = styled.div(props => ({
     backgroundColor: props.theme.colors.backgroundSecondary,
     borderRadius: 0,
     padding: 4,
+    transition: "none",
+    border: "none",
   },
   ".gt-container .gt-header-textarea:focus": {
     border: "1px solid #007fd4",
