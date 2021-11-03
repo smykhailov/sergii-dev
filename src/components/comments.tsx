@@ -31,6 +31,13 @@ const CommentsContainer = styled.div(props => ({
     padding: 0,
     fontSize: "13px",
   },
+  ".gt-container .gt-popup .gt-action.is--active:before": {
+    backgroundColor: `${props.theme.colors.textActiveColor} !important`,
+  },
+  ".gt-container .gt-popup .gt-action.text": {
+    color: `${props.theme.colors.textActiveColor} !important`,
+  },
+
   ".gt-container .gt-copyright": {
     borderTop: "none",
     paddingTop: 0,
@@ -38,7 +45,6 @@ const CommentsContainer = styled.div(props => ({
     padding: "0 1.125em 0",
     marginBottom: "0.5em",
   },
-
   ".gt-container .gt-copyright:hover, .gt-container .gt-action:hover": {
     backgroundColor: props.theme.colors.gitalk.popupItemHoverColor,
   },
@@ -58,7 +64,7 @@ const CommentsContainer = styled.div(props => ({
   ".gt-container .gt-comment-body": {
     color: `${props.theme.colors.textActiveColor} !important`,
   },
-  ".gt-container .gt-comment-username:hover": {
+  ".gt-container .gt-comment-username:hover,  .gt-container .gt-link:hover": {
     textDecoration: "none",
   },
 
@@ -66,7 +72,7 @@ const CommentsContainer = styled.div(props => ({
     {
       fill: `${props.theme.colors.gitalk.linkColor} !important`,
     },
-  ".gt-container .gt-comment-username, .gt-container .gt-header-controls-tip, .gt-container .gt-link .gt-link-counts":
+  ".gt-container a, .gt-container .gt-comment-username, .gt-container .gt-header-controls-tip, .gt-container .gt-link-counts":
     {
       color: `${props.theme.colors.gitalk.linkColor} !important`,
     },
@@ -78,6 +84,9 @@ const CommentsContainer = styled.div(props => ({
     borderRadius: 0,
     border: 0,
     lineHeight: "inherit",
+  },
+  ".gt-container .gt-btn:hover": {
+    backgroundColor: props.theme.colors.gitalk.btnTextHoverColor,
   },
   ".gt-container .gt-header-textarea, .gt-container .gt-header-preview": {
     color: props.theme.colors.textColor,
