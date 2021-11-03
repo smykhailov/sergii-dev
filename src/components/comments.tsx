@@ -21,7 +21,7 @@ const CommentsContainer = styled.div(props => ({
   },
 
   ".gt-container .gt-link": {
-    color: `${props.theme.colors.gitalk.linkColor} !important`,
+    // color: `${props.theme.colors.gitalk.linkColor} !important`,
     textDecoration: "none",
     borderBottom: "none",
   },
@@ -33,9 +33,9 @@ const CommentsContainer = styled.div(props => ({
     fontSize: "13px",
   },
 
-  ".gt-container .gt-action:hover": {
-    backgroundColor: props.theme.colors.gitalk.popupItemHoverColor,
-  },
+  // ".gt-container .gt-action:hover": {
+  //   backgroundColor: props.theme.colors.gitalk.popupItemHoverColor,
+  // },
 
   ".gt-container .gt-copyright": {
     borderTop: "none",
@@ -45,7 +45,7 @@ const CommentsContainer = styled.div(props => ({
     marginBottom: "0.5em",
   },
 
-  ".gt-container .gt-copyright:hover": {
+  ".gt-container .gt-copyright:hover, .gt-container .gt-action:hover": {
     backgroundColor: props.theme.colors.gitalk.popupItemHoverColor,
   },
 
@@ -65,7 +65,7 @@ const CommentsContainer = styled.div(props => ({
     color: `${props.theme.colors.textActiveColor} !important`,
   },
 
-  ".gt-container .gt-comment-reply svg, .gt-container .gt-header-controls-tip svg, .gt-container .gt-user .gt-ico svg":
+  ".gt-container .gt-link, .gt-container .gt-comment-reply svg, .gt-container .gt-comment-like svg, .gt-container .gt-header-controls-tip svg, .gt-container .gt-user .gt-ico svg":
     {
       fill: `${props.theme.colors.gitalk.linkColor} !important`,
     },
@@ -74,6 +74,15 @@ const CommentsContainer = styled.div(props => ({
     {
       color: `${props.theme.colors.gitalk.linkColor} !important`,
     },
+  ".gt-container .gt-btn": {
+    color: props.theme.colors.gitalk.btnTextColor,
+    backgroundColor: props.theme.colors.gitalk.btnBackgroundColor,
+    display: "inline-block",
+    padding: "2px 14px",
+    borderRadius: 0,
+    border: 0,
+    lineHeight: "auto",
+  },
 }));
 
 export default Comments;

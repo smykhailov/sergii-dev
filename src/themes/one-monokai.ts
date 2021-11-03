@@ -41,6 +41,8 @@ export const oneMonokaiTheme: Theme = {
 
     gitalk: {
       linkColor: "#3794ff",
+      btnBackgroundColor: "rgb(82, 139, 255)",
+      btnTextColor: "rgb(248, 250, 253)",
       popupBackgroundColor: "rgb(29, 31, 35)",
       popupItemHoverColor: "rgb(44, 49, 58)",
     },

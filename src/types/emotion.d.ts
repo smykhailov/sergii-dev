@@ -43,6 +43,8 @@ declare module "@emotion/react" {
 
       gitalk: {
         linkColor: Property.Color;
+        btnBackgroundColor: Property.Color;
+        btnTextColor: Property.Color;
         popupBackgroundColor: Property.Color;
         popupItemHoverColor: Property.Color;
       };
