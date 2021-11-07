@@ -15,11 +15,15 @@ const ArticleListItem: FC<{
   const [commentsCount, setCommentsCount] = useState(0);
 
   useEffect(() => {
-    const encodedSlug = encodeURIComponent(props.slug);
-    const url = `https://api.github.com/search/issues?q=%22Gitalk_${encodedSlug}%22+type:issue+in:body+label:Gitalk+repo:smykhailov%2Fsergii-dev&t=${Date.now()}`;
-
     let cancel = false;
     const getCommentsCount = async () => {
+      const encodedSlug = encodeURIComponent(props.slug);
+      const url = `https://api.github.com/search/issues?q=%22Gitalk_${encodedSlug}%22+type:issue+in:body+label:Gitalk+repo:smykhailov%2Fsergii-dev&t=${Date.now()}`;
+
+      if (cancel) {
+        return;
+      }
+
       const response = await fetch(url);
       const data = await response.json();
 
@@ -27,9 +31,7 @@ const ArticleListItem: FC<{
         return;
       }
 
-      if (!data || data.items === undefined || data.items.length === 0) {
-        setCommentsCount(0);
-      } else {
+      if (data?.items) {
         setCommentsCount(data?.items[0]?.comments || 0);
       }
     };
@@ -41,7 +43,7 @@ const ArticleListItem: FC<{
     return () => {
       cancel = true;
     };
-  });
+  }, [props.slug]);
 
   return (
     <ArticleItemContainer key={props.id}>
