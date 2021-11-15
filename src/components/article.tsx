@@ -1,13 +1,15 @@
 import React, { FC } from "react";
 import styled from "@emotion/styled";
 
-import { graphql } from "gatsby";
+import { graphql, Link } from "gatsby";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 
 import Layout from "./layout";
 import ArticlesList from "./left-pane/articles-list";
 import ContentContainer from "./content";
 import Comments from "./comments";
+import { formatDate } from "@core/date";
+import slugify from "slugify";
 
 const Article: FC<{
   data: GatsbyTypes.ArticleByIdQuery;
@@ -17,11 +19,23 @@ const Article: FC<{
   return (
     <Layout aside={<ArticlesList />} location={props.location}>
       <ContentContainer title={frontmatter?.title!}>
-        <HeaderContainer>
+        <header>
           <h1>{frontmatter?.title}</h1>
-          <span>{new Date(frontmatter?.date!).toLocaleString()}</span>
-        </HeaderContainer>
-        <p>{props.data.mdx?.fields?.readingTime?.text}</p>
+          <SubtitleContainer>
+            <p>
+              Posted on <strong>{formatDate(frontmatter?.date!)}</strong> -{" "}
+              {props.data.mdx?.fields?.readingTime?.text}
+            </p>
+            <p>
+              {frontmatter?.tags?.map(tag => (
+                <Link
+                  key={tag}
+                  to={`/tags/${slugify(tag as string).toLocaleLowerCase()}`}
+                >{`#${tag}`}</Link>
+              ))}
+            </p>
+          </SubtitleContainer>
+        </header>
         <main>
           <MDXRenderer>{body}</MDXRenderer>
         </main>
@@ -41,6 +55,7 @@ export const query = graphql`
       frontmatter {
         title
         date
+        tags
       }
       fields {
         slug
@@ -54,10 +69,20 @@ export const query = graphql`
   }
 `;
 
-const HeaderContainer = styled.header({
+const SubtitleContainer = styled.div({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "end",
+
+  "& * > a": {
+    marginLeft: 12,
+    opacity: 0.85,
+  },
+
+  "& * > a:hover": {
+    opacity: 1,
+    cursor: "pointer",
+  },
 });
 
 export default Article;

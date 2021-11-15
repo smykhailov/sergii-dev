@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 
 import { Link, navigate } from "gatsby";
 import slugify from "slugify";
+import { formatDate } from "@core/date";
 
 const ArticleListItem: FC<{
   id: string;
@@ -62,7 +63,7 @@ const ArticleListItem: FC<{
         <ArticleItemFooter>
           <div>
             <span>
-              {new Date(props.date).toLocaleDateString()} - {props.timeToRead}
+              {formatDate(props.date)} - <em>{props.timeToRead}</em>
             </span>
           </div>
           <div>
