@@ -33,6 +33,8 @@ export const darkPlusTheme: Theme = {
     main: {
       backgroundColor: "#282C34",
       backgroundHoverColor: "#333A42",
+      backgroundActiveColor: "#34383F",
+      borderActiveColor: "#4D5056",
       titleContainerBackgroundColor: "#21252B",
       titleBackgroundColor: "#383E49",
     },

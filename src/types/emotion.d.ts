@@ -35,6 +35,8 @@ declare module "@emotion/react" {
       main: {
         backgroundColor: Property.Color;
         backgroundHoverColor: Property.Color;
+        backgroundActiveColor: Property.Color;
+        borderActiveColor: Property.Color;
         titleContainerBackgroundColor: Property.Color;
         titleBackgroundColor: Property.Color;
       };

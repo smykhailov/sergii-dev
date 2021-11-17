@@ -32,7 +32,9 @@ export const oneMonokaiTheme: Theme = {
 
     main: {
       backgroundColor: "#282C34",
-      backgroundHoverColor: "#333A42",
+      backgroundHoverColor: "#2E3239",
+      backgroundActiveColor: "#34383F",
+      borderActiveColor: "#4D5056",
       titleContainerBackgroundColor: "#21252B",
       titleBackgroundColor: "#383E49",
     },
