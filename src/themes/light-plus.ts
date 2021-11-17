@@ -5,10 +5,12 @@ export const lightPlusTheme: Theme = {
     backgroundPrimary: "#282C34",
     backgroundPrimaryActive: "#2F333D",
     backgroundSecondary: "#21252B",
+    modalOverlayColor: "rgba(40, 44, 52, 0.85)",
     textColor: "#CCC",
     textActiveColor: "rgba(215, 218, 224)",
     selectionColor: "#3E4450",
     linkColor: "#3794ff",
+    focusOutline: "1px solid #007fd4",
 
     scrollBar: {
       borderColor: "#555",

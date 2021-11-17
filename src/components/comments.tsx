@@ -103,7 +103,7 @@ const CommentsContainer = styled.div(props => ({
       backgroundColor: props.theme.colors.backgroundSecondary,
     },
   ".gt-container .gt-header-textarea:focus": {
-    border: "1px solid #007fd4",
+    border: props.theme.colors.focusOutline,
   },
   ".gt-container .gt-error": {
     textAlign: "left",

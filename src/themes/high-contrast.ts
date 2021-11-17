@@ -1,11 +1,11 @@
 import { Theme } from "@emotion/react";
 
-export const oneMonokaiTheme: Theme = {
+export const highContrastTheme: Theme = {
   colors: {
     backgroundPrimary: "#282C34",
-    backgroundSecondary: "#21252B",
     backgroundPrimaryActive: "#2F333D",
-    modalOverlayColor: "rgba(85, 85, 85, 0.85)",
+    backgroundSecondary: "#21252B",
+    modalOverlayColor: "rgba(40, 44, 52, 0.85)",
     textColor: "#CCC",
     textActiveColor: "rgba(215, 218, 224)",
     selectionColor: "#3E4450",

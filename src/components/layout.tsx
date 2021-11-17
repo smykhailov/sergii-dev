@@ -34,6 +34,9 @@ const Wrapper = styled.div(props => ({
   "& ::selection": {
     background: props.theme.colors.selectionColor,
   },
+  "& *:focus-visible": {
+    outline: props.theme.colors.focusOutline,
+  },
 }));
 
 const Container = styled.div({

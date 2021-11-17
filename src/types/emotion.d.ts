@@ -7,10 +7,12 @@ declare module "@emotion/react" {
       backgroundPrimary: Property.BackgroundColor;
       backgroundPrimaryActive: Property.BackgroundColor;
       backgroundSecondary: Property.BackgroundColor;
+      modalOverlayColor: Property.BackgroundColor;
       textColor: Property.Color;
       textActiveColor: Property.Color;
       selectionColor: Property.Color;
       linkColor: Property.Color;
+      focusOutline: Property.Outline;
 
       scrollBar: {
         borderColor: Property.Color;
