@@ -3,11 +3,21 @@ import { Theme, useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 
 import Modal from "react-modal";
+import { useAppContext } from "./app-context";
+import { TThemes } from "@core/config";
 
 Modal.setAppElement(document.body);
 
+const themes: { [key in TThemes]: string } = {
+  "light-plus": "Light Plus",
+  "dark-plus": "Dark Plus",
+  "one-monokai": "One Monokai",
+  "high-contrast": "High Contrast",
+};
+
 const SettingsDialog: FC<{ isOpen: boolean; onClose: () => void }> = props => {
   const theme = useTheme();
+  const { config } = useAppContext();
 
   const handleCloseDialog = useCallback(
     (event: KeyboardEvent | React.KeyboardEvent<HTMLAnchorElement>) => {
@@ -54,11 +64,14 @@ const SettingsDialog: FC<{ isOpen: boolean; onClose: () => void }> = props => {
             <span>General:</span> <strong>Theme</strong>
           </label>
           <span>Controls the color scheme of the site.</span>
-          <select name="theme-selector" id="theme-selector">
-            <option>Light</option>
-            <option>Dark</option>
-            <option>One Monokai</option>
-            <option>High Contrast</option>
+          <select
+            name="theme-selector"
+            id="theme-selector"
+            value={themes[config.theme]}
+          >
+            {Object.getOwnPropertyNames(themes).map(theme => (
+              <option>{themes[theme as TThemes]}</option>
+            ))}
           </select>
         </FormControl>
         <FormControl tabIndex={0}>
@@ -82,6 +95,7 @@ const SettingsDialog: FC<{ isOpen: boolean; onClose: () => void }> = props => {
             name="controls-fontsize-selector"
             id="controls-fontsize-selector"
             type="text"
+            value={config.editorFontSize}
           />
         </FormControl>
         <FormControl tabIndex={0}>
@@ -105,6 +119,7 @@ const SettingsDialog: FC<{ isOpen: boolean; onClose: () => void }> = props => {
             name="article-fontsize-selector"
             id="article-fontsize-selector"
             type="text"
+            value={config.articleFontSize}
           />
         </FormControl>
       </MainContainer>

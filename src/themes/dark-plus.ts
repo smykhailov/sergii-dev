@@ -1,6 +1,9 @@
 import { Theme } from "@emotion/react";
 
 const darkPlusTheme: Theme = {
+  fontSize: "13px",
+  fontFace: "Segoe UI",
+
   colors: {
     backgroundPrimary: "#282C34",
     backgroundPrimaryActive: "#2F333D",

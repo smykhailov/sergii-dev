@@ -23,7 +23,7 @@ const UILayout: FC<{ aside?: React.ReactChild; location: Location }> =
     const [theme, setTheme] = useState(null);
 
     useEffect(() => {
-      import(`../themes/${context.theme}`).then(newTheme =>
+      import(`../themes/${context.config.theme}`).then(newTheme =>
         setTheme(newTheme.default)
       );
     }, [context]);
@@ -73,7 +73,7 @@ const Aside = styled.aside(props => ({
   backgroundColor: props.theme.colors.backgroundSecondary,
   color: props.theme.colors.textColor,
   fontFamily: "Segoe WPC, Segoe UI, sans-serif",
-  fontSize: 13,
+  fontSize: props.theme.fontSize,
   fontWeight: 400,
   lineHeight: 22,
 

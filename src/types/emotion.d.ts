@@ -3,6 +3,9 @@ import { Property } from "csstype";
 
 declare module "@emotion/react" {
   export interface Theme {
+    fontSize: Property.FontSize;
+    fontFace: Property.FontFamily;
+
     colors: {
       backgroundPrimary: Property.BackgroundColor;
       backgroundPrimaryActive: Property.BackgroundColor;

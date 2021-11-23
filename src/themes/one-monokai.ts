@@ -1,6 +1,9 @@
 import { Theme } from "@emotion/react";
 
 const oneMonokaiTheme: Theme = {
+  fontSize: "13px",
+  fontFace: "Segoe UI",
+
   colors: {
     backgroundPrimary: "#282C34",
     backgroundSecondary: "#21252B",
