@@ -13,6 +13,7 @@ declare module "@emotion/react" {
       selectionColor: Property.Color;
       linkColor: Property.Color;
       focusOutline: Property.Outline;
+      inputBackgroundColor: Property.BackgroundColor;
 
       scrollBar: {
         borderColor: Property.Color;

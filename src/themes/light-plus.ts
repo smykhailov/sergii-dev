@@ -11,6 +11,7 @@ export const lightPlusTheme: Theme = {
     selectionColor: "#3E4450",
     linkColor: "#3794ff",
     focusOutline: "1px solid #007fd4",
+    inputBackgroundColor: "rgb(29, 31, 35)",
 
     scrollBar: {
       borderColor: "#555",

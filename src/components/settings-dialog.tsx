@@ -135,6 +135,10 @@ const modalDialogStyles = (theme: Theme) => ({
 const HeaderContainer = styled.header({
   display: "flex",
   justifyContent: "space-between",
+
+  h1: {
+    fontSize: "1.2em",
+  },
 });
 
 const MainContainer = styled.main({
@@ -149,6 +153,7 @@ const FormControl = styled.div(props => ({
   borderStyle: "solid",
   borderWidth: 1,
   borderColor: props.theme.colors.main.backgroundColor,
+  fontSize: 13,
 
   ":hover": {
     backgroundColor: props.theme.colors.main.backgroundHoverColor,
@@ -166,6 +171,17 @@ const FormControl = styled.div(props => ({
 
   "& > label > span": {
     fontWeight: 500,
+  },
+
+  "& > input, & > select": {
+    backgroundColor: props.theme.colors.inputBackgroundColor,
+    color: props.theme.colors.textColor,
+    border: "none",
+    padding: "2px 4px 4px 4px",
+    height: 26,
+  },
+  "& > input:focus-visible, & > select:focus-visible  ": {
+    outline: props.theme.colors.focusOutline,
   },
 }));
 
