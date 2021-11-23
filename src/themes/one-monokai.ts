@@ -1,6 +1,6 @@
 import { Theme } from "@emotion/react";
 
-export const oneMonokaiTheme: Theme = {
+const oneMonokaiTheme: Theme = {
   colors: {
     backgroundPrimary: "#282C34",
     backgroundSecondary: "#21252B",
@@ -55,3 +55,5 @@ export const oneMonokaiTheme: Theme = {
     },
   },
 };
+
+export default oneMonokaiTheme;

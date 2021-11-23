@@ -1,6 +1,6 @@
 import { Theme } from "@emotion/react";
 
-export const lightPlusTheme: Theme = {
+const lightPlusTheme: Theme = {
   colors: {
     backgroundPrimary: "#282C34",
     backgroundPrimaryActive: "#2F333D",
@@ -55,3 +55,5 @@ export const lightPlusTheme: Theme = {
     },
   },
 };
+
+export default lightPlusTheme;

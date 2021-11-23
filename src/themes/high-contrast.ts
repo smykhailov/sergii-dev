@@ -1,6 +1,6 @@
 import { Theme } from "@emotion/react";
 
-export const highContrastTheme: Theme = {
+const highContrastTheme: Theme = {
   colors: {
     backgroundPrimary: "#282C34",
     backgroundPrimaryActive: "#2F333D",
@@ -55,3 +55,5 @@ export const highContrastTheme: Theme = {
     },
   },
 };
+
+export default highContrastTheme;

@@ -1,30 +1,51 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 
-import { Global, css, ThemeProvider } from "@emotion/react";
+import { Global, css, ThemeProvider, Theme } from "@emotion/react";
 import styled from "@emotion/styled";
-
-import { oneMonokaiTheme } from "@themes/one-monokai";
 
 import Footer from "@components/footer";
 import AppBar from "@components/app-bar";
+import { AppContext, defaultContextValue, useAppContext } from "./app-context";
 
-const theme = oneMonokaiTheme;
+const Layout: FC<{ aside?: React.ReactChild; location: Location }> = props => (
+  <AppContext.Provider value={defaultContextValue}>
+    <UILayout
+      aside={props.aside}
+      location={props.location}
+      children={props.children}
+    />
+  </AppContext.Provider>
+);
 
-const Layout: FC<{ aside?: React.ReactChild; location: Location }> = props => {
-  return (
-    <ThemeProvider theme={oneMonokaiTheme}>
-      <Wrapper>
-        <Global styles={globalStyles} />
-        <Container>
-          <AppBar location={props.location} />
-          {props.aside && <Aside>{props.aside}</Aside>}
-          <Content>{props.children}</Content>
-        </Container>
-        <Footer />
-      </Wrapper>
-    </ThemeProvider>
-  );
-};
+const UILayout: FC<{ aside?: React.ReactChild; location: Location }> =
+  props => {
+    const context = useAppContext();
+    const [theme, setTheme] = useState(null);
+
+    useEffect(() => {
+      import(`../themes/${context.theme}`).then(newTheme =>
+        setTheme(newTheme.default)
+      );
+    }, [context]);
+
+    if (!theme) {
+      return null;
+    }
+
+    return (
+      <ThemeProvider theme={theme}>
+        <Wrapper>
+          <Global styles={globalStyles(theme)} />
+          <Container>
+            <AppBar location={props.location} />
+            {props.aside && <Aside>{props.aside}</Aside>}
+            <Content>{props.children}</Content>
+          </Container>
+          <Footer />
+        </Wrapper>
+      </ThemeProvider>
+    );
+  };
 
 const Wrapper = styled.div(props => ({
   display: "flex",
@@ -92,7 +113,7 @@ const Content = styled.div(props => ({
   },
 }));
 
-const globalStyles = css`
+const globalStyles = (props: Theme) => css`
   html,
   *,
   *::after,
@@ -121,19 +142,19 @@ const globalStyles = css`
 
   ::-webkit-scrollbar-track {
     background-color: transparent;
-    border-left: 1px solid ${theme.colors.scrollBar.borderColor};
-    border-top: 1px solid ${theme.colors.scrollBar.borderColor};
+    border-left: 1px solid ${props.colors.scrollBar.borderColor};
+    border-top: 1px solid ${props.colors.scrollBar.borderColor};
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: ${theme.colors.scrollBar.thumbBackgroundColor};
+    background-color: ${props.colors.scrollBar.thumbBackgroundColor};
     border-left: 1px solid transparent;
     border-top: 1px solid transparent;
     background-clip: content-box;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background-color: ${theme.colors.scrollBar.thumbBackgroundHoverColor};
+    background-color: ${props.colors.scrollBar.thumbBackgroundHoverColor};
   }
 `;
 
