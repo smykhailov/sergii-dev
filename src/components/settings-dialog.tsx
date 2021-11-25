@@ -1,23 +1,39 @@
-import React, { FC, useCallback, useEffect } from "react";
+import React, {
+  ChangeEvent,
+  FC,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { Theme, useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 
 import Modal from "react-modal";
-import { useAppContext } from "./app-context";
-import { TThemes } from "@core/config";
+import { getConfig, TConfig, TThemes } from "@core/config";
+import { nameOf } from "@core/operations";
+
+import TextInput from "@components/common/text-input";
+import SelectInput from "@components/common/select-input";
 
 Modal.setAppElement(document.body);
 
-const themes: { [key in TThemes]: string } = {
+type TKeyValuePair<K extends string> = { [key in K]: string };
+
+const themes: TKeyValuePair<TThemes> = {
   "light-plus": "Light Plus",
   "dark-plus": "Dark Plus",
   "one-monokai": "One Monokai",
   "high-contrast": "High Contrast",
 };
 
+const fonts: TKeyValuePair<string> = {
+  "segoe-ui": "Segoe UI",
+  consolas: "Consolas",
+};
+
 const SettingsDialog: FC<{ isOpen: boolean; onClose: () => void }> = props => {
   const theme = useTheme();
-  const { config } = useAppContext();
+  const [formData, setFormData] = useState(getConfig());
 
   const handleCloseDialog = useCallback(
     (event: KeyboardEvent | React.KeyboardEvent<HTMLAnchorElement>) => {
@@ -32,6 +48,28 @@ const SettingsDialog: FC<{ isOpen: boolean; onClose: () => void }> = props => {
     },
     []
   );
+
+  const handleChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = event.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  // const handleFormSubmit = useCallback(
+  //   (event: React.FormEvent<HTMLFormElement>) => {
+  //     event.preventDefault();
+  //     const formData = {
+  //       [event.currentTarget.name]: event.currentTarget.nodeValue,
+  //     };
+
+  //     console.warn(`!!! ${formData}`);
+  //   },
+  //   []
+  // );
 
   useEffect(() => {
     document.addEventListener("keyup", handleCloseDialog);
@@ -59,69 +97,68 @@ const SettingsDialog: FC<{ isOpen: boolean; onClose: () => void }> = props => {
         ></CloseIcon>
       </HeaderContainer>
       <MainContainer>
-        <FormControl tabIndex={0}>
-          <label htmlFor="theme-selector">
-            <span>General:</span> <strong>Theme</strong>
-          </label>
-          <span>Controls the color scheme of the site.</span>
-          <select
-            name="theme-selector"
-            id="theme-selector"
-            value={themes[config.theme]}
-          >
-            {Object.getOwnPropertyNames(themes).map(theme => (
-              <option>{themes[theme as TThemes]}</option>
-            ))}
-          </select>
-        </FormControl>
-        <FormControl tabIndex={0}>
-          <label htmlFor="controls-font-family-selector">
-            <span>General:</span> <strong>Font Family</strong>
-          </label>
-          <span>Controls the font family of the site (except articles).</span>
-          <select
-            name="controls-font-family-selector"
-            id="controls-font-family-selector"
-          >
-            <option>Segoe UI</option>
-          </select>
-        </FormControl>
-        <FormControl tabIndex={0}>
-          <label htmlFor="controls-fontsize-selector">
-            <span>General:</span> <strong>Font Size</strong>
-          </label>
-          <span>Controls the font size of controls (except articles).</span>
-          <input
-            name="controls-fontsize-selector"
-            id="controls-fontsize-selector"
-            type="text"
-            value={config.editorFontSize}
-          />
-        </FormControl>
-        <FormControl tabIndex={0}>
-          <label htmlFor="article-fontfamily-selector">
-            <span>Article:</span> <strong>Font Family</strong>
-          </label>
-          <span>Controls the font size of articles.</span>
-          <select
-            name="article-fontfamily-selector"
-            id="article-fontfamily-selector"
-          >
-            <option>Segoe UI</option>
-          </select>
-        </FormControl>
-        <FormControl tabIndex={0}>
-          <label htmlFor="article-fontsize-selector">
-            <span>Article:</span> <strong>Font Size</strong>
-          </label>
-          <span>Controls the font size of articles.</span>
-          <input
-            name="article-fontsize-selector"
-            id="article-fontsize-selector"
-            type="text"
-            value={config.articleFontSize}
-          />
-        </FormControl>
+        <SelectInput
+          title={
+            <>
+              <span>General:</span> <strong>Theme</strong>
+            </>
+          }
+          subTitle="Controls the color scheme of the site."
+          onChange={handleChange}
+          name={nameOf<TConfig>("theme")}
+          value={formData.theme}
+          data={themes}
+        />
+
+        <SelectInput
+          title={
+            <>
+              <span>General:</span> <strong>Font Family</strong>
+            </>
+          }
+          subTitle="Controls the font family of the site (except articles)."
+          onChange={handleChange}
+          name={nameOf<TConfig>("editorFontFace")}
+          value={formData.editorFontFace}
+          data={fonts}
+        />
+
+        <TextInput
+          title={
+            <>
+              <span>General:</span> <strong>Font Size</strong>
+            </>
+          }
+          subTitle="Controls the font size of controls (except articles)."
+          onChange={handleChange}
+          name={nameOf<TConfig>("editorFontSize")}
+          value={formData.editorFontSize.toString()}
+        />
+
+        <SelectInput
+          title={
+            <>
+              <span>Article:</span> <strong>Font Family</strong>
+            </>
+          }
+          subTitle="Controls the font family of articles."
+          onChange={handleChange}
+          name={nameOf<TConfig>("articleFontFace")}
+          value={formData.articleFontFace}
+          data={fonts}
+        />
+
+        <TextInput
+          title={
+            <>
+              <span>Article:</span> <strong>Font Size</strong>
+            </>
+          }
+          subTitle="Controls the font size of articles."
+          onChange={handleChange}
+          name={nameOf<TConfig>("articleFontSize")}
+          value={formData.articleFontSize.toString()}
+        />
       </MainContainer>
     </Modal>
   );
@@ -160,45 +197,6 @@ const MainContainer = styled.main({
   display: "flex",
   flexDirection: "column",
 });
-
-const FormControl = styled.div(props => ({
-  display: "flex",
-  flexDirection: "column",
-  padding: "12px 14px 18px",
-  borderStyle: "solid",
-  borderWidth: 1,
-  borderColor: props.theme.colors.main.backgroundColor,
-  fontSize: 13,
-
-  ":hover": {
-    backgroundColor: props.theme.colors.main.backgroundHoverColor,
-    borderColor: props.theme.colors.main.backgroundHoverColor,
-    borderStyle: "solid",
-    borderWidth: 1,
-  },
-
-  ":active, :focus": {
-    backgroundColor: props.theme.colors.main.backgroundActiveColor,
-    outlineColor: props.theme.colors.main.borderActiveColor,
-    outlineStyle: "solid",
-    outlineWidth: 1,
-  },
-
-  "& > label > span": {
-    fontWeight: 500,
-  },
-
-  "& > input, & > select": {
-    backgroundColor: props.theme.colors.inputBackgroundColor,
-    color: props.theme.colors.textColor,
-    border: "none",
-    padding: "2px 4px 4px 4px",
-    height: 26,
-  },
-  "& > input:focus-visible, & > select:focus-visible  ": {
-    outline: props.theme.colors.focusOutline,
-  },
-}));
 
 const CloseIcon = styled.a(props => ({
   position: "absolute",

@@ -26,3 +26,7 @@ export const getConfig = (): TConfig => {
     localStorage.getItem("config") || JSON.stringify(defaultConfig)
   );
 };
+
+export const saveConfig = (config: TConfig): void => {
+  return localStorage.setItem("config", JSON.stringify(config));
+};
