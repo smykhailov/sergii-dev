@@ -161,6 +161,8 @@ const modalDialogStyles = (theme: Theme) => ({
     borderRadius: 0,
     backgroundColor: theme.colors.main.backgroundColor,
     color: theme.colors.textColor,
+    fontFamily: theme.fontFace,
+    fontSize: theme.fontSize,
   },
 });
 

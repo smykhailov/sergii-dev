@@ -148,7 +148,7 @@ const ArticleItemBody = styled.div({
 const ArticleItemFooter = styled.div(props => ({
   display: "flex",
   justifyContent: "space-between",
-  fontSize: 13,
+  fontSize: props.theme.fontSize,
   color: props.theme.colors.textActiveColor,
 }));
 

@@ -8,10 +8,10 @@ type TAppContext = {
 export const defaultContextValue: TAppContext = {
   config: getConfig() || {
     theme: "one-monokai", // TODO: add theme detection and chhose light/dark based on browser settings
-    editorFontFace: "Segoe UI",
+    editorFontFace: "segoe-ui",
     editorFontSize: 13,
-    articleFontFace: "Segoe UI",
-    articleFontSize: 13,
+    articleFontFace: "segoe-ui",
+    articleFontSize: 16,
   },
 };
 

@@ -7,7 +7,7 @@ const FormControl = styled.div(props => ({
   borderStyle: "solid",
   borderWidth: 1,
   borderColor: props.theme.colors.main.backgroundColor,
-  fontSize: 13,
+  fontSize: props.theme.fontSize,
 
   ":hover": {
     backgroundColor: props.theme.colors.main.backgroundHoverColor,

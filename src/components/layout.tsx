@@ -6,6 +6,7 @@ import styled from "@emotion/styled";
 import Footer from "@components/footer";
 import AppBar from "@components/app-bar";
 import { AppContext, defaultContextValue, useAppContext } from "./app-context";
+import { fonts } from "@core/config";
 
 const Layout: FC<{ aside?: React.ReactChild; location: Location }> = props => (
   <AppContext.Provider value={defaultContextValue}>
@@ -25,9 +26,8 @@ const UILayout: FC<{ aside?: React.ReactChild; location: Location }> =
     useEffect(() => {
       import(`../themes/${config.theme}`)
         .then(newTheme => {
-          (newTheme.default as Theme).fontSize =
-            config.editorFontSize.toString();
-          (newTheme.default as Theme).fontFace = config.editorFontFace;
+          (newTheme.default as Theme).fontSize = `${config.editorFontSize}px`;
+          (newTheme.default as Theme).fontFace = fonts[config.editorFontFace];
           setTheme(newTheme.default);
           console.info(`Theme has changed: ${config.theme}`);
         })

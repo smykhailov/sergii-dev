@@ -66,7 +66,7 @@ const FooterContainer = styled.footer(props => ({
   color: props.theme.colors.footer.textColor,
   backgroundColor: props.theme.colors.backgroundSecondary,
   fontFamily: "Segoe WPC, Segoe UI, sans-serif",
-  fontSize: 13,
+  fontSize: props.theme.fontSize,
   paddingLeft: 6,
   paddingRight: 6,
 
