@@ -20,7 +20,9 @@ const SelectInput = <T extends { [key: string]: string }>(
       <span>{subTitle}</span>
       <select name={name} id={name} onChange={onChange} value={value}>
         {Object.getOwnPropertyNames(data).map(item => (
-          <option key={item}>{(data as any)[item]}</option>
+          <option value={item} key={item}>
+            {data[item]}
+          </option>
         ))}
       </select>
     </FormControl>

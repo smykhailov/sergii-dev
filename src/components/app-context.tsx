@@ -1,4 +1,4 @@
-import { TConfig } from "@core/config";
+import { getConfig, TConfig } from "@core/config";
 import { createContext, useContext } from "react";
 
 type TAppContext = {
@@ -6,7 +6,7 @@ type TAppContext = {
 };
 
 export const defaultContextValue: TAppContext = {
-  config: {
+  config: getConfig() || {
     theme: "one-monokai", // TODO: add theme detection and chhose light/dark based on browser settings
     editorFontFace: "Segoe UI",
     editorFontSize: 13,

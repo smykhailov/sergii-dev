@@ -53,7 +53,11 @@ const AppBar: FC<{ location: Location }> = props => {
     event.preventDefault();
     setSettingsDialogOpen(true);
   };
-  const closeSettingsDialog = () => setSettingsDialogOpen(false);
+  const closeSettingsDialog = () => {
+    setSettingsDialogOpen(false);
+    // TODO: is it possible to re-render?
+    window.location.reload();
+  };
 
   return (
     <>

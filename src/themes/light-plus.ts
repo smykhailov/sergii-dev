@@ -5,9 +5,9 @@ const lightPlusTheme: Theme = {
   fontFace: "Segoe UI",
 
   colors: {
-    backgroundPrimary: "#282C34",
+    backgroundPrimary: "#f00",
     backgroundPrimaryActive: "#2F333D",
-    backgroundSecondary: "#21252B",
+    backgroundSecondary: "#f00",
     modalOverlayColor: "rgba(40, 44, 52, 0.85)",
     textColor: "#CCC",
     textActiveColor: "rgba(215, 218, 224)",
@@ -35,7 +35,7 @@ const lightPlusTheme: Theme = {
     },
 
     main: {
-      backgroundColor: "#282C34",
+      backgroundColor: "#00f",
       backgroundHoverColor: "#333A42",
       backgroundActiveColor: "#34383F",
       borderActiveColor: "#4D5056",

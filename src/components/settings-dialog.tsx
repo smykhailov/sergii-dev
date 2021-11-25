@@ -9,27 +9,13 @@ import { Theme, useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 
 import Modal from "react-modal";
-import { getConfig, TConfig, TThemes } from "@core/config";
+import { fonts, getConfig, saveConfig, TConfig, themes } from "@core/config";
 import { nameOf } from "@core/operations";
 
 import TextInput from "@components/common/text-input";
 import SelectInput from "@components/common/select-input";
 
 Modal.setAppElement(document.body);
-
-type TKeyValuePair<K extends string> = { [key in K]: string };
-
-const themes: TKeyValuePair<TThemes> = {
-  "light-plus": "Light Plus",
-  "dark-plus": "Dark Plus",
-  "one-monokai": "One Monokai",
-  "high-contrast": "High Contrast",
-};
-
-const fonts: TKeyValuePair<string> = {
-  "segoe-ui": "Segoe UI",
-  consolas: "Consolas",
-};
 
 const SettingsDialog: FC<{ isOpen: boolean; onClose: () => void }> = props => {
   const theme = useTheme();
@@ -53,23 +39,17 @@ const SettingsDialog: FC<{ isOpen: boolean; onClose: () => void }> = props => {
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = event.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value,
-    }));
+    setFormData(prevState => {
+      const newState = {
+        ...prevState,
+        [name]: value,
+      };
+
+      saveConfig(newState);
+
+      return newState;
+    });
   };
-
-  // const handleFormSubmit = useCallback(
-  //   (event: React.FormEvent<HTMLFormElement>) => {
-  //     event.preventDefault();
-  //     const formData = {
-  //       [event.currentTarget.name]: event.currentTarget.nodeValue,
-  //     };
-
-  //     console.warn(`!!! ${formData}`);
-  //   },
-  //   []
-  // );
 
   useEffect(() => {
     document.addEventListener("keyup", handleCloseDialog);

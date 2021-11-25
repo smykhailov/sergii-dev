@@ -19,14 +19,20 @@ const Layout: FC<{ aside?: React.ReactChild; location: Location }> = props => (
 
 const UILayout: FC<{ aside?: React.ReactChild; location: Location }> =
   props => {
-    const context = useAppContext();
+    const { config } = useAppContext();
     const [theme, setTheme] = useState(null);
 
     useEffect(() => {
-      import(`../themes/${context.config.theme}`).then(newTheme =>
-        setTheme(newTheme.default)
-      );
-    }, [context]);
+      import(`../themes/${config.theme}`)
+        .then(newTheme => {
+          (newTheme.default as Theme).fontSize =
+            config.editorFontSize.toString();
+          (newTheme.default as Theme).fontFace = config.editorFontFace;
+          setTheme(newTheme.default);
+          console.info(`Theme has changed: ${config.theme}`);
+        })
+        .catch(err => console.error(`Can't load theme: ${config.theme}`, err));
+    }, [config.theme]);
 
     if (!theme) {
       return null;
