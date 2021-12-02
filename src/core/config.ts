@@ -31,8 +31,8 @@ export const themes: TKeyValuePair<TThemes> = {
 };
 
 export const fonts: TKeyValuePair<TFontFaces> = {
-  "segoe-ui": "Segoe UI",
-  consolas: "Consolas",
+  "segoe-ui": "Segoe WPC, Segoe UI, sans-serif",
+  consolas: "Consolas, monaco, monospace",
 };
 
 export const getConfig = (): TConfig => {

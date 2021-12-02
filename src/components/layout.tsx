@@ -133,13 +133,6 @@ const globalStyles = (props: Theme) => css`
     overflow: hidden;
   }
 
-  body {
-    margin: 0 !important;
-    padding: 0 !important;
-    font-family: ${props.fontFace};
-    font-size: ${props.fontSize};
-  }
-
   a,
   a:hover,
   a:visited,

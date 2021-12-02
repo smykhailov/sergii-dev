@@ -1,11 +1,14 @@
-import { defaultContextValue } from "@components/app-context";
-import { fonts } from "@core/config";
+// import { defaultContextValue } from "@components/app-context";
+// import { fonts } from "@core/config";
 import Typography from "typography";
 
-const config = defaultContextValue.config;
+// const config = defaultContextValue.config;
+
+// console.warn(`config: ${JSON.stringify(config)}`);
 
 const typography = new Typography({
-  baseFontSize: `${config.articleFontSize}px`, // "16px",
+  // baseFontSize: `${config.articleFontSize}px`, // "16px",
+  baseFontSize: "16px", // "16px",
   baseLineHeight: 1.666,
   bodyWeight: 200,
   boldWeight: 700,
@@ -16,10 +19,10 @@ const typography = new Typography({
     },
     options: {},
   }),
-  //headerFontFamily: ["consolas"],
-  //bodyFontFamily: ["consolas"],
-  headerFontFamily: [fonts[config.articleFontFace]],
-  bodyFontFamily: [fonts[config.articleFontFace]],
+  // headerFontFamily: [fonts[config.articleFontFace]],
+  // bodyFontFamily: [fonts[config.articleFontFace]],
+  headerFontFamily: ["consolas"],
+  bodyFontFamily: ["consolas"],
 });
 
 export default typography;
