@@ -37,10 +37,14 @@ export const fonts: TKeyValuePair<TFontFaces> = {
 
 export const getConfig = (): TConfig => {
   return JSON.parse(
-    localStorage.getItem("config") || JSON.stringify(defaultConfig)
+    typeof window !== `undefined`
+      ? localStorage.getItem("config") || JSON.stringify(defaultConfig)
+      : JSON.stringify(defaultConfig)
   );
 };
 
 export const saveConfig = (config: TConfig): void => {
-  return localStorage.setItem("config", JSON.stringify(config));
+  if (typeof window !== `undefined`) {
+    localStorage.setItem("config", JSON.stringify(config));
+  }
 };
