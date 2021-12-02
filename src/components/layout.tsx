@@ -134,9 +134,9 @@ const globalStyles = (props: Theme) => css`
   }
 
   body: {
-    margin: 0;
-    padding: 0;
-    font-face: ${props.fontFace};
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: ${props.fontFace};
     font-size: ${props.fontSize};
   }
 
