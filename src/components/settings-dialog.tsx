@@ -16,7 +16,7 @@ import { parseNum } from "@core/parse";
 import TextInput from "@components/common/text-input";
 import SelectInput from "@components/common/select-input";
 
-if (window && window.document) {
+if (typeof window !== `undefined`) {
   Modal.setAppElement(document.body);
 }
 
