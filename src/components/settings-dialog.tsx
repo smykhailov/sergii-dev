@@ -11,6 +11,7 @@ import styled from "@emotion/styled";
 import Modal from "react-modal";
 import { fonts, getConfig, saveConfig, TConfig, themes } from "@core/config";
 import { nameOf } from "@core/operations";
+import { parseNum } from "@core/parse";
 
 import TextInput from "@components/common/text-input";
 import SelectInput from "@components/common/select-input";
@@ -42,7 +43,10 @@ const SettingsDialog: FC<{ isOpen: boolean; onClose: () => void }> = props => {
     setFormData(prevState => {
       const newState = {
         ...prevState,
-        [name]: value,
+        [name]:
+          event.target instanceof HTMLInputElement
+            ? parseNum(value, name as keyof TConfig)
+            : value,
       };
 
       saveConfig(newState);
@@ -163,17 +167,19 @@ const modalDialogStyles = (theme: Theme) => ({
     color: theme.colors.textColor,
     fontFamily: theme.fontFace,
     fontSize: theme.fontSize,
+    maxHeight: "80vh",
   },
 });
 
-const HeaderContainer = styled.header({
+const HeaderContainer = styled.header(props => ({
   display: "flex",
   justifyContent: "space-between",
 
   h1: {
+    fontFamily: props.theme.fontFace,
     fontSize: "1.2em",
   },
-});
+}));
 
 const MainContainer = styled.main({
   display: "flex",
