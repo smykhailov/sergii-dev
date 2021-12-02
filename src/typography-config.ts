@@ -1,7 +1,11 @@
+import { defaultContextValue } from "@components/app-context";
+import { fonts } from "@core/config";
 import Typography from "typography";
 
+const config = defaultContextValue.config;
+
 const typography = new Typography({
-  baseFontSize: "16px",
+  baseFontSize: `${config.articleFontSize}px`, // "16px",
   baseLineHeight: 1.666,
   bodyWeight: 200,
   boldWeight: 700,
@@ -14,8 +18,8 @@ const typography = new Typography({
   }),
   //headerFontFamily: ["consolas"],
   //bodyFontFamily: ["consolas"],
-  headerFontFamily: ["Segoe UI"],
-  bodyFontFamily: ["Segoe UI"],
+  headerFontFamily: [fonts[config.articleFontFace]],
+  bodyFontFamily: [fonts[config.articleFontFace]],
 });
 
 export default typography;

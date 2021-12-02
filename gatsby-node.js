@@ -1,14 +1,28 @@
 const path = require("path");
 const { createFilePath } = require("gatsby-source-filesystem");
 const slugify = require("slugify");
+const webpack = require("webpack");
 
-exports.onCreateWebpackConfig = ({ stage, actions }) => {
+exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
   if (stage.startsWith("develop")) {
     actions.setWebpackConfig({
       resolve: {
         alias: {
           "react-dom": "@hot-loader/react-dom",
         },
+      },
+    });
+  }
+
+  if (stage === "build-html" || stage === "develop-html") {
+    actions.setWebpackConfig({
+      module: {
+        rules: [
+          {
+            test: /typography-config/,
+            use: loaders.null(),
+          },
+        ],
       },
     });
   }

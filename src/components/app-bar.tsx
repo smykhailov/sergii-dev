@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { Link } from "gatsby";
 import styled from "@emotion/styled";
 
@@ -11,8 +11,11 @@ import TagIcon from "../assets/tag.svg";
 import ProjectsIcon from "../assets/source-control.svg";
 import CVIcon from "../assets/person.svg";
 import SettingsIcon from "../assets/settings-gear.svg";
+import SettingsDialog from "./settings-dialog";
 
 const AppBar: FC<{ location: Location }> = props => {
+  const [isSettingsDialogOpen, setSettingsDialogOpen] = useState(false);
+
   const items: TNavItem[] = [
     {
       to: "/",
@@ -46,28 +49,43 @@ const AppBar: FC<{ location: Location }> = props => {
     },
   ];
 
+  const openSettingsDialog = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    setSettingsDialogOpen(true);
+  };
+  const closeSettingsDialog = () => {
+    setSettingsDialogOpen(false);
+    // TODO: is it possible to re-render?
+    window.location.reload();
+  };
+
   return (
-    <Nav>
-      <ul>
-        {items.map(item => (
-          <NavItem
-            location={props.location}
-            key={item.to}
-            to={item.to}
-            title={item.title}
-            icon={item.icon}
-          />
-        ))}
-      </ul>
-      {/* TODO: Think about posibility to move this into one list but position bottom visually - this is good for a11y */}
-      <ul>
-        <li>
-          <a href="/" title="Settings">
-            <SettingsIcon />
-          </a>
-        </li>
-      </ul>
-    </Nav>
+    <>
+      {isSettingsDialogOpen && (
+        <SettingsDialog
+          isOpen={isSettingsDialogOpen}
+          onClose={closeSettingsDialog}
+        />
+      )}
+      <Nav>
+        <ul>
+          {items.map(item => (
+            <NavItem
+              location={props.location}
+              key={item.to}
+              to={item.to}
+              title={item.title}
+              icon={item.icon}
+            />
+          ))}
+          <li className="settings">
+            <a href="#" title="Settings" onClick={openSettingsDialog}>
+              <SettingsIcon />
+            </a>
+          </li>
+        </ul>
+      </Nav>
+    </>
   );
 };
 
@@ -107,6 +125,9 @@ const Nav = styled.nav(props => ({
     listStyle: "none",
     margin: 0,
     padding: 0,
+    display: "flex",
+    flexDirection: "column",
+    height: "calc(100vh - 26px)",
   },
 
   "& li, li > a": {
@@ -126,6 +147,12 @@ const Nav = styled.nav(props => ({
 
   "& li": {
     marginBottom: 4,
+  },
+
+  "& li.settings": {
+    display: "flex",
+    flex: 1,
+    alignItems: "flex-end",
   },
 
   "& li > .active": {

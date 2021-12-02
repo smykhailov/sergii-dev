@@ -1,14 +1,20 @@
 import { Theme } from "@emotion/react";
 
-export const darkPlusTheme: Theme = {
+const darkPlusTheme: Theme = {
+  fontSize: "13px",
+  fontFace: "Segoe UI",
+
   colors: {
     backgroundPrimary: "#282C34",
     backgroundPrimaryActive: "#2F333D",
     backgroundSecondary: "#21252B",
+    modalOverlayColor: "rgba(40, 44, 52, 0.85)",
     textColor: "#CCC",
     textActiveColor: "rgba(215, 218, 224)",
     selectionColor: "#3E4450",
     linkColor: "#3794ff",
+    focusOutline: "1px solid #007fd4",
+    inputBackgroundColor: "rgb(29, 31, 35)",
 
     scrollBar: {
       borderColor: "#555",
@@ -31,6 +37,8 @@ export const darkPlusTheme: Theme = {
     main: {
       backgroundColor: "#282C34",
       backgroundHoverColor: "#333A42",
+      backgroundActiveColor: "#34383F",
+      borderActiveColor: "#4D5056",
       titleContainerBackgroundColor: "#21252B",
       titleBackgroundColor: "#383E49",
     },
@@ -50,3 +58,5 @@ export const darkPlusTheme: Theme = {
     },
   },
 };
+
+export default darkPlusTheme;

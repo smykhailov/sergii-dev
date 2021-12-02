@@ -1,30 +1,57 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 
-import { Global, css, ThemeProvider } from "@emotion/react";
+import { Global, css, ThemeProvider, Theme } from "@emotion/react";
 import styled from "@emotion/styled";
-
-import { oneMonokaiTheme } from "@themes/one-monokai";
 
 import Footer from "@components/footer";
 import AppBar from "@components/app-bar";
+import { AppContext, defaultContextValue, useAppContext } from "./app-context";
+import { fonts } from "@core/config";
 
-const theme = oneMonokaiTheme;
+const Layout: FC<{ aside?: React.ReactChild; location: Location }> = props => (
+  <AppContext.Provider value={defaultContextValue}>
+    <UILayout
+      aside={props.aside}
+      location={props.location}
+      children={props.children}
+    />
+  </AppContext.Provider>
+);
 
-const Layout: FC<{ aside?: React.ReactChild; location: Location }> = props => {
-  return (
-    <ThemeProvider theme={oneMonokaiTheme}>
-      <Wrapper>
-        <Global styles={globalStyles} />
-        <Container>
-          <AppBar location={props.location} />
-          {props.aside && <Aside>{props.aside}</Aside>}
-          <Content>{props.children}</Content>
-        </Container>
-        <Footer />
-      </Wrapper>
-    </ThemeProvider>
-  );
-};
+const UILayout: FC<{ aside?: React.ReactChild; location: Location }> =
+  props => {
+    const { config } = useAppContext();
+    const [theme, setTheme] = useState(null);
+
+    useEffect(() => {
+      import(`../themes/${config.theme}`)
+        .then(newTheme => {
+          (newTheme.default as Theme).fontSize = `${config.editorFontSize}px`;
+          (newTheme.default as Theme).fontFace = fonts[config.editorFontFace];
+          setTheme(newTheme.default);
+          console.info(`Theme has changed: ${config.theme}`);
+        })
+        .catch(err => console.error(`Can't load theme: ${config.theme}`, err));
+    }, [config.theme]);
+
+    if (!theme) {
+      return null;
+    }
+
+    return (
+      <ThemeProvider theme={theme}>
+        <Wrapper>
+          <Global styles={globalStyles(theme)} />
+          <Container>
+            <AppBar location={props.location} />
+            {props.aside && <Aside>{props.aside}</Aside>}
+            <Content>{props.children}</Content>
+          </Container>
+          <Footer />
+        </Wrapper>
+      </ThemeProvider>
+    );
+  };
 
 const Wrapper = styled.div(props => ({
   display: "flex",
@@ -33,6 +60,9 @@ const Wrapper = styled.div(props => ({
 
   "& ::selection": {
     background: props.theme.colors.selectionColor,
+  },
+  "& *:focus-visible": {
+    outline: props.theme.colors.focusOutline,
   },
 }));
 
@@ -49,7 +79,7 @@ const Aside = styled.aside(props => ({
   backgroundColor: props.theme.colors.backgroundSecondary,
   color: props.theme.colors.textColor,
   fontFamily: "Segoe WPC, Segoe UI, sans-serif",
-  fontSize: 13,
+  fontSize: props.theme.fontSize,
   fontWeight: 400,
   lineHeight: 22,
 
@@ -89,7 +119,7 @@ const Content = styled.div(props => ({
   },
 }));
 
-const globalStyles = css`
+const globalStyles = (props: Theme) => css`
   html,
   *,
   *::after,
@@ -118,19 +148,19 @@ const globalStyles = css`
 
   ::-webkit-scrollbar-track {
     background-color: transparent;
-    border-left: 1px solid ${theme.colors.scrollBar.borderColor};
-    border-top: 1px solid ${theme.colors.scrollBar.borderColor};
+    border-left: 1px solid ${props.colors.scrollBar.borderColor};
+    border-top: 1px solid ${props.colors.scrollBar.borderColor};
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: ${theme.colors.scrollBar.thumbBackgroundColor};
+    background-color: ${props.colors.scrollBar.thumbBackgroundColor};
     border-left: 1px solid transparent;
     border-top: 1px solid transparent;
     background-clip: content-box;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background-color: ${theme.colors.scrollBar.thumbBackgroundHoverColor};
+    background-color: ${props.colors.scrollBar.thumbBackgroundHoverColor};
   }
 `;
 

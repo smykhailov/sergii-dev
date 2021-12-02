@@ -29,7 +29,7 @@ const TitleContainer = styled.div(props => ({
   display: "flex",
   backgroundColor: props.theme.colors.main.titleContainerBackgroundColor,
   fontFamily: "Segoe WPC, Segoe UI, sans-serif",
-  fontSize: 13,
+  fontSize: props.theme.fontSize,
   fontWeight: 400,
   height: 35,
   // TODO: Add the shadow onScroll

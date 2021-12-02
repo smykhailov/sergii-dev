@@ -1,14 +1,14 @@
 import { Theme } from "@emotion/react";
 
-const oneMonokaiTheme: Theme = {
+const highContrastTheme: Theme = {
   fontSize: "13px",
   fontFace: "Segoe UI",
 
   colors: {
     backgroundPrimary: "#282C34",
-    backgroundSecondary: "#21252B",
     backgroundPrimaryActive: "#2F333D",
-    modalOverlayColor: "rgba(85, 85, 85, 0.85)",
+    backgroundSecondary: "#21252B",
+    modalOverlayColor: "rgba(40, 44, 52, 0.85)",
     textColor: "#CCC",
     textActiveColor: "rgba(215, 218, 224)",
     selectionColor: "#3E4450",
@@ -36,7 +36,7 @@ const oneMonokaiTheme: Theme = {
 
     main: {
       backgroundColor: "#282C34",
-      backgroundHoverColor: "#2E3239",
+      backgroundHoverColor: "#333A42",
       backgroundActiveColor: "#34383F",
       borderActiveColor: "#4D5056",
       titleContainerBackgroundColor: "#21252B",
@@ -59,4 +59,4 @@ const oneMonokaiTheme: Theme = {
   },
 };
 
-export default oneMonokaiTheme;
+export default highContrastTheme;

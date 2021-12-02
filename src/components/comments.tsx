@@ -29,7 +29,7 @@ const CommentsContainer = styled.div(props => ({
     backgroundColor: props.theme.colors.gitalk.popupBackgroundColor,
     border: "none",
     padding: 0,
-    fontSize: "13px",
+    fontSize: props.theme.fontSize,
   },
   ".gt-container .gt-popup .gt-action.is--active:before": {
     backgroundColor: props.theme.colors.linkColor,
@@ -103,7 +103,7 @@ const CommentsContainer = styled.div(props => ({
       backgroundColor: props.theme.colors.backgroundSecondary,
     },
   ".gt-container .gt-header-textarea:focus": {
-    border: "1px solid #007fd4",
+    border: props.theme.colors.focusOutline,
   },
   ".gt-container .gt-error": {
     textAlign: "left",

@@ -3,14 +3,20 @@ import { Property } from "csstype";
 
 declare module "@emotion/react" {
   export interface Theme {
+    fontSize: Property.FontSize;
+    fontFace: Property.FontFamily;
+
     colors: {
       backgroundPrimary: Property.BackgroundColor;
       backgroundPrimaryActive: Property.BackgroundColor;
       backgroundSecondary: Property.BackgroundColor;
+      modalOverlayColor: Property.BackgroundColor;
       textColor: Property.Color;
       textActiveColor: Property.Color;
       selectionColor: Property.Color;
       linkColor: Property.Color;
+      focusOutline: Property.Outline;
+      inputBackgroundColor: Property.BackgroundColor;
 
       scrollBar: {
         borderColor: Property.Color;
@@ -33,6 +39,8 @@ declare module "@emotion/react" {
       main: {
         backgroundColor: Property.Color;
         backgroundHoverColor: Property.Color;
+        backgroundActiveColor: Property.Color;
+        borderActiveColor: Property.Color;
         titleContainerBackgroundColor: Property.Color;
         titleBackgroundColor: Property.Color;
       };

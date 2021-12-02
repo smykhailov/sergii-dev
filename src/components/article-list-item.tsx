@@ -1,4 +1,10 @@
-import React, { FC, MouseEvent, useEffect, useState } from "react";
+import React, {
+  FC,
+  MouseEvent,
+  KeyboardEvent,
+  useEffect,
+  useState,
+} from "react";
 import styled from "@emotion/styled";
 
 import { Link, navigate } from "gatsby";
@@ -46,8 +52,18 @@ const ArticleListItem: FC<{
     };
   }, [props.slug]);
 
+  const onKeyPressHandler = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter" || event.key === " ") {
+      navigate(props.slug);
+    }
+  };
+
   return (
-    <ArticleItemContainer key={props.id}>
+    <ArticleItemContainer
+      key={props.id}
+      tabIndex={0}
+      onKeyPress={onKeyPressHandler}
+    >
       <ItemButton to={props.slug}>
         <ArticleItemHeader>
           <h3>{props.title}</h3>
@@ -80,8 +96,8 @@ const ArticleListItem: FC<{
 };
 
 const ItemButton: FC<{ to: string }> = props => {
-  const onClickHandler = (e: MouseEvent<HTMLDivElement>) => {
-    e.preventDefault();
+  const onClickHandler = (event: MouseEvent<HTMLDivElement>) => {
+    event.preventDefault();
     navigate(props.to);
   };
 
@@ -132,7 +148,7 @@ const ArticleItemBody = styled.div({
 const ArticleItemFooter = styled.div(props => ({
   display: "flex",
   justifyContent: "space-between",
-  fontSize: 13,
+  fontSize: props.theme.fontSize,
   color: props.theme.colors.textActiveColor,
 }));
 
