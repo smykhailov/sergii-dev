@@ -16,7 +16,9 @@ import { parseNum } from "@core/parse";
 import TextInput from "@components/common/text-input";
 import SelectInput from "@components/common/select-input";
 
-Modal.setAppElement(document.body);
+if (window && window.document) {
+  Modal.setAppElement(document.body);
+}
 
 const SettingsDialog: FC<{ isOpen: boolean; onClose: () => void }> = props => {
   const theme = useTheme();
