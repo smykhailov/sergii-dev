@@ -3,6 +3,8 @@ import { Theme } from "@emotion/react";
 const lightPlusTheme: Theme = {
   fontSize: "13px",
   fontFace: "Segoe UI",
+  articleFontSize: "14px",
+  articleFontFace: "consolas",
 
   colors: {
     backgroundPrimary: "#f00",
