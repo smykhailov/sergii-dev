@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useCallback, useState } from "react";
 import { Link } from "gatsby";
 import styled from "@emotion/styled";
 
@@ -53,11 +53,11 @@ const AppBar: FC<{ location: Location }> = props => {
     event.preventDefault();
     setSettingsDialogOpen(true);
   };
-  const closeSettingsDialog = () => {
+  const closeSettingsDialog = useCallback(() => {
     setSettingsDialogOpen(false);
     // TODO: is it possible to re-render?
     window.location.reload();
-  };
+  }, []);
 
   return (
     <>

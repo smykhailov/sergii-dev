@@ -3,6 +3,8 @@ import { Theme } from "@emotion/react";
 const highContrastTheme: Theme = {
   fontSize: "13px",
   fontFace: "Segoe UI",
+  articleFontSize: "14px",
+  articleFontFace: "consolas",
 
   colors: {
     backgroundPrimary: "#282C34",

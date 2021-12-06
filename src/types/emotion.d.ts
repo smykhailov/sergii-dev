@@ -5,6 +5,8 @@ declare module "@emotion/react" {
   export interface Theme {
     fontSize: Property.FontSize;
     fontFace: Property.FontFamily;
+    articleFontSize: Property.FontSize;
+    articleFontFace: Property.FontFamily;
 
     colors: {
       backgroundPrimary: Property.BackgroundColor;

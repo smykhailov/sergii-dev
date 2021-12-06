@@ -5,34 +5,47 @@ import styled from "@emotion/styled";
 
 import Footer from "@components/footer";
 import AppBar from "@components/app-bar";
-import { AppContext, defaultContextValue, useAppContext } from "./app-context";
-import { fonts } from "@core/config";
+import { AppContext, defaultContextValue } from "./app-context";
+import { fonts, getConfig } from "@core/config";
 
-const Layout: FC<{ aside?: React.ReactChild; location: Location }> = props => (
-  <AppContext.Provider value={defaultContextValue}>
-    <UILayout
-      aside={props.aside}
-      location={props.location}
-      children={props.children}
-    />
-  </AppContext.Provider>
-);
+const Layout: FC<{ aside?: React.ReactChild; location: Location }> = props => {
+  const [ctx, setContext] = useState(defaultContextValue);
+
+  useEffect(() => {
+    setContext({ ...ctx, config: getConfig() });
+  }, []);
+
+  return (
+    <AppContext.Provider value={ctx}>
+      <UILayout
+        aside={props.aside}
+        location={props.location}
+        children={props.children}
+      />
+    </AppContext.Provider>
+  );
+};
 
 const UILayout: FC<{ aside?: React.ReactChild; location: Location }> =
   props => {
-    const { config } = useAppContext();
     const [theme, setTheme] = useState(null);
 
     useEffect(() => {
+      const config = getConfig();
       import(`../themes/${config.theme}`)
         .then(newTheme => {
           (newTheme.default as Theme).fontSize = `${config.editorFontSize}px`;
           (newTheme.default as Theme).fontFace = fonts[config.editorFontFace];
+          (
+            newTheme.default as Theme
+          ).articleFontSize = `${config.articleFontSize}px`;
+          (newTheme.default as Theme).articleFontFace =
+            fonts[config.articleFontFace];
           setTheme(newTheme.default);
           console.info(`Theme has changed: ${config.theme}`);
         })
         .catch(err => console.error(`Can't load theme: ${config.theme}`, err));
-    }, [config.theme]);
+    }, []);
 
     if (!theme) {
       return null;
@@ -127,6 +140,11 @@ const globalStyles = (props: Theme) => css`
     box-sizing: border-box;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
+  }
+
+  body > #___gatsby {
+    font-family: ${props.articleFontFace};
+    font-size: ${props.articleFontSize};
   }
 
   html {

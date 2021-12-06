@@ -17,7 +17,7 @@ export const defaultConfig: TConfig = {
   theme: "one-monokai", // TODO: add theme detection and chhose light/dark based on browser settings
   editorFontFace: "segoe-ui",
   editorFontSize: 13,
-  articleFontFace: "segoe-ui",
+  articleFontFace: "consolas",
   articleFontSize: 16,
 };
 
@@ -31,8 +31,8 @@ export const themes: TKeyValuePair<TThemes> = {
 };
 
 export const fonts: TKeyValuePair<TFontFaces> = {
-  "segoe-ui": "Segoe WPC, Segoe UI, sans-serif",
-  consolas: "Consolas, monaco, monospace",
+  "segoe-ui": "Segoe UI",
+  consolas: "consolas",
 };
 
 export const getConfig = (): TConfig => {
