@@ -165,7 +165,7 @@ const modalDialogStyles = (theme: Theme) => ({
     zIndex: 1001,
     border: "none",
     borderRadius: 0,
-    backgroundColor: theme.colors.main.backgroundColor,
+    backgroundColor: theme.colors.backgroundPrimary,
     color: theme.colors.textColor,
     fontFamily: theme.fontFace,
     fontSize: theme.fontSize,

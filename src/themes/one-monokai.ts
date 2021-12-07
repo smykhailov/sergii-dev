@@ -10,7 +10,7 @@ const oneMonokaiTheme: Theme = {
     backgroundPrimary: "rgb(40, 44, 52)",
     backgroundPrimaryActive: "rgb(47, 51, 61)",
     backgroundSecondary: "rgb(33, 37, 43)",
-    modalOverlayColor: "rgba(40, 44, 52, 0.85)",
+    modalOverlayColor: "rgba(77, 78, 78, 0.85)",
     textColor: "rgb(204, 204, 204)",
     textActiveColor: "rgba(215, 218, 224)",
     selectionColor: "rgb(62, 68, 80)",
