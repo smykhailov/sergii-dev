@@ -64,7 +64,7 @@ const FooterContainer = styled.footer(props => ({
   display: "flex",
   justifyContent: "space-between",
   color: props.theme.colors.footer.textColor,
-  backgroundColor: props.theme.colors.backgroundSecondary,
+  backgroundColor: props.theme.colors.footer.backgroundColor,
   fontFamily: "Segoe WPC, Segoe UI, sans-serif",
   fontSize: 13,
   paddingLeft: 6,
@@ -92,7 +92,7 @@ const FooterContainer = styled.footer(props => ({
   },
 
   "& > div > p.actionable:hover": {
-    backgroundColor: props.theme.colors.backgroundPrimaryActive,
+    backgroundColor: props.theme.colors.footer.backgroundColorActive,
     cursor: "pointer",
   },
 }));
