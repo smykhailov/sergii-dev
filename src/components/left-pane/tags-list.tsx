@@ -4,8 +4,9 @@ import slugify from "slugify";
 import styled from "@emotion/styled";
 
 import LeftPaneContainer from "./left-pane-container";
+import { isRouteActive } from "@core/routing";
 
-const TagsList: FC<{}> = () => {
+const TagsList: FC<{ location: Location }> = props => {
   const { distinct: tags, group } = useTagsListQuery();
 
   return (
@@ -24,9 +25,15 @@ const TagsList: FC<{}> = () => {
             }
           }
 
+          const isActive = isRouteActive(slug, props.location);
+
           return (
             <li key={slug}>
-              <Link to={slug}>
+              <Link
+                to={slug}
+                className={isActive ? "active" : undefined}
+                title={tag}
+              >
                 <p>
                   <strong>{tag}</strong>
                 </p>
@@ -76,7 +83,7 @@ const Tags = styled.ul(props => ({
   },
 
   "& > li > a.active": {
-    backgroundColor: props.theme.colors.leftPane.backgroundColor,
+    backgroundColor: props.theme.colors.leftPane.backgroundColorActive,
   },
 
   "& > li > a strong": {

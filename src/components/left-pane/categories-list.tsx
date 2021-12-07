@@ -4,8 +4,9 @@ import slugify from "slugify";
 import styled from "@emotion/styled";
 
 import LeftPaneContainer from "./left-pane-container";
+import { isRouteActive } from "@core/routing";
 
-const CategoriesList: FC<{}> = () => {
+const CategoriesList: FC<{ location: Location }> = props => {
   const { distinct: categories, group } = useCategoriesListQuery();
 
   return (
@@ -14,7 +15,7 @@ const CategoriesList: FC<{}> = () => {
         {categories.map((category, idx) => {
           const slug = `/categories/${slugify(category).toLocaleLowerCase()}`;
           const articlesCount = group[idx]?.totalCount || 0;
-          let amountOfArticles = "There is no articles in this category yet";
+          let amountOfArticles = "There are no articles in this category yet";
 
           if (articlesCount > 0) {
             if (articlesCount === 1) {
@@ -24,9 +25,15 @@ const CategoriesList: FC<{}> = () => {
             }
           }
 
+          const isActive = isRouteActive(slug, props.location);
+
           return (
             <li key={slug}>
-              <Link to={slug}>
+              <Link
+                to={slug}
+                className={isActive ? "active" : undefined}
+                title={category}
+              >
                 <p>
                   <strong>{category}</strong>
                 </p>
@@ -76,7 +83,7 @@ const Categories = styled.ul(props => ({
   },
 
   "& > li > a.active": {
-    backgroundColor: props.theme.colors.leftPane.backgroundColor,
+    backgroundColor: props.theme.colors.leftPane.backgroundColorActive,
   },
 
   "& > li > a strong": {

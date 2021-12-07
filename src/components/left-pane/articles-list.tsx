@@ -3,8 +3,9 @@ import { graphql, Link, useStaticQuery } from "gatsby";
 import styled from "@emotion/styled";
 
 import LeftPaneContainer from "./left-pane-container";
+import { isRouteActive } from "@core/routing";
 
-const ArticlesList: FC<{}> = () => {
+const ArticlesList: FC<{ location: Location }> = props => {
   const { edges } = useArticlesListQuery();
 
   return (
@@ -22,9 +23,15 @@ const ArticlesList: FC<{}> = () => {
             frontmatter: { title, date },
           } = edge.node;
 
+          const isActive = isRouteActive(slug, props.location);
+
           return (
             <li key={id}>
-              <Link to={slug} activeClassName="active" title={title}>
+              <Link
+                to={slug}
+                className={isActive ? "active" : undefined}
+                title={title}
+              >
                 <p>
                   <strong>{title}</strong>
                   <span>{new Date(date).toLocaleDateString()}</span>
@@ -85,7 +92,7 @@ const Articles = styled.ul(props => ({
   },
 
   "& > li > a.active": {
-    backgroundColor: props.theme.colors.leftPane.backgroundColor,
+    backgroundColor: props.theme.colors.leftPane.backgroundColorActive,
   },
 
   "& > li > a strong": {

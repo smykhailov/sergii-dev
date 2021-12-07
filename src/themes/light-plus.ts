@@ -7,16 +7,16 @@ const lightPlusTheme: Theme = {
   articleFontFace: "Segoe UI",
 
   colors: {
-    backgroundPrimary: "rgb(40, 44, 52)",
+    backgroundPrimary: "rgb(255, 255, 255)", // done
     backgroundPrimaryActive: "rgb(47, 51, 61)",
-    backgroundSecondary: "rgb(33, 37, 43)",
+    backgroundSecondary: "rgb(243, 243, 243)", // done
     modalOverlayColor: "rgba(40, 44, 52, 0.85)",
     textColor: "rgb(204, 204, 204)",
     textActiveColor: "rgba(215, 218, 224)",
     selectionColor: "rgb(62, 68, 80)",
     linkColor: "rgb(55, 148, 255)",
-    focusOutline: "1px solid #007fd4",
-    inputBackgroundColor: "rgb(29, 31, 35)",
+    focusOutline: "1px solid rgb(0, 144, 241)", // done
+    inputBackgroundColor: "rgb(243, 243, 243)", // done
 
     scrollBar: {
       borderColor: "rgb(85, 85, 85)",
@@ -25,30 +25,31 @@ const lightPlusTheme: Theme = {
     },
 
     appBar: {
-      backgroundColor: "rgb(47, 51, 61)",
-      textColor: "rgba(215, 218, 224, 0.4)",
-      textActiveColor: "rgb(248, 250, 253)",
-      textHoverColor: "rgb(248, 250, 253)",
+      backgroundColor: "rgb(44, 44, 44)", // done
+      textColor: "rgba(255, 255, 255, 0.4)", // done
+      textActiveColor: "rgb(255, 255, 255)", // done
+      textHoverColor: "rgb(255, 255, 255)", // done
     },
 
     leftPane: {
-      backgroundColor: "rgb(44, 49, 58)",
-      backgroundColorHover: "rgb(41, 45, 53)",
+      backgroundColor: "rgb(243, 243, 243)", // done
+      backgroundColorHover: "rgb(232, 232, 232)", // done
+      backgroundColorActive: "rgb(0, 96, 192)", // done
     },
 
     main: {
-      backgroundColor: "rgb(40, 44, 52)",
-      backgroundHoverColor: "rgb(51, 58, 66)",
-      backgroundActiveColor: "rgb(52, 56, 63)",
-      borderActiveColor: "rgb(77, 80, 86)",
-      titleContainerBackgroundColor: "rgb(33, 37, 43)",
-      titleBackgroundColor: "rgb(56, 62, 73)",
+      backgroundColor: "rgb(255, 255, 255)", // done
+      backgroundHoverColor: "rgb(230, 243, 255)", // done
+      backgroundActiveColor: "rgb(243, 243, 243)", // Form Control - done
+      borderActiveColor: "rgb(0, 144, 241)", // Form Control - done
+      titleContainerBackgroundColor: "rgb(243, 243, 243)", // done
+      titleBackgroundColor: "rgb(255, 255, 255)", // done
     },
 
     footer: {
-      backgroundColor: "rgb(33, 37, 43)",
-      backgroundColorActive: "rgb(47, 51, 61)",
-      textColor: "rgb(157, 165, 180)",
+      backgroundColor: "rgb(0, 122, 204)", // done
+      backgroundColorActive: "rgba(255, 255, 255, 0.12)", // done
+      textColor: "rgb(255, 255, 255)", // done
     },
 
     gitalk: {

@@ -12,7 +12,10 @@ const TagsPage: FC<{
   location: Location;
 }> = props => {
   return (
-    <Layout aside={<TagsList />} location={props.location}>
+    <Layout
+      aside={<TagsList location={props.location} />}
+      location={props.location}
+    >
       <ContentContainer title="Tags">
         {props.data.allMdx.group.map(group => {
           return (

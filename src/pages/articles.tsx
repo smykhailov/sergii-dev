@@ -13,7 +13,10 @@ const ArticlesPage: FC<{
   const { edges } = props.data.allMdx;
 
   return (
-    <Layout aside={<ArticlesList />} location={props.location}>
+    <Layout
+      aside={<ArticlesList location={props.location} />}
+      location={props.location}
+    >
       <ContentContainer title="Articles">
         {edges.map(edge => {
           if (!edge.node.fields?.slug || !edge.node.frontmatter?.date) {

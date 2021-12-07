@@ -36,6 +36,7 @@ declare module "@emotion/react" {
       leftPane: {
         backgroundColor: Property.BackgroundColor;
         backgroundColorHover: Property.BackgroundColor;
+        backgroundColorActive: Property.BackgroundColor;
       };
 
       main: {

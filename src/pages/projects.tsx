@@ -13,7 +13,10 @@ const ProjectsPage: FC<{
   const { edges } = props.data.allGithubData.edges[0]?.node.data?.search!;
 
   return (
-    <Layout aside={<ProjectsList />} location={props.location}>
+    <Layout
+      aside={<ProjectsList location={props.location} />}
+      location={props.location}
+    >
       <ContentContainer title="Projects">
         {edges?.map(item => {
           return (

@@ -12,7 +12,10 @@ const CategoriesPage: FC<{
   location: Location;
 }> = props => {
   return (
-    <Layout aside={<CategoriesList />} location={props.location}>
+    <Layout
+      aside={<CategoriesList location={props.location} />}
+      location={props.location}
+    >
       <ContentContainer title="Categories">
         {props.data.allMdx.group.map(group => {
           return (

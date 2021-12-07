@@ -34,6 +34,7 @@ const darkPlusTheme: Theme = {
     leftPane: {
       backgroundColor: "rgb(44, 49, 58)",
       backgroundColorHover: "rgb(41, 45, 53)",
+      backgroundColorActive: "rgb(44, 49, 58)",
     },
 
     main: {

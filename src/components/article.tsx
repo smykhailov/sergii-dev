@@ -17,7 +17,10 @@ const Article: FC<{
 }> = props => {
   const { frontmatter, body } = props.data.mdx!;
   return (
-    <Layout aside={<ArticlesList />} location={props.location}>
+    <Layout
+      aside={<ArticlesList location={props.location} />}
+      location={props.location}
+    >
       <ContentContainer title={frontmatter?.title!}>
         <header>
           <h1>{frontmatter?.title}</h1>
