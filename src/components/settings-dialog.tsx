@@ -217,7 +217,7 @@ const CloseIcon = styled.a(props => ({
     outline: props.theme.colors.inputFocusOutline,
   },
   ":hover": {
-    backgroundColor: props.theme.colors.inputBackgroundActive,
+    backgroundColor: props.theme.colors.closeButtonBackgroundActive,
     cursor: "pointer",
   },
 }));

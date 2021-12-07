@@ -8,7 +8,6 @@ const darkPlusTheme: Theme = {
 
   colors: {
     backgroundPrimary: "rgb(40, 44, 52)",
-    inputBackgroundActive: "rgb(47, 51, 61)",
     backgroundSecondary: "rgb(33, 37, 43)",
     modalOverlayColor: "rgba(40, 44, 52, 0.85)",
     textColor: "rgb(204, 204, 204)",
@@ -16,6 +15,7 @@ const darkPlusTheme: Theme = {
     linkColor: "rgb(55, 148, 255)",
     inputFocusOutline: "1px solid #007fd4",
     inputBackground: "rgb(29, 31, 35)",
+    closeButtonBackgroundActive: "rgb(47, 51, 61)",
 
     scrollBar: {
       borderColor: "rgb(85, 85, 85)",

@@ -15,7 +15,7 @@ const lightPlusTheme: Theme = {
     linkColor: "rgb(0, 106, 177)", // done
     inputFocusOutline: "1px solid rgb(0, 144, 241)", // done
     inputBackground: "rgb(243, 243, 243)", // done
-    inputBackgroundActive: "rgb(0, 96, 192)",
+    closeButtonBackgroundActive: "rgb(243, 243, 243)", // done
 
     scrollBar: {
       borderColor: "rgb(85, 85, 85)",

@@ -15,7 +15,7 @@ const oneMonokaiTheme: Theme = {
     linkColor: "rgb(55, 148, 255)",
     inputFocusOutline: "1px solid #007fd4",
     inputBackground: "rgb(29, 31, 35)",
-    inputBackgroundActive: "rgb(47, 51, 61)",
+    closeButtonBackgroundActive: "rgb(47, 51, 61)",
 
     scrollBar: {
       borderColor: "rgb(85, 85, 85)",

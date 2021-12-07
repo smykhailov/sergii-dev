@@ -5,6 +5,6 @@ export const parseNum = (value: string, htmlElementName: keyof TConfig) => {
   if (isNaN(parsedValue)) {
     return defaultConfig[htmlElementName];
   } else {
-    return parsedValue;
+    return parsedValue > 50 ? defaultConfig[htmlElementName] : parsedValue;
   }
 };
