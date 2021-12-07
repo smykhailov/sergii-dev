@@ -10,15 +10,14 @@ declare module "@emotion/react" {
 
     colors: {
       backgroundPrimary: Property.BackgroundColor;
-      backgroundPrimaryActive: Property.BackgroundColor;
       backgroundSecondary: Property.BackgroundColor;
       modalOverlayColor: Property.BackgroundColor;
       textColor: Property.Color;
-      textActiveColor: Property.Color;
       selectionColor: Property.Color;
       linkColor: Property.Color;
-      focusOutline: Property.Outline;
-      inputBackgroundColor: Property.BackgroundColor;
+      inputFocusOutline: Property.Outline;
+      inputBackground: Property.BackgroundColor;
+      inputBackgroundActive: Property.BackgroundColor;
 
       scrollBar: {
         borderColor: Property.BorderColor;
@@ -37,6 +36,9 @@ declare module "@emotion/react" {
         backgroundColor: Property.BackgroundColor;
         backgroundColorHover: Property.BackgroundColor;
         backgroundColorActive: Property.BackgroundColor;
+        textColor: Property.Color;
+        textColorHover: Property.Color;
+        textColorActive: Property.Color;
       };
 
       main: {

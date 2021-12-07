@@ -8,15 +8,14 @@ const highContrastTheme: Theme = {
 
   colors: {
     backgroundPrimary: "rgb(40, 44, 52)",
-    backgroundPrimaryActive: "rgb(47, 51, 61)",
     backgroundSecondary: "rgb(33, 37, 43)",
     modalOverlayColor: "rgba(40, 44, 52, 0.85)",
     textColor: "rgb(204, 204, 204)",
-    textActiveColor: "rgba(215, 218, 224)",
     selectionColor: "rgb(62, 68, 80)",
     linkColor: "rgb(55, 148, 255)",
-    focusOutline: "1px solid #007fd4",
-    inputBackgroundColor: "rgb(29, 31, 35)",
+    inputFocusOutline: "1px solid #007fd4",
+    inputBackground: "rgb(29, 31, 35)",
+    inputBackgroundActive: "rgb(47, 51, 61)",
 
     scrollBar: {
       borderColor: "rgb(85, 85, 85)",
@@ -35,6 +34,9 @@ const highContrastTheme: Theme = {
       backgroundColor: "rgb(44, 49, 58)",
       backgroundColorHover: "rgb(41, 45, 53)",
       backgroundColorActive: "rgb(44, 49, 58)",
+      textColor: "rgb(97, 97, 97)",
+      textColorHover: "rgb(255, 255, 255)",
+      textColorActive: "rgb(255, 255, 255)",
     },
 
     main: {

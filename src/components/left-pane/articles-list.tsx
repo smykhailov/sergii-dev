@@ -78,7 +78,7 @@ const Articles = styled.ul(props => ({
   "& > li > a": {
     display: "flex",
     flexDirection: "column",
-    color: props.theme.colors.textActiveColor,
+    color: props.theme.colors.leftPane.textColor,
     paddingTop: 6,
     paddingBottom: 6,
     paddingLeft: 16,
@@ -86,13 +86,14 @@ const Articles = styled.ul(props => ({
   },
   "& > li > a:hover": {
     backgroundColor: props.theme.colors.leftPane.backgroundColorHover,
-    color: props.theme.colors.textActiveColor,
+    color: props.theme.colors.leftPane.textColorHover,
     textDecoration: "none",
     cursor: "pointer",
   },
 
   "& > li > a.active": {
     backgroundColor: props.theme.colors.leftPane.backgroundColorActive,
+    color: props.theme.colors.leftPane.textColorActive,
   },
 
   "& > li > a strong": {

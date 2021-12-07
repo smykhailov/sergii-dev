@@ -214,10 +214,10 @@ const CloseIcon = styled.a(props => ({
     transform: "rotate(-45deg) translate(-50%, -50%)",
   },
   ":focus-visible": {
-    outline: props.theme.colors.focusOutline,
+    outline: props.theme.colors.inputFocusOutline,
   },
   ":hover": {
-    backgroundColor: props.theme.colors.backgroundPrimaryActive,
+    backgroundColor: props.theme.colors.inputBackgroundActive,
     cursor: "pointer",
   },
 }));

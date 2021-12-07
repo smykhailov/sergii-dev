@@ -36,7 +36,7 @@ const CommentsContainer = styled.div(props => ({
     top: "0.8em",
   },
   ".gt-container .gt-popup .gt-action.text": {
-    color: props.theme.colors.textActiveColor,
+    color: props.theme.colors.textColor,
   },
 
   ".gt-container .gt-copyright": {
@@ -63,7 +63,7 @@ const CommentsContainer = styled.div(props => ({
   },
 
   ".gt-container .gt-comment-body": {
-    color: `${props.theme.colors.textActiveColor} !important`,
+    color: `${props.theme.colors.textColor} !important`,
   },
   ".gt-container .gt-comment-username:hover,  .gt-container .gt-link:hover": {
     textDecoration: "none",
@@ -103,7 +103,7 @@ const CommentsContainer = styled.div(props => ({
       backgroundColor: props.theme.colors.backgroundSecondary,
     },
   ".gt-container .gt-header-textarea:focus": {
-    border: props.theme.colors.focusOutline,
+    border: props.theme.colors.inputFocusOutline,
   },
   ".gt-container .gt-error": {
     textAlign: "left",

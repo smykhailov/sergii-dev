@@ -8,15 +8,14 @@ const lightPlusTheme: Theme = {
 
   colors: {
     backgroundPrimary: "rgb(255, 255, 255)", // done
-    backgroundPrimaryActive: "rgb(47, 51, 61)",
     backgroundSecondary: "rgb(243, 243, 243)", // done
-    modalOverlayColor: "rgba(40, 44, 52, 0.85)",
-    textColor: "rgb(204, 204, 204)",
-    textActiveColor: "rgba(215, 218, 224)",
-    selectionColor: "rgb(62, 68, 80)",
-    linkColor: "rgb(55, 148, 255)",
-    focusOutline: "1px solid rgb(0, 144, 241)", // done
-    inputBackgroundColor: "rgb(243, 243, 243)", // done
+    modalOverlayColor: "rgba(40, 44, 52, 0.65)", // done
+    textColor: "rgb(97, 97, 97)", // done
+    selectionColor: "rgb(173, 214, 255)", // done
+    linkColor: "rgb(0, 106, 177)", // done
+    inputFocusOutline: "1px solid rgb(0, 144, 241)", // done
+    inputBackground: "rgb(243, 243, 243)", // done
+    inputBackgroundActive: "rgb(0, 96, 192)",
 
     scrollBar: {
       borderColor: "rgb(85, 85, 85)",
@@ -35,6 +34,9 @@ const lightPlusTheme: Theme = {
       backgroundColor: "rgb(243, 243, 243)", // done
       backgroundColorHover: "rgb(232, 232, 232)", // done
       backgroundColorActive: "rgb(0, 96, 192)", // done
+      textColor: "rgb(97, 97, 97)", // done
+      textColorHover: "rgb(97, 97, 97)", // done
+      textColorActive: "rgb(255, 255, 255)", // done
     },
 
     main: {

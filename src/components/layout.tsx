@@ -75,7 +75,7 @@ const Wrapper = styled.div(props => ({
     background: props.theme.colors.selectionColor,
   },
   "& *:focus-visible": {
-    outline: props.theme.colors.focusOutline,
+    outline: props.theme.colors.inputFocusOutline,
   },
 }));
 
