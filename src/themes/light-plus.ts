@@ -18,9 +18,9 @@ const lightPlusTheme: Theme = {
     closeButtonBackgroundActive: "rgb(243, 243, 243)", // done
 
     scrollBar: {
-      borderColor: "rgb(85, 85, 85)",
-      thumbBackgroundColor: "rgb(56, 62, 73)",
-      thumbBackgroundHoverColor: "rgb(65, 72, 84)",
+      borderColor: "rgb(220, 220, 220)", // done
+      thumbBackgroundColor: "rgb(193, 193, 193)", // done
+      thumbBackgroundHoverColor: "rgb(73, 73, 73)", // done
     },
 
     appBar: {
@@ -55,13 +55,13 @@ const lightPlusTheme: Theme = {
     },
 
     gitalk: {
-      linkColor: "rgb(55, 148, 255)",
-      btnBackgroundColor: "rgb(82, 139, 255)",
-      btnTextColor: "rgb(248, 250, 253)",
-      btnTextHoverColor: "rgb(149, 185, 255)",
-      popupBackgroundColor: "rgb(29, 31, 35)",
-      popupItemHoverColor: "rgb(44, 49, 58)",
-      outlineColor: "rgb(0, 127, 212)",
+      linkColor: "rgb(0, 106, 177)", // done
+      btnBackgroundColor: "rgb(0, 122, 204)", // done
+      btnTextColor: "rgb(255, 255, 255)", // done
+      btnTextHoverColor: "rgb(0, 98, 163)", // done
+      popupBackgroundColor: "rgb(232, 232, 232)", // done
+      popupItemHoverColor: "rgb(230, 243, 255)", // done
+      outlineColor: "rgb(0, 144, 241)", // done
     },
   },
 };
