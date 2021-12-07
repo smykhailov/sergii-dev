@@ -38,7 +38,7 @@ const ArticleItemHeader = styled.div(props => ({
 
   "& h3": {
     margin: 0,
-    color: props.theme.colors.textActiveColor,
+    color: props.theme.colors.textColor,
     opacity: 0.85,
   },
 
@@ -50,7 +50,7 @@ const ArticleItemHeader = styled.div(props => ({
 const ArticleItemBody = styled.div(props => ({
   display: "flex",
   margin: "12px 0",
-  color: props.theme.colors.textActiveColor,
+  color: props.theme.colors.textColor,
 }));
 
 export default ProjectListItem;

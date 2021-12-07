@@ -122,7 +122,7 @@ const ArticleItemHeader = styled.div(props => ({
 
   "& h3": {
     margin: 0,
-    color: props.theme.colors.textActiveColor,
+    color: props.theme.colors.textColor,
     opacity: 0.85,
   },
 
@@ -149,7 +149,7 @@ const ArticleItemFooter = styled.div(props => ({
   display: "flex",
   justifyContent: "space-between",
   fontSize: props.theme.fontSize,
-  color: props.theme.colors.textActiveColor,
+  color: props.theme.colors.textColor,
 }));
 
 export default ArticleListItem;

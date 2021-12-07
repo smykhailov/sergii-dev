@@ -17,7 +17,10 @@ const Category: FC<{
   const { edges } = props.data.allMdx;
 
   return (
-    <Layout aside={<CategoriesList />} location={props.location}>
+    <Layout
+      aside={<CategoriesList location={props.location} />}
+      location={props.location}
+    >
       <ContentContainer title={props.pageContext.category}>
         {edges.map(edge => (
           <ArticleListItem

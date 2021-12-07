@@ -3,60 +3,65 @@ import { Theme } from "@emotion/react";
 const lightPlusTheme: Theme = {
   fontSize: "13px",
   fontFace: "Segoe UI",
-  articleFontSize: "14px",
-  articleFontFace: "consolas",
+  articleFontSize: "16px",
+  articleFontFace: "Segoe UI",
 
   colors: {
-    backgroundPrimary: "#f00",
-    backgroundPrimaryActive: "#2F333D",
-    backgroundSecondary: "#f00",
-    modalOverlayColor: "rgba(40, 44, 52, 0.85)",
-    textColor: "#CCC",
-    textActiveColor: "rgba(215, 218, 224)",
-    selectionColor: "#3E4450",
-    linkColor: "#3794ff",
-    focusOutline: "1px solid #007fd4",
-    inputBackgroundColor: "rgb(29, 31, 35)",
+    backgroundPrimary: "rgb(255, 255, 255)", // done
+    backgroundSecondary: "rgb(243, 243, 243)", // done
+    modalOverlayColor: "rgba(40, 44, 52, 0.65)", // done
+    textColor: "rgb(97, 97, 97)", // done
+    selectionColor: "rgb(173, 214, 255)", // done
+    linkColor: "rgb(0, 106, 177)", // done
+    inputFocusOutline: "1px solid rgb(0, 144, 241)", // done
+    inputBackground: "rgb(243, 243, 243)", // done
+    closeButtonBackgroundActive: "rgb(243, 243, 243)", // done
 
     scrollBar: {
-      borderColor: "#555",
-      thumbBackgroundColor: "#383e49",
-      thumbBackgroundHoverColor: "#414854",
+      borderColor: "rgb(220, 220, 220)", // done
+      thumbBackgroundColor: "rgb(193, 193, 193)", // done
+      thumbBackgroundHoverColor: "rgb(73, 73, 73)", // done
     },
 
     appBar: {
-      backgroundColor: "#2F333D",
-      textColor: "rgba(215, 218, 224, 0.4)",
-      textActiveColor: "rgb(248, 250, 253)",
-      textHoverColor: "rgb(248, 250, 253)",
+      backgroundColor: "rgb(44, 44, 44)", // done
+      textColor: "rgba(255, 255, 255, 0.4)", // done
+      textActiveColor: "rgb(255, 255, 255)", // done
+      textHoverColor: "rgb(255, 255, 255)", // done
     },
 
     leftPane: {
-      backgroundColor: "#2C313A",
-      backgroundColorHover: "#292D35",
+      backgroundColor: "rgb(243, 243, 243)", // done
+      backgroundColorHover: "rgb(232, 232, 232)", // done
+      backgroundColorActive: "rgb(0, 96, 192)", // done
+      textColor: "rgb(97, 97, 97)", // done
+      textColorHover: "rgb(97, 97, 97)", // done
+      textColorActive: "rgb(255, 255, 255)", // done
     },
 
     main: {
-      backgroundColor: "#00f",
-      backgroundHoverColor: "#333A42",
-      backgroundActiveColor: "#34383F",
-      borderActiveColor: "#4D5056",
-      titleContainerBackgroundColor: "#21252B",
-      titleBackgroundColor: "#383E49",
+      backgroundColor: "rgb(255, 255, 255)", // done
+      backgroundHoverColor: "rgb(230, 243, 255)", // done
+      backgroundActiveColor: "rgb(243, 243, 243)", // Form Control - done
+      borderActiveColor: "rgb(0, 144, 241)", // Form Control - done
+      titleContainerBackgroundColor: "rgb(243, 243, 243)", // done
+      titleBackgroundColor: "rgb(255, 255, 255)", // done
     },
 
     footer: {
-      textColor: "rgb(157, 165, 180)",
+      backgroundColor: "rgb(0, 122, 204)", // done
+      backgroundColorActive: "rgba(255, 255, 255, 0.12)", // done
+      textColor: "rgb(255, 255, 255)", // done
     },
 
     gitalk: {
-      linkColor: "#3794ff",
-      btnBackgroundColor: "rgb(82, 139, 255)",
-      btnTextColor: "rgb(248, 250, 253)",
-      btnTextHoverColor: "rgb(149, 185, 255)",
-      popupBackgroundColor: "rgb(29, 31, 35)",
-      popupItemHoverColor: "rgb(44, 49, 58)",
-      outlineColor: "#007fd4",
+      linkColor: "rgb(0, 106, 177)", // done
+      btnBackgroundColor: "rgb(0, 122, 204)", // done
+      btnTextColor: "rgb(255, 255, 255)", // done
+      btnTextHoverColor: "rgb(0, 98, 163)", // done
+      popupBackgroundColor: "rgb(232, 232, 232)", // done
+      popupItemHoverColor: "rgb(230, 243, 255)", // done
+      outlineColor: "rgb(0, 144, 241)", // done
     },
   },
 };

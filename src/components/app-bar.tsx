@@ -2,8 +2,6 @@ import React, { FC, useCallback, useState } from "react";
 import { Link } from "gatsby";
 import styled from "@emotion/styled";
 
-import startsWith from "lodash/startsWith";
-
 import HomeIcon from "../assets/home.svg";
 import ArticlesIcon from "../assets/files.svg";
 import CategoriesIcon from "../assets/file-submodule.svg";
@@ -12,6 +10,7 @@ import ProjectsIcon from "../assets/source-control.svg";
 import CVIcon from "../assets/person.svg";
 import SettingsIcon from "../assets/settings-gear.svg";
 import SettingsDialog from "./settings-dialog";
+import { isRouteActive } from "@core/routing";
 
 const AppBar: FC<{ location: Location }> = props => {
   const [isSettingsDialogOpen, setSettingsDialogOpen] = useState(false);
@@ -90,9 +89,7 @@ const AppBar: FC<{ location: Location }> = props => {
 };
 
 const NavItem: FC<TNavItem & { location: Location }> = props => {
-  let isActive = props.to === props.location.pathname;
-  if (props.to !== props.location.pathname && props.to !== "/")
-    isActive = startsWith(props.location.pathname, props.to);
+  const isActive = isRouteActive(props.to, location);
 
   return (
     <li>

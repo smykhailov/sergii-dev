@@ -10,20 +10,19 @@ declare module "@emotion/react" {
 
     colors: {
       backgroundPrimary: Property.BackgroundColor;
-      backgroundPrimaryActive: Property.BackgroundColor;
       backgroundSecondary: Property.BackgroundColor;
       modalOverlayColor: Property.BackgroundColor;
       textColor: Property.Color;
-      textActiveColor: Property.Color;
       selectionColor: Property.Color;
       linkColor: Property.Color;
-      focusOutline: Property.Outline;
-      inputBackgroundColor: Property.BackgroundColor;
+      inputFocusOutline: Property.Outline;
+      inputBackground: Property.BackgroundColor;
+      closeButtonBackgroundActive: Property.BackgroundColor;
 
       scrollBar: {
-        borderColor: Property.Color;
-        thumbBackgroundColor: Property.Color;
-        thumbBackgroundHoverColor: Property.Color;
+        borderColor: Property.BorderColor;
+        thumbBackgroundColor: Property.BackgroundColor;
+        thumbBackgroundHoverColor: Property.BackgroundColor;
       };
 
       appBar: {
@@ -34,29 +33,35 @@ declare module "@emotion/react" {
       };
 
       leftPane: {
-        backgroundColor: Property.Color;
-        backgroundColorHover: Property.Color;
+        backgroundColor: Property.BackgroundColor;
+        backgroundColorHover: Property.BackgroundColor;
+        backgroundColorActive: Property.BackgroundColor;
+        textColor: Property.Color;
+        textColorHover: Property.Color;
+        textColorActive: Property.Color;
       };
 
       main: {
-        backgroundColor: Property.Color;
-        backgroundHoverColor: Property.Color;
-        backgroundActiveColor: Property.Color;
-        borderActiveColor: Property.Color;
-        titleContainerBackgroundColor: Property.Color;
-        titleBackgroundColor: Property.Color;
+        backgroundColor: Property.BackgroundColor;
+        backgroundHoverColor: Property.BackgroundColor;
+        backgroundActiveColor: Property.BackgroundColor;
+        borderActiveColor: Property.BorderColor;
+        titleContainerBackgroundColor: Property.BackgroundColor;
+        titleBackgroundColor: Property.BackgroundColor;
       };
 
       footer: {
+        backgroundColor: Property.BackgroundColor;
+        backgroundColorActive: Property.BackgroundColor;
         textColor: Property.Color;
       };
 
       gitalk: {
         linkColor: Property.Color;
-        btnBackgroundColor: Property.Color;
+        btnBackgroundColor: Property.BackgroundColor;
         btnTextColor: Property.Color;
         btnTextHoverColor: Property.Color;
-        popupBackgroundColor: Property.Color;
+        popupBackgroundColor: Property.BackgroundColor;
         popupItemHoverColor: Property.Color;
         outlineColor: Property.Color;
       };

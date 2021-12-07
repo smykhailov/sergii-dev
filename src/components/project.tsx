@@ -12,7 +12,10 @@ const Project: FC<{
   location: Location;
 }> = props => {
   return (
-    <Layout aside={<ProjectsList />} location={props.location}>
+    <Layout
+      aside={<ProjectsList location={props.location} />}
+      location={props.location}
+    >
       <ContentContainer title={props.pageContext.data.name!}>
         <main>
           <ReactMarkdownWithHtml>

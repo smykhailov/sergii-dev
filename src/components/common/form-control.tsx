@@ -28,14 +28,13 @@ const FormControl = styled.div(props => ({
   },
 
   "& > input, & > select": {
-    backgroundColor: props.theme.colors.inputBackgroundColor,
+    backgroundColor: props.theme.colors.inputBackground,
     color: props.theme.colors.textColor,
     border: "none",
     padding: "2px 4px 4px 4px",
-    // height: 26,
   },
   "& > input:focus-visible, & > select:focus-visible  ": {
-    outline: props.theme.colors.focusOutline,
+    outline: props.theme.colors.inputFocusOutline,
   },
 }));
 

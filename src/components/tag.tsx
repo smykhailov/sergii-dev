@@ -17,7 +17,10 @@ const Tag: FC<{
   const { edges } = props.data.allMdx;
 
   return (
-    <Layout aside={<TagsList />} location={props.location}>
+    <Layout
+      aside={<TagsList location={props.location} />}
+      location={props.location}
+    >
       <ContentContainer title={`#${props.pageContext.tag}`}>
         {edges.map(edge => (
           <ArticleListItem
