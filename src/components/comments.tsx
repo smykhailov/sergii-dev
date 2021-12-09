@@ -87,7 +87,7 @@ const CommentsContainer = styled.div(props => ({
     lineHeight: "inherit",
   },
   ".gt-container .gt-btn:hover": {
-    backgroundColor: props.theme.colors.gitalk.btnTextHoverColor,
+    backgroundColor: props.theme.colors.gitalk.btnBackgroundHoverColor,
   },
   ".gt-container .gt-header-textarea, .gt-container .gt-header-preview": {
     color: props.theme.colors.textColor,

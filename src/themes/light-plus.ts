@@ -31,7 +31,6 @@ const lightPlusTheme: Theme = {
     },
 
     leftPane: {
-      backgroundColor: "rgb(243, 243, 243)", // done
       backgroundColorHover: "rgb(232, 232, 232)", // done
       backgroundColorActive: "rgb(0, 96, 192)", // done
       textColor: "rgb(97, 97, 97)", // done
@@ -58,7 +57,7 @@ const lightPlusTheme: Theme = {
       linkColor: "rgb(0, 106, 177)", // done
       btnBackgroundColor: "rgb(0, 122, 204)", // done
       btnTextColor: "rgb(255, 255, 255)", // done
-      btnTextHoverColor: "rgb(0, 98, 163)", // done
+      btnBackgroundHoverColor: "rgb(0, 98, 163)", // done
       popupBackgroundColor: "rgb(232, 232, 232)", // done
       popupItemHoverColor: "rgb(230, 243, 255)", // done
       outlineColor: "rgb(0, 144, 241)", // done
