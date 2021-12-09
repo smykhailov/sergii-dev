@@ -31,7 +31,6 @@ const highContrastTheme: Theme = {
     },
 
     leftPane: {
-      backgroundColor: "rgb(44, 49, 58)",
       backgroundColorHover: "rgb(41, 45, 53)",
       backgroundColorActive: "rgb(44, 49, 58)",
       textColor: "rgb(97, 97, 97)",
@@ -58,7 +57,7 @@ const highContrastTheme: Theme = {
       linkColor: "rgb(55, 148, 255)",
       btnBackgroundColor: "rgb(82, 139, 255)",
       btnTextColor: "rgb(248, 250, 253)",
-      btnTextHoverColor: "rgb(149, 185, 255)",
+      btnBackgroundHoverColor: "rgb(149, 185, 255)",
       popupBackgroundColor: "rgb(29, 31, 35)",
       popupItemHoverColor: "rgb(44, 49, 58)",
       outlineColor: "rgb(0, 127, 212)",

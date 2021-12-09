@@ -33,7 +33,6 @@ declare module "@emotion/react" {
       };
 
       leftPane: {
-        backgroundColor: Property.BackgroundColor;
         backgroundColorHover: Property.BackgroundColor;
         backgroundColorActive: Property.BackgroundColor;
         textColor: Property.Color;
@@ -60,7 +59,7 @@ declare module "@emotion/react" {
         linkColor: Property.Color;
         btnBackgroundColor: Property.BackgroundColor;
         btnTextColor: Property.Color;
-        btnTextHoverColor: Property.Color;
+        btnBackgroundHoverColor: Property.Color;
         popupBackgroundColor: Property.BackgroundColor;
         popupItemHoverColor: Property.Color;
         outlineColor: Property.Color;
