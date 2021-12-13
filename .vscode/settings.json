@@ -9,5 +9,6 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "typescript.tsdk": "node_modules\\typescript\\lib"
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "exclude": "{**/node_modules/**,**/bower_components/**,**/dist/**,**/build/**,**/.cache/**,**/public/**,**/.vscode/**,**/_output/**,**/vendor/**,**/*.min.*,**/*.map}"
 }
