@@ -16,6 +16,10 @@ const darkPlusTheme: Theme = {
     inputFocusOutline: "1px solid rgb(0, 127, 212)", // done
     inputBackground: "rgb(60, 60, 60)", // done
     closeButtonBackgroundActive: "rgb(37, 37, 37)", // done
+    border: "none", // done
+    borderActive: "solid 1px transparent", // done
+    borderHover: "solid 1px transparent", // done
+    shadow: "#000000 0 6px 6px -6px ", // done
 
     scrollBar: {
       borderColor: "rgb(57, 57, 57)", // done
@@ -60,7 +64,6 @@ const darkPlusTheme: Theme = {
       btnBackgroundHoverColor: "rgb(17, 119, 187)", // done
       popupBackgroundColor: "rgb(60, 60, 60)", // done
       popupItemHoverColor: "rgb(9, 71, 113)", // done
-      outlineColor: "rgb(0, 127, 212)", // done
     },
   },
 };

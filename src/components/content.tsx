@@ -1,18 +1,34 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import styled from "@emotion/styled";
+import { useTheme } from "@emotion/react";
 
 const ContentContainer: FC<{
   title: string;
 }> = props => {
+  const [shadowStyle, setShadowStyle] = useState<React.CSSProperties>({});
+  const theme = useTheme();
+
   return (
     <ArticleContainer>
-      <TitleContainer>
+      <TitleContainer style={shadowStyle}>
         <Title title={props.title}>
           <span>{props.title}</span>
         </Title>
       </TitleContainer>
       <Main>
-        <Article>{props.children}</Article>
+        <Article
+          onScroll={e => {
+            if ((e.target as HTMLElement).scrollTop > 0) {
+              setShadowStyle({
+                boxShadow: theme.colors.shadow,
+              });
+            } else {
+              setShadowStyle({});
+            }
+          }}
+        >
+          {props.children}
+        </Article>
       </Main>
     </ArticleContainer>
   );
@@ -28,27 +44,18 @@ const ArticleContainer = styled.div(props => ({
 const TitleContainer = styled.div(props => ({
   display: "flex",
   backgroundColor: props.theme.colors.main.titleContainerBackgroundColor,
-  fontFamily: "Segoe WPC, Segoe UI, sans-serif",
+  fontFamily: props.theme.fontFace,
   fontSize: props.theme.fontSize,
   fontWeight: 400,
   height: 35,
-  // TODO: Add the shadow onScroll
-  // $(window).scroll(function() {
-  //   var scroll = $(window).scrollTop();
-  //   if (scroll > 0) {
-  //       $("#header").addClass("active");
-  //   }
-  //   else {
-  //       $("#header").removeClass("active");
-  //   }
-  // });
-  // boxShadow: "0 4px 5px -2px black",
+  borderBottom: props.theme.colors.border,
 }));
 
 const Title = styled.div(props => ({
   backgroundColor: props.theme.colors.main.titleBackgroundColor,
   display: "flex",
   alignItems: "center",
+  borderRight: props.theme.colors.border,
 
   "& > span": {
     margin: "0 12px",

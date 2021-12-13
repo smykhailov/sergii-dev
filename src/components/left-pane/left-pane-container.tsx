@@ -20,10 +20,11 @@ const Container = styled.div(() => ({
   lineHeight: "1.4em",
 }));
 
-const TitleContainer = styled.div(() => ({
+const TitleContainer = styled.div(props => ({
   height: 35,
   paddingLeft: 8,
   paddingRight: 8,
+  borderBottom: props.theme.colors.border,
 }));
 
 const Title = styled.h3(() => ({

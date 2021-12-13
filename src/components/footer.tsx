@@ -69,6 +69,7 @@ const FooterContainer = styled.footer(props => ({
   fontSize: 13,
   paddingLeft: 6,
   paddingRight: 6,
+  borderTop: props.theme.colors.border,
 
   "& > div": {
     display: "flex",
@@ -79,7 +80,7 @@ const FooterContainer = styled.footer(props => ({
   "& > p, & > div > p": {
     display: "flex",
     margin: 0,
-    paddingInline: "3px",
+    paddingInline: "2px",
   },
 
   "& * > a": {
@@ -91,8 +92,13 @@ const FooterContainer = styled.footer(props => ({
     padding: "3px 0",
   },
 
+  "& > div > p.actionable": {
+    border: "solid 1px transparent",
+  },
+
   "& > div > p.actionable:hover": {
     backgroundColor: props.theme.colors.footer.backgroundColorActive,
+    border: props.theme.colors.borderHover,
     cursor: "pointer",
   },
 }));

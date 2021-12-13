@@ -24,8 +24,8 @@ export const defaultConfig: TConfig = {
 type TKeyValuePair<K extends string> = { [key in K]: string };
 
 export const themes: TKeyValuePair<TThemes> = {
-  "light-plus": "Light Plus",
-  "dark-plus": "Dark Plus",
+  "light-plus": "Light+",
+  "dark-plus": "Dark+",
   "one-monokai": "One Monokai",
   "high-contrast": "High Contrast",
 };
