@@ -21,6 +21,7 @@ module.exports = {
     "gatsby-plugin-emotion",
     "gatsby-plugin-typescript",
     "gatsby-plugin-typescript-checker",
+    "gatsby-plugin-react-helmet",
     {
       resolve: "gatsby-plugin-mdx",
       options: {
