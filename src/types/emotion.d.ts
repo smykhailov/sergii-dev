@@ -18,6 +18,9 @@ declare module "@emotion/react" {
       inputFocusOutline: Property.Outline;
       inputBackground: Property.BackgroundColor;
       closeButtonBackgroundActive: Property.BackgroundColor;
+      border: Property.Border;
+      borderActive: Property.Border;
+      borderHover: Property.Border;
 
       scrollBar: {
         borderColor: Property.BorderColor;
@@ -62,7 +65,6 @@ declare module "@emotion/react" {
         btnBackgroundHoverColor: Property.Color;
         popupBackgroundColor: Property.BackgroundColor;
         popupItemHoverColor: Property.Color;
-        outlineColor: Property.Color;
       };
     };
   }

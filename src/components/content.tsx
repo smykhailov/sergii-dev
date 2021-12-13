@@ -28,10 +28,11 @@ const ArticleContainer = styled.div(props => ({
 const TitleContainer = styled.div(props => ({
   display: "flex",
   backgroundColor: props.theme.colors.main.titleContainerBackgroundColor,
-  fontFamily: "Segoe WPC, Segoe UI, sans-serif",
+  fontFamily: props.theme.fontFace,
   fontSize: props.theme.fontSize,
   fontWeight: 400,
   height: 35,
+  borderBottom: props.theme.colors.border,
   // TODO: Add the shadow onScroll
   // $(window).scroll(function() {
   //   var scroll = $(window).scrollTop();
@@ -49,6 +50,7 @@ const Title = styled.div(props => ({
   backgroundColor: props.theme.colors.main.titleBackgroundColor,
   display: "flex",
   alignItems: "center",
+  borderRight: props.theme.colors.border,
 
   "& > span": {
     margin: "0 12px",

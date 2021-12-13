@@ -126,6 +126,7 @@ const Content = styled.div(props => ({
   flex: 1,
   backgroundColor: props.theme.colors.backgroundPrimary,
   color: props.theme.colors.textColor,
+  borderLeft: props.theme.colors.border,
 
   "& a": {
     color: props.theme.colors.linkColor,

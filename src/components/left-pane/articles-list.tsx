@@ -83,9 +83,11 @@ const Articles = styled.ul(props => ({
     paddingBottom: 6,
     paddingLeft: 16,
     paddingRight: 16,
+    border: "solid 1px transparent",
   },
   "& > li > a:hover": {
     backgroundColor: props.theme.colors.leftPane.backgroundColorHover,
+    border: props.theme.colors.borderHover,
     color: props.theme.colors.leftPane.textColorHover,
     textDecoration: "none",
     cursor: "pointer",
@@ -93,6 +95,7 @@ const Articles = styled.ul(props => ({
 
   "& > li > a.active": {
     backgroundColor: props.theme.colors.leftPane.backgroundColorActive,
+    border: props.theme.colors.borderActive,
     color: props.theme.colors.leftPane.textColorActive,
   },
 

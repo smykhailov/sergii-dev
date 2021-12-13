@@ -117,6 +117,7 @@ const Nav = styled.nav(props => ({
   flexDirection: "column",
   flexBasis: "48px",
   justifyContent: "space-between",
+  borderRight: props.theme.colors.border,
 
   "& ul": {
     listStyle: "none",

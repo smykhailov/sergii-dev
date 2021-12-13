@@ -16,6 +16,9 @@ const lightPlusTheme: Theme = {
     inputFocusOutline: "1px solid rgb(0, 144, 241)", // done
     inputBackground: "rgb(243, 243, 243)", // done
     closeButtonBackgroundActive: "rgb(243, 243, 243)", // done
+    border: "solid 1px transparent", // done
+    borderActive: "solid 1px transparent", // done
+    borderHover: "solid 1px transparent", // done
 
     scrollBar: {
       borderColor: "rgb(220, 220, 220)", // done
@@ -60,7 +63,6 @@ const lightPlusTheme: Theme = {
       btnBackgroundHoverColor: "rgb(0, 98, 163)", // done
       popupBackgroundColor: "rgb(232, 232, 232)", // done
       popupItemHoverColor: "rgb(230, 243, 255)", // done
-      outlineColor: "rgb(0, 144, 241)", // done
     },
   },
 };

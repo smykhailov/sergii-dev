@@ -46,8 +46,12 @@ const CommentsContainer = styled.div(props => ({
     padding: "0 1.125em 0",
     marginBottom: "0.5em",
   },
+  ".gt-container .gt-copyright, .gt-container .gt-action": {
+    border: "solid 1px transparent",
+  },
   ".gt-container .gt-copyright:hover, .gt-container .gt-action:hover": {
     backgroundColor: props.theme.colors.gitalk.popupItemHoverColor,
+    border: props.theme.colors.borderHover,
   },
 
   ".gt-container .gt-comment-content": {
@@ -83,11 +87,12 @@ const CommentsContainer = styled.div(props => ({
     display: "inline-block",
     padding: "2px 14px",
     borderRadius: 0,
-    border: 0,
+    border: props.theme.colors.border,
     lineHeight: "inherit",
   },
   ".gt-container .gt-btn:hover": {
     backgroundColor: props.theme.colors.gitalk.btnBackgroundHoverColor,
+    border: props.theme.colors.border,
   },
   ".gt-container .gt-header-textarea, .gt-container .gt-header-preview": {
     color: props.theme.colors.textColor,
@@ -95,7 +100,7 @@ const CommentsContainer = styled.div(props => ({
     borderRadius: 0,
     padding: 4,
     transition: "none",
-    border: "none",
+    border: props.theme.colors.border,
   },
   ".gt-container .gt-header-textarea:hover, .gt-container .gt-header-preview:hover":
     {
