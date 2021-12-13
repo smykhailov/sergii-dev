@@ -1,18 +1,34 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import styled from "@emotion/styled";
+import { useTheme } from "@emotion/react";
 
 const ContentContainer: FC<{
   title: string;
 }> = props => {
+  const [shadowStyle, setShadowStyle] = useState<React.CSSProperties>({});
+  const theme = useTheme();
+
   return (
     <ArticleContainer>
-      <TitleContainer>
+      <TitleContainer style={shadowStyle}>
         <Title title={props.title}>
           <span>{props.title}</span>
         </Title>
       </TitleContainer>
       <Main>
-        <Article>{props.children}</Article>
+        <Article
+          onScroll={e => {
+            if ((e.target as HTMLElement).scrollTop > 0) {
+              setShadowStyle({
+                boxShadow: theme.colors.shadow,
+              });
+            } else {
+              setShadowStyle({});
+            }
+          }}
+        >
+          {props.children}
+        </Article>
       </Main>
     </ArticleContainer>
   );
@@ -33,17 +49,6 @@ const TitleContainer = styled.div(props => ({
   fontWeight: 400,
   height: 35,
   borderBottom: props.theme.colors.border,
-  // TODO: Add the shadow onScroll
-  // $(window).scroll(function() {
-  //   var scroll = $(window).scrollTop();
-  //   if (scroll > 0) {
-  //       $("#header").addClass("active");
-  //   }
-  //   else {
-  //       $("#header").removeClass("active");
-  //   }
-  // });
-  // boxShadow: "0 4px 5px -2px black",
 }));
 
 const Title = styled.div(props => ({

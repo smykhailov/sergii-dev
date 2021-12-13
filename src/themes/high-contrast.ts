@@ -19,6 +19,7 @@ const highContrastTheme: Theme = {
     border: "solid 1px rgb(111, 195, 223)", // done
     borderActive: "solid 1px rgb(243, 133, 24)", // done
     borderHover: "dashed 1px rgb(243, 133, 24)", // done
+    shadow: "#000000 0 0 0 0 0", // done
 
     scrollBar: {
       borderColor: "rgb(35, 35, 35)", // done

@@ -35,7 +35,6 @@ const FormControl = styled.div(props => ({
   },
   "& > input:focus-visible, & > select:focus-visible  ": {
     outline: props.theme.colors.inputFocusOutline,
-    border: "solid 1px transparent",
   },
 }));
 

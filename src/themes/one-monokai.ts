@@ -16,9 +16,10 @@ const oneMonokaiTheme: Theme = {
     inputFocusOutline: "1px solid #007fd4",
     inputBackground: "rgb(29, 31, 35)",
     closeButtonBackgroundActive: "rgb(47, 51, 61)",
-    border: "solid 1px transparent", // done
+    border: "none", // done
     borderActive: "solid 1px transparent", // done
     borderHover: "solid 1px transparent", // done
+    shadow: "#000000 0 6px 6px -6px ", // done
 
     scrollBar: {
       borderColor: "rgb(85, 85, 85)",

@@ -16,9 +16,10 @@ const darkPlusTheme: Theme = {
     inputFocusOutline: "1px solid rgb(0, 127, 212)", // done
     inputBackground: "rgb(60, 60, 60)", // done
     closeButtonBackgroundActive: "rgb(37, 37, 37)", // done
-    border: "solid 1px transparent", // done
+    border: "none", // done
     borderActive: "solid 1px transparent", // done
     borderHover: "solid 1px transparent", // done
+    shadow: "#000000 0 6px 6px -6px ", // done
 
     scrollBar: {
       borderColor: "rgb(57, 57, 57)", // done

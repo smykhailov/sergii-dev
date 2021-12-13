@@ -21,6 +21,7 @@ declare module "@emotion/react" {
       border: Property.Border;
       borderActive: Property.Border;
       borderHover: Property.Border;
+      shadow: Property.BoxShadow;
 
       scrollBar: {
         borderColor: Property.BorderColor;
