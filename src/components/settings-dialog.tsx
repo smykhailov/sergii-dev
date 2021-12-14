@@ -9,7 +9,7 @@ import { Theme, useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 
 import Modal from "react-modal";
-import { fonts, getConfig, saveConfig, TConfig, themes } from "@core/config";
+import { fonts, getConfig, TConfig, themes } from "@core/config";
 import { nameOf } from "@core/operations";
 import { parseNum } from "@core/parse";
 
@@ -20,19 +20,26 @@ if (typeof window !== `undefined`) {
   Modal.setAppElement(document.body);
 }
 
-const SettingsDialog: FC<{ isOpen: boolean; onClose: () => void }> = props => {
+const SettingsDialog: FC<{
+  isOpen: boolean;
+  onClose: () => void;
+  onApply: (settings: TConfig) => void;
+}> = props => {
   const theme = useTheme();
   const [formData, setFormData] = useState(getConfig());
 
-  const handleCloseDialog = useCallback(
-    (event: KeyboardEvent | React.KeyboardEvent<HTMLAnchorElement>) => {
+  const handleKeyPressEvent = useCallback(
+    (event: KeyboardEvent | React.KeyboardEvent<HTMLElement>) => {
       if (event.key === "Escape") {
         props.onClose();
-      } else if (
-        (event.currentTarget as HTMLAnchorElement)?.id === "close-button" &&
-        (event.key === "Enter" || event.key === " ")
-      ) {
-        props.onClose();
+      } else if (event.key === "Enter" || event.key === " ") {
+        if ((event.currentTarget as HTMLElement)?.id === "close-button") {
+          props.onClose();
+        } else if (
+          (event.currentTarget as HTMLElement)?.id === "apply-button"
+        ) {
+          props.onApply(formData);
+        }
       }
     },
     []
@@ -51,16 +58,14 @@ const SettingsDialog: FC<{ isOpen: boolean; onClose: () => void }> = props => {
             : value,
       };
 
-      saveConfig(newState);
-
       return newState;
     });
   };
 
   useEffect(() => {
-    document.addEventListener("keyup", handleCloseDialog);
+    document.addEventListener("keyup", handleKeyPressEvent);
     return () => {
-      document.removeEventListener("keyup", handleCloseDialog);
+      document.removeEventListener("keyup", handleKeyPressEvent);
     };
   }, []);
 
@@ -77,7 +82,7 @@ const SettingsDialog: FC<{ isOpen: boolean; onClose: () => void }> = props => {
           id="close-button"
           role="button"
           onClick={props.onClose}
-          onKeyPress={handleCloseDialog}
+          onKeyPress={handleKeyPressEvent}
           title="Close (Esc)"
           tabIndex={0}
         ></CloseIcon>
@@ -145,6 +150,16 @@ const SettingsDialog: FC<{ isOpen: boolean; onClose: () => void }> = props => {
           name={nameOf<TConfig>("articleFontSize")}
           value={formData.articleFontSize.toString()}
         />
+        <ActionContainer>
+          <button
+            onClick={() => props.onApply(formData)}
+            onKeyPress={handleKeyPressEvent}
+            id="apply-button"
+            type="button"
+          >
+            Apply
+          </button>
+        </ActionContainer>
       </MainContainer>
     </Modal>
   );
@@ -187,6 +202,27 @@ const MainContainer = styled.main({
   display: "flex",
   flexDirection: "column",
 });
+
+const ActionContainer = styled.footer(props => ({
+  display: "flex",
+  justifyContent: "flex-end",
+  paddingRight: 12,
+
+  "& > button": {
+    backgroundColor: props.theme.colors.gitalk.btnBackgroundColor,
+    color: props.theme.colors.gitalk.btnTextColor,
+    display: "inline-block",
+    padding: "2px 14px",
+    borderRadius: 0,
+    border: "none",
+    lineHeight: "inherit",
+  },
+
+  "& > button:hover": {
+    backgroundColor: props.theme.colors.gitalk.btnBackgroundHoverColor,
+    cursor: "pointer",
+  },
+}));
 
 const CloseIcon = styled.a(props => ({
   position: "absolute",

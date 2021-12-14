@@ -11,6 +11,8 @@ import CVIcon from "../assets/person.svg";
 import SettingsIcon from "../assets/settings-gear.svg";
 import SettingsDialog from "./settings-dialog";
 import { isRouteActive } from "@core/routing";
+import { saveConfig, TConfig } from "@core/config";
+import { useAppContext } from "./app-context";
 
 const AppBar: FC<{ location: Location }> = props => {
   const [isSettingsDialogOpen, setSettingsDialogOpen] = useState(false);
@@ -48,14 +50,20 @@ const AppBar: FC<{ location: Location }> = props => {
     },
   ];
 
+  const ctx = useAppContext();
+
   const openSettingsDialog = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
     setSettingsDialogOpen(true);
   };
   const closeSettingsDialog = useCallback(() => {
     setSettingsDialogOpen(false);
-    // TODO: is it possible to re-render?
-    window.location.reload();
+  }, []);
+
+  const onApplySettings = useCallback((settings: TConfig) => {
+    setSettingsDialogOpen(false);
+    saveConfig(settings);
+    ctx.setConfig(settings);
   }, []);
 
   return (
@@ -64,6 +72,7 @@ const AppBar: FC<{ location: Location }> = props => {
         <SettingsDialog
           isOpen={isSettingsDialogOpen}
           onClose={closeSettingsDialog}
+          onApply={onApplySettings}
         />
       )}
       <Nav>

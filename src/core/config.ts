@@ -14,6 +14,10 @@ export type TConfig = {
 };
 
 const getBrowserColorScheme = () => {
+  if (typeof window === `undefined`) {
+    return "light-plus";
+  }
+
   if (window.matchMedia) {
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
       return "dark-plus";

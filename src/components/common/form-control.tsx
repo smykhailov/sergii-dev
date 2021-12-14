@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 const FormControl = styled.div(props => ({
   display: "flex",
   flexDirection: "column",
-  padding: "12px 14px 18px",
+  padding: "12px 12px 18px",
   borderStyle: "solid",
   borderWidth: 1,
   borderColor: props.theme.colors.main.backgroundColor,
