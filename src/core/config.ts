@@ -13,12 +13,24 @@ export type TConfig = {
   articleFontSize: number;
 };
 
+const getBrowserColorScheme = () => {
+  if (window.matchMedia) {
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      return "dark-plus";
+    } else {
+      return "light-plus";
+    }
+  }
+
+  return "light-plus";
+};
+
 export const defaultConfig: TConfig = {
-  theme: "one-monokai", // TODO: add theme detection and chhose light/dark based on browser settings
+  theme: getBrowserColorScheme(),
   editorFontFace: "segoe-ui",
   editorFontSize: 13,
-  articleFontFace: "consolas",
-  articleFontSize: 16,
+  articleFontFace: "segoe-ui",
+  articleFontSize: 14,
 };
 
 type TKeyValuePair<K extends string> = { [key in K]: string };
