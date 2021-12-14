@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useMemo, useState } from "react";
 
 import { Global, css, ThemeProvider, Theme } from "@emotion/react";
 import styled from "@emotion/styled";
@@ -7,18 +7,16 @@ import { Helmet } from "react-helmet";
 
 import Footer from "@components/footer";
 import AppBar from "@components/app-bar";
-import { AppContext, defaultContextValue } from "./app-context";
-import { fonts, getConfig } from "@core/config";
+import { AppContext, defaultContextValue, useAppContext } from "./app-context";
+import { fonts } from "@core/config";
 
 const Layout: FC<{ aside?: React.ReactChild; location: Location }> = props => {
-  const [ctx, setContext] = useState(defaultContextValue);
+  const [config, setConfig] = useState(defaultContextValue.config);
 
-  useEffect(() => {
-    setContext({ ...ctx, config: getConfig() });
-  }, []);
+  const value = useMemo(() => ({ config, setConfig }), [config]);
 
   return (
-    <AppContext.Provider value={ctx}>
+    <AppContext.Provider value={value}>
       <UILayout
         aside={props.aside}
         location={props.location}
@@ -31,9 +29,9 @@ const Layout: FC<{ aside?: React.ReactChild; location: Location }> = props => {
 const UILayout: FC<{ aside?: React.ReactChild; location: Location }> =
   props => {
     const [theme, setTheme] = useState(null);
+    const { config } = useAppContext();
 
     useEffect(() => {
-      const config = getConfig();
       import(`../themes/${config.theme}`)
         .then(newTheme => {
           (newTheme.default as Theme).fontSize = `${config.editorFontSize}px`;
@@ -47,7 +45,7 @@ const UILayout: FC<{ aside?: React.ReactChild; location: Location }> =
           console.info(`Theme has changed: ${config.theme}`);
         })
         .catch(err => console.error(`Can't load theme: ${config.theme}`, err));
-    }, []);
+    }, [config]);
 
     if (!theme) {
       return null;
