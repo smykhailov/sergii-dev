@@ -9,7 +9,7 @@ import { Theme, useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 
 import Modal from "react-modal";
-import { fonts, getConfig, TConfig, themes } from "@core/config";
+import { defaultConfig, fonts, getConfig, TConfig, themes } from "@core/config";
 import { nameOf } from "@core/operations";
 import { parseNum } from "@core/parse";
 
@@ -28,6 +28,33 @@ const SettingsDialog: FC<{
   const theme = useTheme();
   const [formData, setFormData] = useState(getConfig());
 
+  const isValid = () => {
+    return (
+      Object.keys(formData).filter(
+        prop => prop.endsWith("-error") && formData[prop as keyof TConfig]
+      ).length === 0
+    );
+  };
+
+  const scrubErrors = (config: TConfig): TConfig => {
+    const props = Object.keys(config).filter(prop => prop.endsWith("-error"));
+
+    props.forEach(prop => config[nameOf<TConfig>(prop as keyof TConfig)]);
+
+    return config;
+  };
+
+  const onApply = () => {
+    if (isValid()) {
+      props.onApply(scrubErrors(formData));
+    }
+  };
+
+  const onReset = () => {
+    setFormData(defaultConfig);
+    props.onApply(defaultConfig);
+  };
+
   const handleKeyPressEvent = useCallback(
     (event: KeyboardEvent | React.KeyboardEvent<HTMLElement>) => {
       if (event.key === "Escape") {
@@ -38,7 +65,11 @@ const SettingsDialog: FC<{
         } else if (
           (event.currentTarget as HTMLElement)?.id === "apply-button"
         ) {
-          props.onApply(formData);
+          onApply();
+        } else if (
+          (event.currentTarget as HTMLElement)?.id === "reset-button"
+        ) {
+          onReset();
         }
       }
     },
@@ -49,13 +80,15 @@ const SettingsDialog: FC<{
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = event.target;
+
     setFormData(prevState => {
       const newState = {
         ...prevState,
-        [name]:
-          event.target instanceof HTMLInputElement
-            ? parseNum(value, name as keyof TConfig)
-            : value,
+        [name]: value,
+        [`${name}-error`]:
+          event.target.localName === "input" && !parseNum(value)
+            ? "Invalid value. Value must be a number between 6 and 100."
+            : "",
       };
 
       return newState;
@@ -124,6 +157,11 @@ const SettingsDialog: FC<{
           onChange={handleChange}
           name={nameOf<TConfig>("editorFontSize")}
           value={formData.editorFontSize.toString()}
+          errorMessage={
+            formData[
+              `${nameOf<TConfig>("editorFontSize")}-error` as keyof TConfig
+            ] as string
+          }
         />
 
         <SelectInput
@@ -149,10 +187,23 @@ const SettingsDialog: FC<{
           onChange={handleChange}
           name={nameOf<TConfig>("articleFontSize")}
           value={formData.articleFontSize.toString()}
+          errorMessage={
+            formData[
+              `${nameOf<TConfig>("articleFontSize")}-error` as keyof TConfig
+            ] as string
+          }
         />
         <ActionContainer>
           <button
-            onClick={() => props.onApply(formData)}
+            onClick={onReset}
+            onKeyPress={handleKeyPressEvent}
+            id="reset-button"
+            type="button"
+          >
+            Default Values
+          </button>
+          <button
+            onClick={onApply}
             onKeyPress={handleKeyPressEvent}
             id="apply-button"
             type="button"
@@ -214,8 +265,9 @@ const ActionContainer = styled.footer(props => ({
     display: "inline-block",
     padding: "2px 14px",
     borderRadius: 0,
-    border: "none",
+    border: props.theme.colors.border,
     lineHeight: "inherit",
+    marginLeft: 14,
   },
 
   "& > button:hover": {

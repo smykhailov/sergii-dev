@@ -21,7 +21,7 @@ const ProjectsList: FC<{ location: Location }> = props => {
             const isActive = isRouteActive(slug, props.location);
 
             return (
-              <li>
+              <li key={slug}>
                 <Link
                   to={slug}
                   className={isActive ? "active" : undefined}

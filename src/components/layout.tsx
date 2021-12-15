@@ -8,10 +8,13 @@ import { Helmet } from "react-helmet";
 import Footer from "@components/footer";
 import AppBar from "@components/app-bar";
 import { AppContext, defaultContextValue, useAppContext } from "./app-context";
-import { fonts } from "@core/config";
+import { fonts, getConfig } from "@core/config";
+import { clone } from "lodash";
 
 const Layout: FC<{ aside?: React.ReactChild; location: Location }> = props => {
-  const [config, setConfig] = useState(defaultContextValue.config);
+  const [config, setConfig] = useState(
+    getConfig() || defaultContextValue.config
+  );
 
   const value = useMemo(() => ({ config, setConfig }), [config]);
 
@@ -41,7 +44,7 @@ const UILayout: FC<{ aside?: React.ReactChild; location: Location }> =
           ).articleFontSize = `${config.articleFontSize}px`;
           (newTheme.default as Theme).articleFontFace =
             fonts[config.articleFontFace];
-          setTheme(newTheme.default);
+          setTheme(clone(newTheme.default));
           console.info(`Theme has changed: ${config.theme}`);
         })
         .catch(err => console.error(`Can't load theme: ${config.theme}`, err));

@@ -23,6 +23,12 @@ declare module "@emotion/react" {
       borderHover: Property.Border;
       shadow: Property.BoxShadow;
 
+      error: {
+        textColor: Property.Color;
+        backgroundColor: Property.BackgroundColor;
+        border: Property.Border;
+      };
+
       scrollBar: {
         borderColor: Property.BorderColor;
         thumbBackgroundColor: Property.BackgroundColor;
