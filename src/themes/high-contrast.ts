@@ -21,6 +21,12 @@ const highContrastTheme: Theme = {
     borderHover: "dashed 1px rgb(243, 133, 24)", // done
     shadow: "#000000 0 0 0 0 0", // done
 
+    error: {
+      textColor: "rgb(57, 57, 57)",
+      backgroundColor: "rgb(57, 57, 57)",
+      border: "rgb(57, 57, 57)",
+    },
+
     scrollBar: {
       borderColor: "rgb(35, 35, 35)", // done
       thumbBackgroundColor: "rgb(39, 43, 51)", // done

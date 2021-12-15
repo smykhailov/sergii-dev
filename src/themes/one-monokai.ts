@@ -21,6 +21,12 @@ const oneMonokaiTheme: Theme = {
     borderHover: "solid 1px transparent", // done
     shadow: "#000000 0 6px 6px -6px ", // done
 
+    error: {
+      textColor: "rgb(204, 204, 204)", // done
+      backgroundColor: "rgb(90, 29, 29)", // done
+      border: "solid 1px rgb(190, 17, 0)", // done
+    },
+
     scrollBar: {
       borderColor: "rgb(85, 85, 85)",
       thumbBackgroundColor: "rgb(56, 62, 73)",

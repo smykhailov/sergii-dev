@@ -16,6 +16,9 @@ const Comments: FC<{ slug: string; title: string }> = props => {
 };
 
 const CommentsContainer = styled.div(props => ({
+  ".gt-container": {
+    fontSize: props.theme.articleFontSize,
+  },
   ".gt-container .gt-svg": {
     verticalAlign: "text-top",
   },

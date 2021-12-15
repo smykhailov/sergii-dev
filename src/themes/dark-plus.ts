@@ -21,6 +21,12 @@ const darkPlusTheme: Theme = {
     borderHover: "solid 1px transparent", // done
     shadow: "#000000 0 6px 6px -6px ", // done
 
+    error: {
+      textColor: "rgb(57, 57, 57)",
+      backgroundColor: "rgb(57, 57, 57)",
+      border: "rgb(57, 57, 57)",
+    },
+
     scrollBar: {
       borderColor: "rgb(57, 57, 57)", // done
       thumbBackgroundColor: "rgb(66, 66, 66)", // done

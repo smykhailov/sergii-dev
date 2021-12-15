@@ -1,5 +1,5 @@
 import { ChangeEvent, PropsWithChildren } from "react";
-import FormControl from "@components/common/form-control";
+import { FormControl } from "@components/common/form-control";
 
 interface Props<T extends { [key: string]: string }> {
   onChange: (event: ChangeEvent<HTMLSelectElement>) => void;

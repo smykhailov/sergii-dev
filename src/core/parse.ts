@@ -1,10 +1,7 @@
-import { defaultConfig, TConfig } from "./config";
+export const parseNum = (value: string) => {
+  const parsedValue = +value;
 
-export const parseNum = (value: string, htmlElementName: keyof TConfig) => {
-  const parsedValue = parseInt(value, 10);
-  if (isNaN(parsedValue)) {
-    return defaultConfig[htmlElementName];
-  } else {
-    return parsedValue > 50 ? defaultConfig[htmlElementName] : parsedValue;
-  }
+  return !isNaN(parsedValue) && parsedValue >= 6 && parsedValue <= 100
+    ? parsedValue
+    : undefined;
 };
