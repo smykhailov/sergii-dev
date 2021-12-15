@@ -16,15 +16,15 @@ const oneMonokaiTheme: Theme = {
     inputFocusOutline: "1px solid #007fd4",
     inputBackground: "rgb(29, 31, 35)",
     closeButtonBackgroundActive: "rgb(47, 51, 61)",
-    border: "none", // done
-    borderActive: "solid 1px transparent", // done
-    borderHover: "solid 1px transparent", // done
-    shadow: "#000000 0 6px 6px -6px ", // done
+    border: "none",
+    borderActive: "solid 1px transparent",
+    borderHover: "solid 1px transparent",
+    shadow: "#000000 0 6px 6px -6px ",
 
     error: {
-      textColor: "rgb(204, 204, 204)", // done
-      backgroundColor: "rgb(90, 29, 29)", // done
-      border: "solid 1px rgb(190, 17, 0)", // done
+      textColor: "rgb(204, 204, 204)",
+      backgroundColor: "rgb(90, 29, 29)",
+      border: "solid 1px rgb(190, 17, 0)",
     },
 
     scrollBar: {

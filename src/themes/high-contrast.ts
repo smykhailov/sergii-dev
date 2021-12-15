@@ -7,69 +7,69 @@ const highContrastTheme: Theme = {
   articleFontFace: "Segoe UI",
 
   colors: {
-    backgroundPrimary: "rgb(0, 0, 0)", // done
-    backgroundSecondary: "rgb(0, 0, 0)", // done
+    backgroundPrimary: "rgb(0, 0, 0)",
+    backgroundSecondary: "rgb(0, 0, 0)",
     modalOverlayColor: "rgba(40, 44, 52, 0.85)",
-    textColor: "rgb(255, 255, 255)", // done
-    selectionColor: "rgb(128, 128, 128)", // done
-    linkColor: "rgb(55, 148, 255)", // done
-    inputFocusOutline: "1px solid rgb(243, 133, 24)", // done
-    inputBackground: "rgb(0, 0, 0)", // done
-    closeButtonBackgroundActive: "rgb(0, 0, 0)", // done
-    border: "solid 1px rgb(111, 195, 223)", // done
-    borderActive: "solid 1px rgb(243, 133, 24)", // done
-    borderHover: "dashed 1px rgb(243, 133, 24)", // done
-    shadow: "#000000 0 0 0 0 0", // done
+    textColor: "rgb(255, 255, 255)",
+    selectionColor: "rgb(128, 128, 128)",
+    linkColor: "rgb(55, 148, 255)",
+    inputFocusOutline: "1px solid rgb(243, 133, 24)",
+    inputBackground: "rgb(0, 0, 0)",
+    closeButtonBackgroundActive: "rgb(0, 0, 0)",
+    border: "solid 1px rgb(111, 195, 223)",
+    borderActive: "solid 1px rgb(243, 133, 24)",
+    borderHover: "dashed 1px rgb(243, 133, 24)",
+    shadow: "#000000 0 0 0 0 0",
 
     error: {
-      textColor: "rgb(57, 57, 57)",
-      backgroundColor: "rgb(57, 57, 57)",
-      border: "rgb(57, 57, 57)",
+      textColor: "rgb(255, 255, 255)",
+      backgroundColor: "rgb(0, 0, 0)",
+      border: "solid 1px rgb(111, 195, 223)",
     },
 
     scrollBar: {
-      borderColor: "rgb(35, 35, 35)", // done
-      thumbBackgroundColor: "rgb(39, 43, 51)", // done
-      thumbBackgroundHoverColor: "rgb(45, 50, 59)", // done
+      borderColor: "rgb(35, 35, 35)",
+      thumbBackgroundColor: "rgb(39, 43, 51)",
+      thumbBackgroundHoverColor: "rgb(45, 50, 59)",
     },
 
     appBar: {
-      backgroundColor: "rgb(0, 0, 0)", // done
-      textColor: "rgb(255, 255, 255)", // done
-      textActiveColor: "rgb(255, 255, 255)", // done
-      textHoverColor: "rgb(255, 255, 255)", // done
+      backgroundColor: "rgb(0, 0, 0)",
+      textColor: "rgb(255, 255, 255)",
+      textActiveColor: "rgb(255, 255, 255)",
+      textHoverColor: "rgb(255, 255, 255)",
     },
 
     leftPane: {
-      backgroundColorHover: "rgb(0, 0, 0)", // done
-      backgroundColorActive: "rgb(0, 0, 0)", // done
-      textColor: "rgb(255, 255, 255)", // done
-      textColorHover: "rgb(255, 255, 255)", // done
-      textColorActive: "rgb(255, 255, 255)", // done
+      backgroundColorHover: "rgb(0, 0, 0)",
+      backgroundColorActive: "rgb(0, 0, 0)",
+      textColor: "rgb(255, 255, 255)",
+      textColorHover: "rgb(255, 255, 255)",
+      textColorActive: "rgb(255, 255, 255)",
     },
 
     main: {
-      backgroundColor: "rgb(0, 0, 0)", // done
-      backgroundHoverColor: "rgb(0, 0, 0)", // done
-      backgroundActiveColor: "rgb(0, 0, 0)", // done
-      borderActiveColor: "rgb(243, 133, 24)", // done
-      titleContainerBackgroundColor: "rgb(0, 0, 0)", // done
-      titleBackgroundColor: "rgb(0, 0, 0)", // done
+      backgroundColor: "rgb(0, 0, 0)",
+      backgroundHoverColor: "rgb(0, 0, 0)",
+      backgroundActiveColor: "rgb(0, 0, 0)",
+      borderActiveColor: "rgb(243, 133, 24)",
+      titleContainerBackgroundColor: "rgb(0, 0, 0)",
+      titleBackgroundColor: "rgb(0, 0, 0)",
     },
 
     footer: {
-      backgroundColor: "rgb(0, 0, 0)", // done
-      backgroundColorActive: "rgb(0, 0, 0)", // done
-      textColor: "rgb(255, 255, 255)", // done
+      backgroundColor: "rgb(0, 0, 0)",
+      backgroundColorActive: "rgb(0, 0, 0)",
+      textColor: "rgb(255, 255, 255)",
     },
 
     gitalk: {
-      linkColor: "rgb(55, 148, 255)", // done
-      btnBackgroundColor: "rgb(0, 0, 0)", // done
-      btnTextColor: "rgb(255, 255, 255)", // done
-      btnBackgroundHoverColor: "rgb(0, 0, 0)", // done
-      popupBackgroundColor: "rgb(0, 0, 0)", // done
-      popupItemHoverColor: "rgb(0, 0, 0)", // done
+      linkColor: "rgb(55, 148, 255)",
+      btnBackgroundColor: "rgb(0, 0, 0)",
+      btnTextColor: "rgb(255, 255, 255)",
+      btnBackgroundHoverColor: "rgb(0, 0, 0)",
+      popupBackgroundColor: "rgb(0, 0, 0)",
+      popupItemHoverColor: "rgb(0, 0, 0)",
     },
   },
 };

@@ -248,7 +248,7 @@ const ActionContainer = styled.footer(props => ({
     display: "inline-block",
     padding: "2px 14px",
     borderRadius: 0,
-    border: "none",
+    border: props.theme.colors.border,
     lineHeight: "inherit",
   },
 

@@ -46,6 +46,6 @@ export const Error = styled.div(props => ({
   padding: 5,
   position: "absolute",
   marginTop: -18,
-  marginLeft: 13,
-  width: 314,
+  marginLeft: 12,
+  width: 316,
 }));
