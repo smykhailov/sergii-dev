@@ -8,7 +8,7 @@ export const FormControl = styled.div(props => ({
   borderWidth: 1,
   borderColor: props.theme.colors.main.backgroundColor,
   fontSize: props.theme.fontSize,
-  width: 340,
+  maxWidth: "80vw",
 
   ":hover": {
     backgroundColor: props.theme.colors.main.backgroundHoverColor,
@@ -47,5 +47,5 @@ export const Error = styled.div(props => ({
   position: "absolute",
   marginTop: -18,
   marginLeft: 12,
-  width: 316,
+  maxWidth: "80%",
 }));

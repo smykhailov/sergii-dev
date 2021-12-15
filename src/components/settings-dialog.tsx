@@ -9,7 +9,7 @@ import { Theme, useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 
 import Modal from "react-modal";
-import { fonts, getConfig, TConfig, themes } from "@core/config";
+import { defaultConfig, fonts, getConfig, TConfig, themes } from "@core/config";
 import { nameOf } from "@core/operations";
 import { parseNum } from "@core/parse";
 
@@ -50,6 +50,11 @@ const SettingsDialog: FC<{
     }
   };
 
+  const onReset = () => {
+    setFormData(defaultConfig);
+    props.onApply(defaultConfig);
+  };
+
   const handleKeyPressEvent = useCallback(
     (event: KeyboardEvent | React.KeyboardEvent<HTMLElement>) => {
       if (event.key === "Escape") {
@@ -61,6 +66,10 @@ const SettingsDialog: FC<{
           (event.currentTarget as HTMLElement)?.id === "apply-button"
         ) {
           onApply();
+        } else if (
+          (event.currentTarget as HTMLElement)?.id === "reset-button"
+        ) {
+          onReset();
         }
       }
     },
@@ -186,6 +195,14 @@ const SettingsDialog: FC<{
         />
         <ActionContainer>
           <button
+            onClick={onReset}
+            onKeyPress={handleKeyPressEvent}
+            id="reset-button"
+            type="button"
+          >
+            Default Values
+          </button>
+          <button
             onClick={onApply}
             onKeyPress={handleKeyPressEvent}
             id="apply-button"
@@ -250,6 +267,7 @@ const ActionContainer = styled.footer(props => ({
     borderRadius: 0,
     border: props.theme.colors.border,
     lineHeight: "inherit",
+    marginLeft: 14,
   },
 
   "& > button:hover": {
