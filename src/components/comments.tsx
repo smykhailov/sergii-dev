@@ -59,6 +59,8 @@ const CommentsContainer = styled.div(props => ({
 
   ".gt-container .gt-comment-content": {
     padding: 0,
+    backgroundColor: props.theme.colors.backgroundPrimary,
+    transition: "none",
   },
 
   ".gt-container .gt-comment-content:hover": {
