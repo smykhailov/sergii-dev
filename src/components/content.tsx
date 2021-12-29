@@ -21,9 +21,10 @@ const ContentContainer: FC<{
             if ((e.target as HTMLElement).scrollTop > 0) {
               setShadowStyle({
                 boxShadow: theme.colors.shadow,
+                zIndex: 100,
               });
             } else {
-              setShadowStyle({});
+              setShadowStyle({ zIndex: 100 });
             }
           }}
         >

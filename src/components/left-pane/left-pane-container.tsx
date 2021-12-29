@@ -1,12 +1,22 @@
 import React, { FC } from "react";
 import styled from "@emotion/styled";
+import { useTheme } from "@emotion/react";
 
 const LeftPaneContainer: FC<{
   title: string;
+  displayShadow?: boolean;
 }> = props => {
+  const theme = useTheme();
+
   return (
     <Container>
-      <TitleContainer>
+      <TitleContainer
+        style={
+          props.displayShadow
+            ? { boxShadow: theme.colors.shadow, zIndex: 100 }
+            : { zIndex: 100 }
+        }
+      >
         <Title>{props.title}</Title>
       </TitleContainer>
       <ContentContainer>{props.children}</ContentContainer>
@@ -41,7 +51,9 @@ const Title = styled.h3(() => ({
 }));
 
 const ContentContainer = styled.div(() => ({
-  height: "100%",
+  // maxHeight: "calc(100vh - 60px)",
+  height: "calc(100vh - 60px)",
+  // overflowY: "auto",
 }));
 
 export default LeftPaneContainer;

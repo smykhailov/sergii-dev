@@ -107,6 +107,7 @@ const Wrapper = styled.div(props => ({
 const Container = styled.div({
   display: "flex",
   flex: 1,
+  maxHeight: "100vh",
 });
 
 const Aside = styled.aside(props => ({
