@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { graphql, Link } from "gatsby";
 import styled from "@emotion/styled";
 
@@ -12,13 +12,20 @@ const CategoriesPage: FC<{
   data: GatsbyTypes.CategoriesPageDataQuery;
   location: Location;
 }> = props => {
+  const [shouldDisplayShadow, setShouldDisplayShadow] =
+    useState<boolean>(false);
+
   return (
     <Layout
       aside={<CategoriesList location={props.location} />}
       location={props.location}
     >
-      <ContentContainer title="Categories">
-        <CategoryWrapper>
+      <ContentContainer title="Categories" displayShadow={shouldDisplayShadow}>
+        <CategoryWrapper
+          onScroll={e =>
+            setShouldDisplayShadow((e.target as HTMLElement).scrollTop > 0)
+          }
+        >
           {props.data.allMdx.group.map(group => {
             return (
               <React.Fragment key={group.fieldValue}>

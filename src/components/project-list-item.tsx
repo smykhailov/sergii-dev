@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, CSSProperties } from "react";
 import styled from "@emotion/styled";
 
 import { Link } from "gatsby";
@@ -8,16 +8,19 @@ const ProjectListItem: FC<{
   title: string;
   description: string;
   date: string;
+  style?: CSSProperties;
 }> = props => {
   return (
-    <ArticleItemContainer key={props.name}>
-      <Link to={props.name}>
-        <ArticleItemHeader>
-          <h3>{props.title}</h3>
-        </ArticleItemHeader>
-        <ArticleItemBody>{props.description}</ArticleItemBody>
-      </Link>
-    </ArticleItemContainer>
+    <div style={{ ...props.style, padding: "6px 18px" }}>
+      <ArticleItemContainer key={props.name}>
+        <Link to={props.name}>
+          <ArticleItemHeader>
+            <h3>{props.title}</h3>
+          </ArticleItemHeader>
+          <ArticleItemBody>{props.description}</ArticleItemBody>
+        </Link>
+      </ArticleItemContainer>
+    </div>
   );
 };
 

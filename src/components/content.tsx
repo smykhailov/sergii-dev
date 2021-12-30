@@ -6,12 +6,10 @@ const ContentContainer: FC<{
   title: string;
   displayShadow?: boolean;
 }> = props => {
-  // const [shadowStyle, setShadowStyle] = useState<React.CSSProperties>({});
   const theme = useTheme();
 
   return (
     <ArticleContainer>
-      {/* <TitleContainer style={shadowStyle}> */}
       <TitleContainer
         style={
           props.displayShadow
@@ -24,20 +22,7 @@ const ContentContainer: FC<{
         </Title>
       </TitleContainer>
       <Main>
-        <Article
-        // onScroll={e => {
-        //   if ((e.target as HTMLElement).scrollTop > 0) {
-        //     setShadowStyle({
-        //       boxShadow: theme.colors.shadow,
-        //       zIndex: 100,
-        //     });
-        //   } else {
-        //     setShadowStyle({ zIndex: 100 });
-        //   }
-        // }}
-        >
-          {props.children}
-        </Article>
+        <Article>{props.children}</Article>
       </Main>
     </ArticleContainer>
   );
