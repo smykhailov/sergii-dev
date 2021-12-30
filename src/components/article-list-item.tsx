@@ -137,6 +137,7 @@ const ArticleItemHeader = styled.div(props => ({
 
 const ArticleItemBody = styled.div({
   display: "flex",
+  flexWrap: "wrap",
   margin: "12px 0",
 
   "& a": {
