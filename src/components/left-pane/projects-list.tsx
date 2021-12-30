@@ -45,15 +45,16 @@ const ProjectsList: FC<{ location: Location }> = () => {
   return (
     <LeftPaneContainer title="Projects" displayShadow={shouldDisplayShadow}>
       <AutoSizer>
-        {({ height, width }) => (
+        {({ height }) => (
           <Projects>
             <List
               height={height}
               itemCount={data?.length || 0}
               itemData={{ location, edges: data }}
               itemSize={parseInt(theme.fontSize.toString(), 10) * 4}
-              width={width}
+              width={320}
               onScroll={e => setShouldDisplayShadow(e.scrollOffset > 0)}
+              innerElementType="ul"
             >
               {Row}
             </List>
@@ -94,7 +95,7 @@ const useGitHubProjectsListQuery = () => {
   return allGithubData;
 };
 
-const Projects = styled.ul(props => ({
+const Projects = styled.div(props => ({
   "& li > a": {
     display: "flex",
     flexDirection: "column",

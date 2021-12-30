@@ -51,9 +51,7 @@ const Title = styled.h3(() => ({
 }));
 
 const ContentContainer = styled.div(() => ({
-  // maxHeight: "calc(100vh - 60px)",
-  height: "calc(100vh - 60px)",
-  // overflowY: "auto",
+  height: "calc(100vh - 61px)",
 }));
 
 export default LeftPaneContainer;

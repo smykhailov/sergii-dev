@@ -36,7 +36,7 @@ const Row = ({
 };
 
 const ArticlesList: FC<{ location: Location }> = () => {
-  const { edges, pageInfo } = useArticlesListQuery();
+  const { edges } = useArticlesListQuery();
   const [shouldDisplayShadow, setShouldDisplayShadow] =
     useState<boolean>(false);
   const theme = useTheme();
@@ -44,15 +44,16 @@ const ArticlesList: FC<{ location: Location }> = () => {
   return (
     <LeftPaneContainer title="Articles" displayShadow={shouldDisplayShadow}>
       <AutoSizer>
-        {({ height, width }) => (
+        {({ height }) => (
           <Articles>
             <List
               height={height}
-              itemCount={pageInfo.itemCount}
+              itemCount={edges.length}
               itemData={{ location, edges }}
               itemSize={parseInt(theme.fontSize.toString(), 10) * 4}
-              width={width}
+              width={320}
               onScroll={e => setShouldDisplayShadow(e.scrollOffset > 0)}
+              innerElementType="ul"
             >
               {Row}
             </List>
@@ -70,15 +71,6 @@ const useArticlesListQuery = () => {
         sort: { fields: [frontmatter___date], order: DESC }
         filter: { frontmatter: { published: { eq: true } } }
       ) {
-        pageInfo {
-          currentPage
-          hasNextPage
-          hasPreviousPage
-          itemCount
-          pageCount
-          perPage
-          totalCount
-        }
         edges {
           node {
             id
@@ -100,7 +92,7 @@ const useArticlesListQuery = () => {
   return allMdx;
 };
 
-const Articles = styled.ul(props => ({
+const Articles = styled.div(props => ({
   "& li > a": {
     display: "flex",
     flexDirection: "column",

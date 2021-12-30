@@ -1,32 +1,40 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import styled from "@emotion/styled";
 import { useTheme } from "@emotion/react";
 
 const ContentContainer: FC<{
   title: string;
+  displayShadow?: boolean;
 }> = props => {
-  const [shadowStyle, setShadowStyle] = useState<React.CSSProperties>({});
+  // const [shadowStyle, setShadowStyle] = useState<React.CSSProperties>({});
   const theme = useTheme();
 
   return (
     <ArticleContainer>
-      <TitleContainer style={shadowStyle}>
+      {/* <TitleContainer style={shadowStyle}> */}
+      <TitleContainer
+        style={
+          props.displayShadow
+            ? { boxShadow: theme.colors.shadow, zIndex: 100 }
+            : { zIndex: 100 }
+        }
+      >
         <Title title={props.title}>
           <span>{props.title}</span>
         </Title>
       </TitleContainer>
       <Main>
         <Article
-          onScroll={e => {
-            if ((e.target as HTMLElement).scrollTop > 0) {
-              setShadowStyle({
-                boxShadow: theme.colors.shadow,
-                zIndex: 100,
-              });
-            } else {
-              setShadowStyle({ zIndex: 100 });
-            }
-          }}
+        // onScroll={e => {
+        //   if ((e.target as HTMLElement).scrollTop > 0) {
+        //     setShadowStyle({
+        //       boxShadow: theme.colors.shadow,
+        //       zIndex: 100,
+        //     });
+        //   } else {
+        //     setShadowStyle({ zIndex: 100 });
+        //   }
+        // }}
         >
           {props.children}
         </Article>
@@ -79,8 +87,8 @@ const Article = styled.article(() => ({
   display: "flex",
   flex: "1 1 auto",
   flexDirection: "column",
-  overflowY: "auto",
-  padding: "6px 18px",
+  // overflowY: "auto",
+  // padding: "6px 18px",
 }));
 
 export default ContentContainer;

@@ -55,15 +55,16 @@ const TagsList: FC<{ location: Location }> = () => {
   return (
     <LeftPaneContainer title="Tags" displayShadow={shouldDisplayShadow}>
       <AutoSizer>
-        {({ height, width }) => (
+        {({ height }) => (
           <Tags>
             <List
               height={height}
               itemCount={tags.length}
               itemData={{ location, tags, group }}
               itemSize={parseInt(theme.fontSize.toString(), 10) * 4}
-              width={width}
+              width={320}
               onScroll={e => setShouldDisplayShadow(e.scrollOffset > 0)}
+              innerElementType="ul"
             >
               {Row}
             </List>
@@ -92,7 +93,7 @@ const useTagsListQuery = () => {
   return allMdx;
 };
 
-const Tags = styled.ul(props => ({
+const Tags = styled.div(props => ({
   "& li > a": {
     display: "flex",
     flexDirection: "column",

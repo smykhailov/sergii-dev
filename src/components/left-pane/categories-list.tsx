@@ -59,15 +59,16 @@ const CategoriesList: FC<{ location: Location }> = () => {
   return (
     <LeftPaneContainer title="Categories" displayShadow={shouldDisplayShadow}>
       <AutoSizer>
-        {({ height, width }) => (
+        {({ height }) => (
           <Categories>
             <List
               height={height}
               itemCount={categories.length}
               itemData={{ location, categories, group }}
               itemSize={parseInt(theme.fontSize.toString(), 10) * 4}
-              width={width}
+              width={320}
               onScroll={e => setShouldDisplayShadow(e.scrollOffset > 0)}
+              innerElementType="ul"
             >
               {Row}
             </List>
@@ -96,7 +97,7 @@ const useCategoriesListQuery = () => {
   return allMdx;
 };
 
-const Categories = styled.ul(props => ({
+const Categories = styled.div(props => ({
   "& li > a": {
     display: "flex",
     flexDirection: "column",
