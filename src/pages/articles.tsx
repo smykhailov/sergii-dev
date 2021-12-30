@@ -3,7 +3,6 @@ import { graphql } from "gatsby";
 
 import { FixedSizeList as List, ListChildComponentProps } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
-//import { useTheme } from "@emotion/react";
 
 import Layout from "@components/layout";
 import ArticlesList from "@components/left-pane/articles-list";
@@ -42,7 +41,6 @@ const ArticlesPage: FC<{
   const { edges } = props.data.allMdx;
   const [shouldDisplayShadow, setShouldDisplayShadow] =
     useState<boolean>(false);
-  // const theme = useTheme();
 
   return (
     <Layout
@@ -56,7 +54,6 @@ const ArticlesPage: FC<{
               height={height}
               itemCount={edges.length}
               itemData={{ location, edges }}
-              // itemSize={parseInt(theme.fontSize.toString(), 10) * 4}
               itemSize={134}
               width={width}
               onScroll={e => setShouldDisplayShadow(e.scrollOffset > 0)}
