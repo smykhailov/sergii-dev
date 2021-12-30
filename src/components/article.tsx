@@ -96,6 +96,19 @@ const SubtitleContainer = styled.div({
   justifyContent: "space-between",
   alignItems: "end",
 
+  "& p": {
+    display: "flex",
+    flexWrap: "wrap",
+    flexBasis: "fit-content",
+    alignSelf: "flex-start",
+    whiteSpace: "nowrap",
+  },
+
+  "& p:first-child": {
+    display: "inline-block",
+    whiteSpace: "nowrap",
+  },
+
   "& * > a": {
     marginLeft: 12,
     opacity: 0.85,
