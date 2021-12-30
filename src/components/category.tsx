@@ -1,11 +1,39 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 
 import { graphql } from "gatsby";
+
+import { FixedSizeList as List, ListChildComponentProps } from "react-window";
+import AutoSizer from "react-virtualized-auto-sizer";
 
 import Layout from "./layout";
 import CategoriesList from "./left-pane/categories-list";
 import ContentContainer from "./content";
 import ArticleListItem from "./article-list-item";
+
+const Row = ({
+  data,
+  index,
+  style,
+}: ListChildComponentProps<{ location: Location; edges: any }>) => {
+  const {
+    id,
+    fields: { slug, readingTime },
+    frontmatter: { title, date, tags },
+  } = data.edges[index].node;
+
+  return (
+    <ArticleListItem
+      id={id}
+      key={id}
+      slug={slug!}
+      title={title!}
+      date={date!}
+      timeToRead={readingTime?.text!}
+      tags={tags}
+      style={style}
+    />
+  );
+};
 
 const Category: FC<{
   data: GatsbyTypes.CategoryArticlesByCategoryQuery;
@@ -15,23 +43,32 @@ const Category: FC<{
   location: Location;
 }> = props => {
   const { edges } = props.data.allMdx;
+  const [shouldDisplayShadow, setShouldDisplayShadow] =
+    useState<boolean>(false);
 
   return (
     <Layout
       aside={<CategoriesList location={props.location} />}
       location={props.location}
     >
-      <ContentContainer title={props.pageContext.category}>
-        {edges.map(edge => (
-          <ArticleListItem
-            id={edge.node.id}
-            slug={edge.node.fields?.slug!}
-            title={edge.node.frontmatter?.title!}
-            date={edge.node.frontmatter?.date!}
-            timeToRead={edge.node.fields?.readingTime?.text!}
-            tags={edge.node.frontmatter?.tags}
-          />
-        ))}
+      <ContentContainer
+        title={props.pageContext.category}
+        displayShadow={shouldDisplayShadow}
+      >
+        <AutoSizer>
+          {({ height, width }) => (
+            <List
+              height={height}
+              itemCount={edges.length}
+              itemData={{ location, edges }}
+              itemSize={134}
+              width={width}
+              onScroll={e => setShouldDisplayShadow(e.scrollOffset > 0)}
+            >
+              {Row}
+            </List>
+          )}
+        </AutoSizer>
       </ContentContainer>
     </Layout>
   );

@@ -4,6 +4,7 @@ import React, {
   KeyboardEvent,
   useEffect,
   useState,
+  CSSProperties,
 } from "react";
 import styled from "@emotion/styled";
 
@@ -18,6 +19,7 @@ const ArticleListItem: FC<{
   date: string;
   timeToRead: string;
   tags?: GatsbyTypes.Maybe<readonly GatsbyTypes.Maybe<string>[]>;
+  style?: CSSProperties;
 }> = props => {
   const [commentsCount, setCommentsCount] = useState(0);
 
@@ -59,39 +61,41 @@ const ArticleListItem: FC<{
   };
 
   return (
-    <ArticleItemContainer
-      key={props.id}
-      tabIndex={0}
-      onKeyPress={onKeyPressHandler}
-    >
-      <ItemButton to={props.slug}>
-        <ArticleItemHeader>
-          <h3>{props.title}</h3>
-        </ArticleItemHeader>
-        <ArticleItemBody>
-          {props.tags?.map(tag => (
-            <Link
-              key={tag}
-              to={`/tags/${slugify(tag as string).toLocaleLowerCase()}`}
-            >{`#${tag}`}</Link>
-          ))}
-        </ArticleItemBody>
-        <ArticleItemFooter>
-          <div>
-            <span>
-              {formatDate(props.date)} - <em>{props.timeToRead}</em>
-            </span>
-          </div>
-          <div>
-            <a href="/">
-              {commentsCount === 1
-                ? `${commentsCount} comment`
-                : `${commentsCount} comments`}
-            </a>
-          </div>
-        </ArticleItemFooter>
-      </ItemButton>
-    </ArticleItemContainer>
+    <div style={{ ...props.style, padding: "6px 18px" }}>
+      <ArticleItemContainer
+        key={props.id}
+        tabIndex={0}
+        onKeyPress={onKeyPressHandler}
+      >
+        <ItemButton to={props.slug}>
+          <ArticleItemHeader>
+            <h3>{props.title}</h3>
+          </ArticleItemHeader>
+          <ArticleItemBody>
+            {props.tags?.map(tag => (
+              <Link
+                key={tag}
+                to={`/tags/${slugify(tag as string).toLocaleLowerCase()}`}
+              >{`#${tag}`}</Link>
+            ))}
+          </ArticleItemBody>
+          <ArticleItemFooter>
+            <div>
+              <span>
+                {formatDate(props.date)} - <em>{props.timeToRead}</em>
+              </span>
+            </div>
+            <div>
+              <a href="/">
+                {commentsCount === 1
+                  ? `${commentsCount} comment`
+                  : `${commentsCount} comments`}
+              </a>
+            </div>
+          </ArticleItemFooter>
+        </ItemButton>
+      </ArticleItemContainer>
+    </div>
   );
 };
 
@@ -133,6 +137,7 @@ const ArticleItemHeader = styled.div(props => ({
 
 const ArticleItemBody = styled.div({
   display: "flex",
+  flexWrap: "wrap",
   margin: "12px 0",
 
   "& a": {

@@ -107,13 +107,14 @@ const Wrapper = styled.div(props => ({
 const Container = styled.div({
   display: "flex",
   flex: 1,
+  maxHeight: "100vh",
 });
 
 const Aside = styled.aside(props => ({
   display: "flex",
   flexDirection: "column",
   flexBasis: "320px",
-  minWidth: "300px",
+  minWidth: "320px",
   backgroundColor: props.theme.colors.backgroundSecondary,
   color: props.theme.colors.textColor,
   fontFamily: "Segoe WPC, Segoe UI, sans-serif",
