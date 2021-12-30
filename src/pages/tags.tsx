@@ -1,11 +1,12 @@
 import React, { FC } from "react";
-import { graphql } from "gatsby";
+import { graphql, Link } from "gatsby";
 import styled from "@emotion/styled";
 
 import Layout from "@components/layout";
 import TagsList from "@components/left-pane/tags-list";
 import ContentContainer from "@components/content";
 import ArticleListItem from "@components/article-list-item";
+import slugify from "slugify";
 
 const TagsPage: FC<{
   data: GatsbyTypes.CategoriesPageDataQuery;
@@ -17,26 +18,35 @@ const TagsPage: FC<{
       location={props.location}
     >
       <ContentContainer title="Tags">
-        {props.data.allMdx.group.map(group => {
-          return (
-            <React.Fragment key={group.fieldValue}>
-              <TagsGroup>
-                <h2>#{group.fieldValue!}</h2>
-              </TagsGroup>
-              {group.nodes.slice(0, 3).map(node => (
-                <ArticleListItem
-                  id={node.id}
-                  key={node.id}
-                  slug={node.fields?.slug!}
-                  title={node.frontmatter?.title!}
-                  date={node.frontmatter?.date!}
-                  timeToRead={node.fields?.readingTime?.text!}
-                  tags={node.frontmatter?.tags}
-                />
-              ))}
-            </React.Fragment>
-          );
-        })}
+        <TagsWrapper>
+          {props.data.allMdx.group.map(group => {
+            return (
+              <React.Fragment key={group.fieldValue}>
+                <TagsGroup>
+                  <h2>#{group.fieldValue!}</h2>
+                  <Link
+                    to={`/tags/${slugify(
+                      group.fieldValue!
+                    ).toLocaleLowerCase()}`}
+                  >
+                    All articles with the tag
+                  </Link>
+                </TagsGroup>
+                {group.nodes.slice(0, 3).map(node => (
+                  <ArticleListItem
+                    id={node.id}
+                    key={node.id}
+                    slug={node.fields?.slug!}
+                    title={node.frontmatter?.title!}
+                    date={node.frontmatter?.date!}
+                    timeToRead={node.fields?.readingTime?.text!}
+                    tags={node.frontmatter?.tags}
+                  />
+                ))}
+              </React.Fragment>
+            );
+          })}
+        </TagsWrapper>
       </ContentContainer>
     </Layout>
   );
@@ -71,13 +81,30 @@ export const query = graphql`
   }
 `;
 
-const TagsGroup = styled.div({
+const TagsWrapper = styled.div({
+  maxHeight: "calc(100vh - 61px)",
+  overflow: "auto",
+});
+
+const TagsGroup = styled.div(props => ({
+  display: "flex",
+  justifyContent: "space-between",
   marginTop: 18,
   marginBottom: 6,
+  margin: "0 18px 0 0",
 
   "& h2": {
-    margin: 0,
+    margin: "0 0 0 18px",
   },
-});
+
+  "& a": {
+    color: props.theme.colors.linkColor,
+    opacity: 0.85,
+  },
+
+  "& a:hover": {
+    opacity: 1,
+  },
+}));
 
 export default TagsPage;
