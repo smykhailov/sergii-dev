@@ -2,7 +2,6 @@ import React, { FC, useState } from "react";
 import { graphql, Link } from "gatsby";
 import styled from "@emotion/styled";
 
-import Layout from "@components/layout";
 import TagsList from "@components/left-pane/tags-list";
 import ContentContainer from "@components/content";
 import ArticleListItem from "@components/article-list-item";
@@ -16,46 +15,39 @@ const TagsPage: FC<{
     useState<boolean>(false);
 
   return (
-    <Layout
-      aside={<TagsList location={props.location} />}
-      location={props.location}
-    >
-      <ContentContainer title="Tags" displayShadow={shouldDisplayShadow}>
-        <TagsWrapper
-          onScroll={e =>
-            setShouldDisplayShadow((e.target as HTMLElement).scrollTop > 0)
-          }
-        >
-          {props.data.allMdx.group.map(group => {
-            return (
-              <React.Fragment key={group.fieldValue}>
-                <TagsGroup>
-                  <h2>#{group.fieldValue!}</h2>
-                  <Link
-                    to={`/tags/${slugify(
-                      group.fieldValue!
-                    ).toLocaleLowerCase()}`}
-                  >
-                    All articles with the tag
-                  </Link>
-                </TagsGroup>
-                {group.nodes.slice(0, 3).map(node => (
-                  <ArticleListItem
-                    id={node.id}
-                    key={node.id}
-                    slug={node.fields?.slug!}
-                    title={node.frontmatter?.title!}
-                    date={node.frontmatter?.date!}
-                    timeToRead={node.fields?.readingTime?.text!}
-                    tags={node.frontmatter?.tags}
-                  />
-                ))}
-              </React.Fragment>
-            );
-          })}
-        </TagsWrapper>
-      </ContentContainer>
-    </Layout>
+    <ContentContainer title="Tags" displayShadow={shouldDisplayShadow}>
+      <TagsWrapper
+        onScroll={e =>
+          setShouldDisplayShadow((e.target as HTMLElement).scrollTop > 0)
+        }
+      >
+        {props.data.allMdx.group.map(group => {
+          return (
+            <React.Fragment key={group.fieldValue}>
+              <TagsGroup>
+                <h2>#{group.fieldValue!}</h2>
+                <Link
+                  to={`/tags/${slugify(group.fieldValue!).toLocaleLowerCase()}`}
+                >
+                  All articles with the tag
+                </Link>
+              </TagsGroup>
+              {group.nodes.slice(0, 3).map(node => (
+                <ArticleListItem
+                  id={node.id}
+                  key={node.id}
+                  slug={node.fields?.slug!}
+                  title={node.frontmatter?.title!}
+                  date={node.frontmatter?.date!}
+                  timeToRead={node.fields?.readingTime?.text!}
+                  tags={node.frontmatter?.tags}
+                />
+              ))}
+            </React.Fragment>
+          );
+        })}
+      </TagsWrapper>
+    </ContentContainer>
   );
 };
 
@@ -113,5 +105,7 @@ const TagsGroup = styled.div(props => ({
     opacity: 1,
   },
 }));
+
+(TagsPage as any).Aside = TagsList;
 
 export default TagsPage;

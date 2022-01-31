@@ -4,8 +4,7 @@ import styled from "@emotion/styled";
 import { graphql, Link } from "gatsby";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 
-import Layout from "./layout";
-import ArticlesList from "./left-pane/articles-list";
+import ArticlesList from "@components/left-pane/articles-list";
 import ContentContainer from "./content";
 import Comments from "./comments";
 import { formatDate } from "@core/date";
@@ -20,48 +19,45 @@ const Article: FC<{
     useState<boolean>(false);
 
   return (
-    <Layout
-      aside={<ArticlesList location={props.location} />}
-      location={props.location}
+    <ContentContainer
+      title={frontmatter?.title!}
+      displayShadow={shouldDisplayShadow}
     >
-      <ContentContainer
-        title={frontmatter?.title!}
-        displayShadow={shouldDisplayShadow}
+      <ContentWrapper
+        onScroll={e =>
+          setShouldDisplayShadow((e.target as HTMLElement).scrollTop > 0)
+        }
       >
-        <ContentWrapper
-          onScroll={e =>
-            setShouldDisplayShadow((e.target as HTMLElement).scrollTop > 0)
-          }
-        >
-          <header>
-            <h1>{frontmatter?.title}</h1>
-            <SubtitleContainer>
-              <p>
-                Posted on <strong>{formatDate(frontmatter?.date!)}</strong> -{" "}
-                {props.data.mdx?.fields?.readingTime?.text}
-              </p>
-              <p>
-                {frontmatter?.tags?.map(tag => (
-                  <Link
-                    key={tag}
-                    to={`/tags/${slugify(tag as string).toLocaleLowerCase()}`}
-                  >{`#${tag}`}</Link>
-                ))}
-              </p>
-            </SubtitleContainer>
-          </header>
-          <main>
-            <MDXRenderer>{body}</MDXRenderer>
-          </main>
-          <Comments
-            slug={props.data.mdx?.fields?.slug!}
-            title={frontmatter?.title!}
-          />
-        </ContentWrapper>
-      </ContentContainer>
-    </Layout>
+        <header>
+          <h1>{frontmatter?.title}</h1>
+          <SubtitleContainer>
+            <p>
+              Posted on <strong>{formatDate(frontmatter?.date!)}</strong> -{" "}
+              {props.data.mdx?.fields?.readingTime?.text}
+            </p>
+            <p>
+              {frontmatter?.tags?.map(tag => (
+                <Link
+                  key={tag}
+                  to={`/tags/${slugify(tag as string).toLocaleLowerCase()}`}
+                >{`#${tag}`}</Link>
+              ))}
+            </p>
+          </SubtitleContainer>
+        </header>
+        <main>
+          <MDXRenderer>{body}</MDXRenderer>
+        </main>
+        <Comments
+          slug={props.data.mdx?.fields?.slug!}
+          title={frontmatter?.title!}
+        />
+      </ContentWrapper>
+    </ContentContainer>
   );
 };
+
+(Article as any).Aside = ArticlesList;
 
 export const query = graphql`
   query ArticleById($id: String!) {
@@ -104,7 +100,7 @@ const SubtitleContainer = styled.div({
     whiteSpace: "nowrap",
   },
 
-  "& p:first-child": {
+  "& p:first-of-type": {
     display: "inline-block",
     whiteSpace: "nowrap",
   },

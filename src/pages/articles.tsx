@@ -4,7 +4,6 @@ import { graphql } from "gatsby";
 import { FixedSizeList as List, ListChildComponentProps } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 
-import Layout from "@components/layout";
 import ArticlesList from "@components/left-pane/articles-list";
 import ContentContainer from "@components/content";
 import ArticleListItem from "@components/article-list-item";
@@ -43,27 +42,22 @@ const ArticlesPage: FC<{
     useState<boolean>(false);
 
   return (
-    <Layout
-      aside={<ArticlesList location={props.location} />}
-      location={props.location}
-    >
-      <ContentContainer title="Articles" displayShadow={shouldDisplayShadow}>
-        <AutoSizer>
-          {({ height, width }) => (
-            <List
-              height={height}
-              itemCount={edges.length}
-              itemData={{ location, edges }}
-              itemSize={134}
-              width={width}
-              onScroll={e => setShouldDisplayShadow(e.scrollOffset > 0)}
-            >
-              {Row}
-            </List>
-          )}
-        </AutoSizer>
-      </ContentContainer>
-    </Layout>
+    <ContentContainer title="Articles" displayShadow={shouldDisplayShadow}>
+      <AutoSizer>
+        {({ height, width }) => (
+          <List
+            height={height}
+            itemCount={edges.length}
+            itemData={{ location, edges }}
+            itemSize={134}
+            width={width}
+            onScroll={e => setShouldDisplayShadow(e.scrollOffset > 0)}
+          >
+            {Row}
+          </List>
+        )}
+      </AutoSizer>
+    </ContentContainer>
   );
 };
 
@@ -94,5 +88,7 @@ export const query = graphql`
     }
   }
 `;
+
+(ArticlesPage as any).Aside = ArticlesList;
 
 export default ArticlesPage;

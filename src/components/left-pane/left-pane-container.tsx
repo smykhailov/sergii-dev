@@ -1,12 +1,24 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useRef } from "react";
 import styled from "@emotion/styled";
 import { useTheme } from "@emotion/react";
+
+const titleHeight = 35;
 
 const LeftPaneContainer: FC<{
   title: string;
   displayShadow?: boolean;
+  offsetTop?: number;
 }> = props => {
   const theme = useTheme();
+  const containerEl = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!props.offsetTop) {
+      return;
+    }
+
+    containerEl.current?.scrollTo(0, props.offsetTop - titleHeight);
+  }, [containerEl, props.offsetTop]);
 
   return (
     <Container>
@@ -19,7 +31,7 @@ const LeftPaneContainer: FC<{
       >
         <Title>{props.title}</Title>
       </TitleContainer>
-      <ContentContainer>{props.children}</ContentContainer>
+      <ContentContainer ref={containerEl}>{props.children}</ContentContainer>
     </Container>
   );
 };
@@ -31,7 +43,7 @@ const Container = styled.div(() => ({
 }));
 
 const TitleContainer = styled.div(props => ({
-  height: 35,
+  height: titleHeight,
   paddingLeft: 8,
   paddingRight: 8,
   borderBottom: props.theme.colors.border,
@@ -52,6 +64,7 @@ const Title = styled.h3(() => ({
 
 const ContentContainer = styled.div(() => ({
   height: "calc(100vh - 61px)",
+  overflowY: "auto",
 }));
 
 export default LeftPaneContainer;
