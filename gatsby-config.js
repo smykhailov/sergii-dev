@@ -26,6 +26,20 @@ module.exports = {
       resolve: "gatsby-plugin-mdx",
       options: {
         extensions: [".mdx", ".md"],
+        gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-vscode`,
+            options: {
+              theme: {
+                default: "Default Dark+",
+                dark: "Monokai Dimmed",
+              },
+              inlineCode: {
+                marker: "•",
+              },
+            },
+          },
+        ],
       },
     },
     {
@@ -87,7 +101,7 @@ module.exports = {
     {
       resolve: `gatsby-transformer-remark`,
       options: {
-        plugins: [`gatsby-remark-reading-time`],
+        plugins: [`gatsby-remark-reading-time`, `gatsby-remark-vscode`],
       },
     },
     {

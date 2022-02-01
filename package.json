@@ -40,6 +40,7 @@
     "gatsby-plugin-typescript-checker": "^1.1.1",
     "gatsby-plugin-typography": "^4.6.0",
     "gatsby-remark-reading-time": "^1.1.0",
+    "gatsby-remark-vscode": "^3.3.1",
     "gatsby-source-filesystem": "^4.6.0",
     "gatsby-source-github-api": "^1.0.0",
     "gatsby-transformer-remark": "^5.6.0",
