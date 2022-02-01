@@ -2,7 +2,7 @@ import React from "react";
 import Layout from "./src/components/layout";
 
 export function wrapPageElement({ element, props }) {
-  const { Aside } = props.pageResources.component;
+  const Aside = props?.pageResources?.component?.Aside;
 
   if (Aside) {
     return (
