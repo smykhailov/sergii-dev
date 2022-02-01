@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import { useTheme } from "@emotion/react";
 
@@ -6,17 +6,13 @@ const titleHeight = 35;
 
 const LeftPaneContainer: FC<{
   title: string;
-  displayShadow?: boolean;
-  offsetTop?: number;
+  offsetTop: number;
 }> = props => {
   const theme = useTheme();
+  const [displayShadow, setShouldDisplayShadow] = useState(false);
   const containerEl = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!props.offsetTop) {
-      return;
-    }
-
     containerEl.current?.scrollTo(0, props.offsetTop - titleHeight);
   }, [containerEl, props.offsetTop]);
 
@@ -24,14 +20,21 @@ const LeftPaneContainer: FC<{
     <Container>
       <TitleContainer
         style={
-          props.displayShadow
+          displayShadow
             ? { boxShadow: theme.colors.shadow, zIndex: 100 }
             : { zIndex: 100 }
         }
       >
         <Title>{props.title}</Title>
       </TitleContainer>
-      <ContentContainer ref={containerEl}>{props.children}</ContentContainer>
+      <ContentContainer
+        ref={containerEl}
+        onScroll={e =>
+          setShouldDisplayShadow((e.target as HTMLElement).scrollTop > 0)
+        }
+      >
+        {props.children}
+      </ContentContainer>
     </Container>
   );
 };
