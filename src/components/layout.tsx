@@ -29,67 +29,75 @@ const Layout: FC<{ aside?: React.ReactChild; location: Location }> = props => {
   );
 };
 
-const UILayout: FC<{ aside?: React.ReactChild; location: Location }> =
-  props => {
-    const [theme, setTheme] = useState(null);
-    const { config } = useAppContext();
+const UILayout: FC<{
+  aside?: React.ReactChild;
+  location: Location;
+}> = props => {
+  const [theme, setTheme] = useState(null);
+  const { config } = useAppContext();
 
-    useEffect(() => {
-      import(`../themes/${config.theme}`)
-        .then(newTheme => {
-          (newTheme.default as Theme).fontSize = `${config.editorFontSize}px`;
-          (newTheme.default as Theme).fontFace = fonts[config.editorFontFace];
-          (
-            newTheme.default as Theme
-          ).articleFontSize = `${config.articleFontSize}px`;
-          (newTheme.default as Theme).articleFontFace =
-            fonts[config.articleFontFace];
-          setTheme(clone(newTheme.default));
-          console.info(`Theme has changed: ${config.theme}`);
-        })
-        .catch(err => console.error(`Can't load theme: ${config.theme}`, err));
-    }, [config]);
+  useEffect(() => {
+    import(`../themes/${config.theme}`)
+      .then(newTheme => {
+        (newTheme.default as Theme).fontSize = `${config.editorFontSize}px`;
+        (newTheme.default as Theme).fontFace = fonts[config.editorFontFace];
+        (
+          newTheme.default as Theme
+        ).articleFontSize = `${config.articleFontSize}px`;
+        (newTheme.default as Theme).articleFontFace =
+          fonts[config.articleFontFace];
+        setTheme(clone(newTheme.default));
 
-    if (!theme) {
-      return null;
-    }
+        const html = document.getElementsByTagName("html")[0];
+        if (html) {
+          html.setAttribute("data-theme", config.theme);
+        }
 
-    return (
-      <>
-        <Helmet>
-          <link
-            rel="apple-touch-icon"
-            sizes="180x180"
-            href="/apple-touch-icon.png"
-          />
-          <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/favicon-32x32.png"
-          />
-          <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/favicon-16x16.png"
-          />
-          <link rel="manifest" href="/site.webmanifest" />
-        </Helmet>
-        <ThemeProvider theme={theme}>
-          <Wrapper>
-            <Global styles={globalStyles(theme)} />
-            <Container>
-              <AppBar location={props.location} />
-              {props.aside && <Aside>{props.aside}</Aside>}
-              <Content>{props.children}</Content>
-            </Container>
-            <Footer />
-          </Wrapper>
-        </ThemeProvider>
-      </>
-    );
-  };
+        console.info(`Theme has changed: ${config.theme}`);
+      })
+      .catch(err => console.error(`Can't load theme: ${config.theme}`, err));
+  }, [config]);
+
+  if (!theme) {
+    return null;
+  }
+
+  return (
+    <>
+      <Helmet>
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
+      </Helmet>
+      <ThemeProvider theme={theme}>
+        <Wrapper>
+          <Global styles={globalStyles(theme)} />
+          <Container>
+            <AppBar location={props.location} />
+            {props.aside && <Aside>{props.aside}</Aside>}
+            <Content>{props.children}</Content>
+          </Container>
+          <Footer />
+        </Wrapper>
+      </ThemeProvider>
+    </>
+  );
+};
 
 const Wrapper = styled.div(props => ({
   display: "flex",

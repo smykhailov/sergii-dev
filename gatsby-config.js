@@ -31,8 +31,15 @@ module.exports = {
             resolve: `gatsby-remark-vscode`,
             options: {
               theme: {
-                default: "Default Dark+",
-                dark: "Monokai Dimmed",
+                default: "Default Light+",
+                dark: "Default Dark+",
+                parentSelector: {
+                  // Any CSS selector will work!
+                  "html[data-theme='light-plus']": "Default Light+",
+                  "html[data-theme='dark-plus']": "Default Dark+",
+                  // "html[data-theme='one-monokai']": "One Monokai",
+                  // "html[data-theme='high-contrast']": "High Contrast",
+                },
               },
               inlineCode: {
                 marker: "•",
