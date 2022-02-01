@@ -5,7 +5,6 @@ import { graphql } from "gatsby";
 import { FixedSizeList as List, ListChildComponentProps } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 
-import Layout from "./layout";
 import CategoriesList from "./left-pane/categories-list";
 import ContentContainer from "./content";
 import ArticleListItem from "./article-list-item";
@@ -47,30 +46,25 @@ const Category: FC<{
     useState<boolean>(false);
 
   return (
-    <Layout
-      aside={<CategoriesList location={props.location} />}
-      location={props.location}
+    <ContentContainer
+      title={props.pageContext.category}
+      displayShadow={shouldDisplayShadow}
     >
-      <ContentContainer
-        title={props.pageContext.category}
-        displayShadow={shouldDisplayShadow}
-      >
-        <AutoSizer>
-          {({ height, width }) => (
-            <List
-              height={height}
-              itemCount={edges.length}
-              itemData={{ location, edges }}
-              itemSize={134}
-              width={width}
-              onScroll={e => setShouldDisplayShadow(e.scrollOffset > 0)}
-            >
-              {Row}
-            </List>
-          )}
-        </AutoSizer>
-      </ContentContainer>
-    </Layout>
+      <AutoSizer>
+        {({ height, width }) => (
+          <List
+            height={height}
+            itemCount={edges.length}
+            itemData={{ location, edges }}
+            itemSize={134}
+            width={width}
+            onScroll={e => setShouldDisplayShadow(e.scrollOffset > 0)}
+          >
+            {Row}
+          </List>
+        )}
+      </AutoSizer>
+    </ContentContainer>
   );
 };
 
@@ -104,5 +98,7 @@ export const query = graphql`
     }
   }
 `;
+
+(Category as any).Aside = CategoriesList;
 
 export default Category;

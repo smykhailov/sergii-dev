@@ -4,7 +4,6 @@ import { graphql } from "gatsby";
 import { FixedSizeList as List, ListChildComponentProps } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 
-import Layout from "@components/layout";
 import ProjectsList from "@components/left-pane/projects-list";
 import ContentContainer from "@components/content";
 import ProjectListItem from "@components/project-list-item";
@@ -37,27 +36,22 @@ const ProjectsPage: FC<{
     useState<boolean>(false);
 
   return (
-    <Layout
-      aside={<ProjectsList location={props.location} />}
-      location={props.location}
-    >
-      <ContentContainer title="Projects" displayShadow={shouldDisplayShadow}>
-        <AutoSizer>
-          {({ height, width }) => (
-            <List
-              height={height}
-              itemCount={edges!.length}
-              itemData={{ location, edges }}
-              itemSize={110}
-              width={width}
-              onScroll={e => setShouldDisplayShadow(e.scrollOffset > 0)}
-            >
-              {Row}
-            </List>
-          )}
-        </AutoSizer>
-      </ContentContainer>
-    </Layout>
+    <ContentContainer title="Projects" displayShadow={shouldDisplayShadow}>
+      <AutoSizer>
+        {({ height, width }) => (
+          <List
+            height={height}
+            itemCount={edges!.length}
+            itemData={{ location, edges }}
+            itemSize={110}
+            width={width}
+            onScroll={e => setShouldDisplayShadow(e.scrollOffset > 0)}
+          >
+            {Row}
+          </List>
+        )}
+      </AutoSizer>
+    </ContentContainer>
   );
 };
 
@@ -85,5 +79,7 @@ export const query = graphql`
     }
   }
 `;
+
+(ProjectsPage as any).Aside = ProjectsList;
 
 export default ProjectsPage;

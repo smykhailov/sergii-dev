@@ -1,66 +1,46 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import slugify from "slugify";
 import styled from "@emotion/styled";
-import { FixedSizeList as List, ListChildComponentProps } from "react-window";
-import AutoSizer from "react-virtualized-auto-sizer";
-import { useTheme } from "@emotion/react";
 
 import LeftPaneContainer from "./left-pane-container";
 import { graphql, Link, useStaticQuery } from "gatsby";
 import { isRouteActive } from "@core/routing";
 
-const Row = ({
-  data,
-  index,
-  style,
-}: ListChildComponentProps<{ location: Location; edges: any }>) => {
-  const item = data.edges[index];
-
-  const slug = `/projects/${slugify(item?.node?.name!).toLocaleLowerCase()}`;
-
-  const isActive = isRouteActive(slug, data.location);
-
-  return (
-    <li key={slug} style={style}>
-      <Link
-        to={slug}
-        className={isActive ? "active" : undefined}
-        title={item?.node?.name}
-      >
-        <strong>{item?.node?.name}</strong>
-        <p>{item?.node?.description}</p>
-      </Link>
-    </li>
-  );
-};
-
-const ProjectsList: FC<{ location: Location }> = () => {
+const ProjectsList: FC<{ location: Location }> = props => {
   const { edges } = useGitHubProjectsListQuery();
-  const [shouldDisplayShadow, setShouldDisplayShadow] =
-    useState<boolean>(false);
-  const theme = useTheme();
+  const [offsetTop, setOffsetTop] = useState(0);
+  const activeLi = React.useRef<HTMLLIElement>(null);
 
-  const data = edges[0]!.node.data?.search?.edges;
+  useEffect(() => {
+    setOffsetTop(activeLi?.current?.offsetTop || 0);
+  }, [activeLi]);
 
   return (
-    <LeftPaneContainer title="Projects" displayShadow={shouldDisplayShadow}>
-      <AutoSizer>
-        {({ height }) => (
-          <Projects>
-            <List
-              height={height}
-              itemCount={data?.length || 0}
-              itemData={{ location, edges: data }}
-              itemSize={parseInt(theme.fontSize.toString(), 10) * 4}
-              width={320}
-              onScroll={e => setShouldDisplayShadow(e.scrollOffset > 0)}
-              innerElementType="ul"
-            >
-              {Row}
-            </List>
-          </Projects>
-        )}
-      </AutoSizer>
+    <LeftPaneContainer title="Projects" offsetTop={offsetTop}>
+      <Projects>
+        {edges.map(e => {
+          return e.node.data?.search?.edges!.map(item => {
+            const slug = `/projects/${slugify(
+              item?.node?.name!
+            ).toLocaleLowerCase()}`;
+
+            const isActive = isRouteActive(slug, props.location);
+
+            return (
+              <li key={slug} ref={isActive ? activeLi : null}>
+                <Link
+                  to={slug}
+                  className={isActive ? "active" : undefined}
+                  title={item?.node?.name}
+                >
+                  <strong>{item?.node?.name}</strong>
+                  <p>{item?.node?.description}</p>
+                </Link>
+              </li>
+            );
+          });
+        })}
+      </Projects>
     </LeftPaneContainer>
   );
 };
@@ -95,8 +75,8 @@ const useGitHubProjectsListQuery = () => {
   return allGithubData;
 };
 
-const Projects = styled.div(props => ({
-  "& li > a": {
+const Projects = styled.ul(props => ({
+  "& > li > a": {
     display: "flex",
     flexDirection: "column",
     color: props.theme.colors.leftPane.textColor,
@@ -106,7 +86,7 @@ const Projects = styled.div(props => ({
     paddingRight: 16,
     border: "solid 1px transparent",
   },
-  "& li > a:hover": {
+  "& > li > a:hover": {
     backgroundColor: props.theme.colors.leftPane.backgroundColorHover,
     border: props.theme.colors.borderHover,
     color: props.theme.colors.leftPane.textColorHover,
@@ -114,26 +94,25 @@ const Projects = styled.div(props => ({
     cursor: "pointer",
   },
 
-  "& li > a.active": {
+  "& > li > a.active": {
     backgroundColor: props.theme.colors.leftPane.backgroundColorActive,
     border: props.theme.colors.borderActive,
     color: props.theme.colors.leftPane.textColorActive,
   },
 
-  "& li > a strong": {
+  "& > li > a strong": {
     fontWeight: "bold",
   },
 
-  "& li > a span": {
+  "& > li > a span": {
     marginLeft: 16,
     fontSize: 11,
     opacity: 0.85,
   },
 
-  "& li > a > p": {
-    whiteSpace: "nowrap",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
+  "& > li > a > p": {
+    display: "flex",
+    justifyContent: "space-between",
   },
 }));
 

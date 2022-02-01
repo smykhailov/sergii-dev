@@ -1,7 +1,6 @@
 import React, { FC, useState } from "react";
 import { graphql } from "gatsby";
 
-import Layout from "@components/layout";
 import ContentContainer from "@components/content";
 import styled from "@emotion/styled";
 
@@ -14,162 +13,160 @@ const IndexPage: FC<{
     useState<boolean>(false);
 
   return (
-    <Layout location={props.location}>
-      <ContentContainer title="Welcome" displayShadow={shouldDisplayShadow}>
-        <ContentWrapper
-          onScroll={e =>
-            setShouldDisplayShadow((e.target as HTMLElement).scrollTop > 0)
-          }
-        >
-          <h1>{title}</h1>
-          <p>{description}</p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-            vitae ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a
-            eum tempore quas veniam nostrum magnam, explicabo unde tempora
-            consequatur libero.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-            vitae ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a
-            eum tempore quas veniam nostrum magnam, explicabo unde tempora
-            consequatur libero.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-            vitae ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a
-            eum tempore quas veniam nostrum magnam, explicabo unde tempora
-            consequatur libero.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-            vitae ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a
-            eum tempore quas veniam nostrum magnam, explicabo unde tempora
-            consequatur libero.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-            vitae ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a
-            eum tempore quas veniam nostrum magnam, explicabo unde tempora
-            consequatur libero.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-            vitae ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a
-            eum tempore quas veniam nostrum magnam, explicabo unde tempora
-            consequatur libero.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-            vitae ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a
-            eum tempore quas veniam nostrum magnam, explicabo unde tempora
-            consequatur libero.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-            vitae ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a
-            eum tempore quas veniam nostrum magnam, explicabo unde tempora
-            consequatur libero.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-            vitae ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a
-            eum tempore quas veniam nostrum magnam, explicabo unde tempora
-            consequatur libero.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-            vitae ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a
-            eum tempore quas veniam nostrum magnam, explicabo unde tempora
-            consequatur libero.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-            vitae ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a
-            eum tempore quas veniam nostrum magnam, explicabo unde tempora
-            consequatur libero.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-            vitae ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a
-            eum tempore quas veniam nostrum magnam, explicabo unde tempora
-            consequatur libero.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-            vitae ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a
-            eum tempore quas veniam nostrum magnam, explicabo unde tempora
-            consequatur libero.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-            vitae ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a
-            eum tempore quas veniam nostrum magnam, explicabo unde tempora
-            consequatur libero.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-            vitae ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a
-            eum tempore quas veniam nostrum magnam, explicabo unde tempora
-            consequatur libero.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-            vitae ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a
-            eum tempore quas veniam nostrum magnam, explicabo unde tempora
-            consequatur libero.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-            vitae ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a
-            eum tempore quas veniam nostrum magnam, explicabo unde tempora
-            consequatur libero.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-            vitae ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a
-            eum tempore quas veniam nostrum magnam, explicabo unde tempora
-            consequatur libero.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-            vitae ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a
-            eum tempore quas veniam nostrum magnam, explicabo unde tempora
-            consequatur libero.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-            vitae ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a
-            eum tempore quas veniam nostrum magnam, explicabo unde tempora
-            consequatur libero.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-            vitae ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a
-            eum tempore quas veniam nostrum magnam, explicabo unde tempora
-            consequatur libero.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-            vitae ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a
-            eum tempore quas veniam nostrum magnam, explicabo unde tempora
-            consequatur libero.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-            vitae ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a
-            eum tempore quas veniam nostrum magnam, explicabo unde tempora
-            consequatur libero.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia
-            vitae ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a
-            eum tempore quas veniam nostrum magnam, explicabo unde tempora
-            consequatur libero.
-          </p>
-        </ContentWrapper>
-      </ContentContainer>
-    </Layout>
+    <ContentContainer title="Welcome" displayShadow={shouldDisplayShadow}>
+      <ContentWrapper
+        onScroll={e =>
+          setShouldDisplayShadow((e.target as HTMLElement).scrollTop > 0)
+        }
+      >
+        <h1>{title}</h1>
+        <p>{description}</p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
+          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
+          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
+          libero.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
+          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
+          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
+          libero.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
+          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
+          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
+          libero.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
+          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
+          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
+          libero.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
+          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
+          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
+          libero.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
+          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
+          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
+          libero.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
+          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
+          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
+          libero.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
+          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
+          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
+          libero.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
+          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
+          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
+          libero.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
+          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
+          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
+          libero.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
+          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
+          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
+          libero.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
+          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
+          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
+          libero.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
+          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
+          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
+          libero.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
+          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
+          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
+          libero.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
+          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
+          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
+          libero.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
+          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
+          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
+          libero.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
+          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
+          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
+          libero.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
+          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
+          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
+          libero.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
+          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
+          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
+          libero.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
+          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
+          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
+          libero.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
+          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
+          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
+          libero.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
+          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
+          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
+          libero.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
+          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
+          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
+          libero.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
+          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
+          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
+          libero.
+        </p>
+      </ContentWrapper>
+    </ContentContainer>
   );
 };
 

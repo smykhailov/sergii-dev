@@ -1,7 +1,6 @@
 import React, { FC, useState } from "react";
 import ReactMarkdownWithHtml from "react-markdown";
 
-import Layout from "./layout";
 import ProjectsList from "./left-pane/projects-list";
 import ContentContainer from "./content";
 import styled from "@emotion/styled";
@@ -16,27 +15,22 @@ const Project: FC<{
     useState<boolean>(false);
 
   return (
-    <Layout
-      aside={<ProjectsList location={props.location} />}
-      location={props.location}
+    <ContentContainer
+      title={props.pageContext.data.name!}
+      displayShadow={shouldDisplayShadow}
     >
-      <ContentContainer
-        title={props.pageContext.data.name!}
-        displayShadow={shouldDisplayShadow}
+      <ContentWrapper
+        onScroll={e =>
+          setShouldDisplayShadow((e.target as HTMLElement).scrollTop > 0)
+        }
       >
-        <ContentWrapper
-          onScroll={e =>
-            setShouldDisplayShadow((e.target as HTMLElement).scrollTop > 0)
-          }
-        >
-          <main>
-            <ReactMarkdownWithHtml>
-              {props.pageContext.data.object?.text!}
-            </ReactMarkdownWithHtml>
-          </main>
-        </ContentWrapper>
-      </ContentContainer>
-    </Layout>
+        <main>
+          <ReactMarkdownWithHtml>
+            {props.pageContext.data.object?.text!}
+          </ReactMarkdownWithHtml>
+        </main>
+      </ContentWrapper>
+    </ContentContainer>
   );
 };
 
@@ -46,5 +40,7 @@ const ContentWrapper = styled.div({
   maxHeight: "calc(100vh - 61px)",
   overflow: "auto",
 });
+
+(Project as any).Aside = ProjectsList;
 
 export default Project;

@@ -2,7 +2,6 @@ import React, { FC, useState } from "react";
 import { graphql, Link } from "gatsby";
 import styled from "@emotion/styled";
 
-import Layout from "@components/layout";
 import CategoriesList from "@components/left-pane/categories-list";
 import ContentContainer from "@components/content";
 import ArticleListItem from "@components/article-list-item";
@@ -16,46 +15,41 @@ const CategoriesPage: FC<{
     useState<boolean>(false);
 
   return (
-    <Layout
-      aside={<CategoriesList location={props.location} />}
-      location={props.location}
-    >
-      <ContentContainer title="Categories" displayShadow={shouldDisplayShadow}>
-        <CategoryWrapper
-          onScroll={e =>
-            setShouldDisplayShadow((e.target as HTMLElement).scrollTop > 0)
-          }
-        >
-          {props.data.allMdx.group.map(group => {
-            return (
-              <React.Fragment key={group.fieldValue}>
-                <CategoryGroup>
-                  <h2>{group.fieldValue!}</h2>
-                  <Link
-                    to={`/categories/${slugify(
-                      group.fieldValue!
-                    ).toLocaleLowerCase()}`}
-                  >
-                    All articles in the category
-                  </Link>
-                </CategoryGroup>
-                {group.nodes.slice(0, 3).map(node => (
-                  <ArticleListItem
-                    id={node.id}
-                    key={node.id}
-                    slug={node.fields?.slug!}
-                    title={node.frontmatter?.title!}
-                    date={node.frontmatter?.date!}
-                    timeToRead={node.fields?.readingTime?.text!}
-                    tags={node.frontmatter?.tags}
-                  />
-                ))}
-              </React.Fragment>
-            );
-          })}
-        </CategoryWrapper>
-      </ContentContainer>
-    </Layout>
+    <ContentContainer title="Categories" displayShadow={shouldDisplayShadow}>
+      <CategoryWrapper
+        onScroll={e =>
+          setShouldDisplayShadow((e.target as HTMLElement).scrollTop > 0)
+        }
+      >
+        {props.data.allMdx.group.map(group => {
+          return (
+            <React.Fragment key={group.fieldValue}>
+              <CategoryGroup>
+                <h2>{group.fieldValue!}</h2>
+                <Link
+                  to={`/categories/${slugify(
+                    group.fieldValue!
+                  ).toLocaleLowerCase()}`}
+                >
+                  All articles in the category
+                </Link>
+              </CategoryGroup>
+              {group.nodes.slice(0, 3).map(node => (
+                <ArticleListItem
+                  id={node.id}
+                  key={node.id}
+                  slug={node.fields?.slug!}
+                  title={node.frontmatter?.title!}
+                  date={node.frontmatter?.date!}
+                  timeToRead={node.fields?.readingTime?.text!}
+                  tags={node.frontmatter?.tags}
+                />
+              ))}
+            </React.Fragment>
+          );
+        })}
+      </CategoryWrapper>
+    </ContentContainer>
   );
 };
 
@@ -113,5 +107,7 @@ const CategoryGroup = styled.div(props => ({
     opacity: 1,
   },
 }));
+
+(CategoriesPage as any).Aside = CategoriesList;
 
 export default CategoriesPage;

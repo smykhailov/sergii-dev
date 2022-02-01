@@ -1,76 +1,54 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { graphql, Link, useStaticQuery } from "gatsby";
 import slugify from "slugify";
 import styled from "@emotion/styled";
-import { FixedSizeList as List, ListChildComponentProps } from "react-window";
-import AutoSizer from "react-virtualized-auto-sizer";
-import { useTheme } from "@emotion/react";
 
 import LeftPaneContainer from "./left-pane-container";
 import { isRouteActive } from "@core/routing";
 
-const Row = ({
-  data,
-  index,
-  style,
-}: ListChildComponentProps<{
-  location: Location;
-  tags: any;
-  group: any;
-}>) => {
-  const tag = data.tags[index];
-
-  const slug = `/tags/${slugify(tag).toLocaleLowerCase()}`;
-  const articlesCount = data.group[index]?.totalCount || 0;
-  let amountOfArticles = "There is no articles with this tag yet";
-
-  if (articlesCount > 0) {
-    if (articlesCount === 1) {
-      amountOfArticles = "1 article";
-    } else {
-      amountOfArticles = `${articlesCount} articles`;
-    }
-  }
-
-  const isActive = isRouteActive(slug, data.location);
-
-  return (
-    <li key={slug} style={style}>
-      <Link to={slug} className={isActive ? "active" : undefined} title={tag}>
-        <p>
-          <strong>{tag}</strong>
-        </p>
-        <p>{amountOfArticles}</p>
-      </Link>
-    </li>
-  );
-};
-
-const TagsList: FC<{ location: Location }> = () => {
+const TagsList: FC<{ location: Location }> = props => {
   const { distinct: tags, group } = useTagsListQuery();
-  const [shouldDisplayShadow, setShouldDisplayShadow] =
-    useState<boolean>(false);
-  const theme = useTheme();
+  const [offsetTop, setOffsetTop] = useState(0);
+  const activeLi = React.useRef<HTMLLIElement>(null);
+
+  useEffect(() => {
+    setOffsetTop(activeLi?.current?.offsetTop || 0);
+  }, [activeLi]);
 
   return (
-    <LeftPaneContainer title="Tags" displayShadow={shouldDisplayShadow}>
-      <AutoSizer>
-        {({ height }) => (
-          <Tags>
-            <List
-              height={height}
-              itemCount={tags.length}
-              itemData={{ location, tags, group }}
-              itemSize={parseInt(theme.fontSize.toString(), 10) * 4}
-              width={320}
-              onScroll={e => setShouldDisplayShadow(e.scrollOffset > 0)}
-              innerElementType="ul"
-            >
-              {Row}
-            </List>
-          </Tags>
-        )}
-      </AutoSizer>
+    <LeftPaneContainer title="Tags" offsetTop={offsetTop}>
+      <Tags>
+        {tags.map((tag: string, idx: number) => {
+          const slug = `/tags/${slugify(tag).toLocaleLowerCase()}`;
+          const articlesCount = group[idx]?.totalCount || 0;
+          let amountOfArticles = "There is no articles with this tag yet";
+
+          if (articlesCount > 0) {
+            if (articlesCount === 1) {
+              amountOfArticles = "1 article";
+            } else {
+              amountOfArticles = `${articlesCount} articles`;
+            }
+          }
+
+          const isActive = isRouteActive(slug, props.location);
+
+          return (
+            <li key={slug} ref={isActive ? activeLi : null}>
+              <Link
+                to={slug}
+                className={isActive ? "active" : undefined}
+                title={tag}
+              >
+                <p>
+                  <strong>{tag}</strong>
+                </p>
+                <p>{amountOfArticles}</p>
+              </Link>
+            </li>
+          );
+        })}
+      </Tags>
     </LeftPaneContainer>
   );
 };
@@ -93,8 +71,8 @@ const useTagsListQuery = () => {
   return allMdx;
 };
 
-const Tags = styled.div(props => ({
-  "& li > a": {
+const Tags = styled.ul(props => ({
+  "& > li > a": {
     display: "flex",
     flexDirection: "column",
     color: props.theme.colors.leftPane.textColor,
@@ -104,7 +82,7 @@ const Tags = styled.div(props => ({
     paddingRight: 16,
     border: "solid 1px transparent",
   },
-  "& li > a:hover": {
+  "& > li > a:hover": {
     backgroundColor: props.theme.colors.leftPane.backgroundColorHover,
     border: props.theme.colors.borderHover,
     color: props.theme.colors.leftPane.textColorHover,
@@ -112,23 +90,23 @@ const Tags = styled.div(props => ({
     cursor: "pointer",
   },
 
-  "& li > a.active": {
+  "& > li > a.active": {
     backgroundColor: props.theme.colors.leftPane.backgroundColorActive,
     border: props.theme.colors.borderActive,
     color: props.theme.colors.leftPane.textColorActive,
   },
 
-  "& li > a strong": {
+  "& > li > a strong": {
     fontWeight: "bold",
   },
 
-  "& li > a span": {
+  "& > li > a span": {
     marginLeft: 16,
     fontSize: 11,
     opacity: 0.85,
   },
 
-  "& li > a > p": {
+  "& > li > a > p": {
     display: "flex",
     justifyContent: "space-between",
   },
