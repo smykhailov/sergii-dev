@@ -71,6 +71,11 @@ const oneMonokaiTheme: Theme = {
       popupBackgroundColor: "rgb(29, 31, 35)",
       popupItemHoverColor: "rgb(44, 49, 58)",
     },
+
+    blockquote: {
+      leftBarColor: "rgb(56, 62, 73)",
+      backgroundColor: "rgb(33, 37, 43)",
+    },
   },
 };
 

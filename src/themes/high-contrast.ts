@@ -71,6 +71,11 @@ const highContrastTheme: Theme = {
       popupBackgroundColor: "rgb(0, 0, 0)",
       popupItemHoverColor: "rgb(0, 0, 0)",
     },
+
+    blockquote: {
+      leftBarColor: "rgb(243, 133, 24)",
+      backgroundColor: "rgb(0, 0, 0)",
+    },
   },
 };
 

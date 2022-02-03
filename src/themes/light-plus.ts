@@ -71,6 +71,11 @@ const lightPlusTheme: Theme = {
       popupBackgroundColor: "rgb(232, 232, 232)",
       popupItemHoverColor: "rgb(230, 243, 255)",
     },
+
+    blockquote: {
+      leftBarColor: "rgb(0, 96, 192)",
+      backgroundColor: "rgb(243, 243, 243)",
+    },
   },
 };
 
