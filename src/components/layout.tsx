@@ -165,6 +165,40 @@ const Content = styled.div(props => ({
   "& a": {
     color: props.theme.colors.linkColor,
   },
+
+  "& blockquote": {
+    fontStyle: "italic",
+    padding: "6px 1.8em 6px 3em",
+    borderLeft: `4px solid ${props.theme.colors.blockquote.leftBarColor}`,
+    backgroundColor: props.theme.colors.blockquote.backgroundColor,
+    marginRight: 0,
+    position: "relative",
+  },
+
+  "& blockquote::before": {
+    content: `"\\201C"`,
+    color: props.theme.colors.blockquote.leftBarColor,
+    fontSize: "4em",
+    fontStyle: "normal",
+    position: "absolute",
+    left: "6px",
+    top: "-20px",
+  },
+
+  "& blockquote::after": {
+    content: `""`,
+  },
+
+  "& blockquote p:last-of-type": {
+    marginBottom: 0,
+  },
+
+  "& blockquote cite": {
+    display: "block",
+    fontStyle: "italic",
+    fontWeight: "bold",
+    marginTop: "0.6em",
+  },
 }));
 
 const globalStyles = (props: Theme) => css`

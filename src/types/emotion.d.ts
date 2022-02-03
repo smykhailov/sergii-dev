@@ -73,6 +73,11 @@ declare module "@emotion/react" {
         popupBackgroundColor: Property.BackgroundColor;
         popupItemHoverColor: Property.Color;
       };
+
+      blockquote: {
+        leftBarColor: Property.Color;
+        backgroundColor: Property.BackgroundColor;
+      };
     };
   }
 }

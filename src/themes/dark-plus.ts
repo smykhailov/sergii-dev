@@ -71,6 +71,11 @@ const darkPlusTheme: Theme = {
       popupBackgroundColor: "rgb(60, 60, 60)",
       popupItemHoverColor: "rgb(9, 71, 113)",
     },
+
+    blockquote: {
+      leftBarColor: "rgb(0, 122, 204)",
+      backgroundColor: "rgb(37, 37, 38)",
+    },
   },
 };
 

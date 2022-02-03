@@ -22,11 +22,22 @@ module.exports = {
     "gatsby-plugin-typescript",
     "gatsby-plugin-typescript-checker",
     "gatsby-plugin-react-helmet",
+    "gatsby-plugin-sharp",
     {
       resolve: "gatsby-plugin-mdx",
       options: {
         extensions: [".mdx", ".md"],
         gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              // It's important to specify the maxWidth (in pixels) of
+              // the content container as this plugin uses this as the
+              // base for generating different widths of each image.
+              maxWidth: 650,
+              quality: 90,
+            },
+          },
           {
             resolve: `gatsby-remark-vscode`,
             options: {
@@ -35,10 +46,10 @@ module.exports = {
                 dark: "Default Dark+",
                 parentSelector: {
                   // Any CSS selector will work!
-                  "html[data-theme='light-plus']": "Default Light+",
-                  "html[data-theme='dark-plus']": "Default Dark+",
-                  // "html[data-theme='one-monokai']": "One Monokai",
-                  // "html[data-theme='high-contrast']": "High Contrast",
+                  "html[data-theme='light-plus']": "Solarized Light",
+                  "html[data-theme='dark-plus']": "Monokai",
+                  "html[data-theme='one-monokai']": "Monokai Dimmed",
+                  "html[data-theme='high-contrast']": "High Contrast",
                 },
               },
               inlineCode: {
@@ -108,7 +119,11 @@ module.exports = {
     {
       resolve: `gatsby-transformer-remark`,
       options: {
-        plugins: [`gatsby-remark-reading-time`, `gatsby-remark-vscode`],
+        plugins: [
+          `gatsby-remark-reading-time`,
+          `gatsby-remark-vscode`,
+          `gatsby-remark-images`,
+        ],
       },
     },
     {
