@@ -1,9 +1,15 @@
 import React, { FC, useState } from "react";
+import { graphql } from "gatsby";
+import { MDXRenderer } from "gatsby-plugin-mdx";
 
 import ContentContainer from "@components/content";
 import styled from "@emotion/styled";
 
-const CVPage: FC<{ location: Location }> = () => {
+const CVPage: FC<{
+  data: GatsbyTypes.CVPageDataQuery;
+  location: Location;
+}> = props => {
+  const { rawBody } = props.data.mdx!;
   const [shouldDisplayShadow, setShouldDisplayShadow] =
     useState<boolean>(false);
 
@@ -17,155 +23,20 @@ const CVPage: FC<{ location: Location }> = () => {
           setShouldDisplayShadow((e.target as HTMLElement).scrollTop > 0)
         }
       >
-        <p>TODO: Add CV</p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
+        <MDXRenderer>{rawBody!}</MDXRenderer>
+        <h1>sdfsfdds</h1>
       </ContentWrapper>
     </ContentContainer>
   );
 };
+
+export const query = graphql`
+  query CVPageData {
+    mdx(fileAbsolutePath: { regex: "/resume.md/" }) {
+      rawBody
+    }
+  }
+`;
 
 const ContentWrapper = styled.div({
   padding: "6px 18px",

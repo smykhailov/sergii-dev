@@ -8,19 +8,21 @@ const IndexPage: FC<{
   data: GatsbyTypes.HomePageDataQuery;
   location: Location;
 }> = props => {
-  const { title, description } = props.data.site?.siteMetadata!;
+  const { title } = props.data.site?.siteMetadata!;
   const [shouldDisplayShadow, setShouldDisplayShadow] =
     useState<boolean>(false);
 
   return (
-    <ContentContainer title="Welcome" displayShadow={shouldDisplayShadow}>
+    <ContentContainer
+      title="Sergii Mykhailov"
+      displayShadow={shouldDisplayShadow}
+    >
       <ContentWrapper
         onScroll={e =>
           setShouldDisplayShadow((e.target as HTMLElement).scrollTop > 0)
         }
       >
         <h1>{title}</h1>
-        <p>{description}</p>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
           ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum

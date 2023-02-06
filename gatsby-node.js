@@ -108,6 +108,10 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       });
     }
 
+    if (!node?.fields?.slug) {
+      return;
+    }
+
     createPage({
       path: node.fields.slug,
       component: postPage,
