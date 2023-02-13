@@ -9,7 +9,7 @@ const CVPage: FC<{
   data: GatsbyTypes.CVPageDataQuery;
   location: Location;
 }> = props => {
-  const { rawBody } = props.data.mdx!;
+  const { body } = props.data.mdx!;
   const [shouldDisplayShadow, setShouldDisplayShadow] =
     useState<boolean>(false);
 
@@ -23,8 +23,7 @@ const CVPage: FC<{
           setShouldDisplayShadow((e.target as HTMLElement).scrollTop > 0)
         }
       >
-        <MDXRenderer>{rawBody!}</MDXRenderer>
-        <h1>sdfsfdds</h1>
+        <MDXRenderer>{body}</MDXRenderer>
       </ContentWrapper>
     </ContentContainer>
   );
@@ -32,8 +31,8 @@ const CVPage: FC<{
 
 export const query = graphql`
   query CVPageData {
-    mdx(fileAbsolutePath: { regex: "/resume.md/" }) {
-      rawBody
+    mdx(fileAbsolutePath: { regex: "/resume.mdx/" }) {
+      body
     }
   }
 `;
