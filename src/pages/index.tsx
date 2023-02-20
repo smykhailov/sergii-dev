@@ -1,5 +1,6 @@
 import React, { FC, useState } from "react";
 import { graphql } from "gatsby";
+import { MDXRenderer } from "gatsby-plugin-mdx";
 
 import ContentContainer from "@components/content";
 import styled from "@emotion/styled";
@@ -8,7 +9,7 @@ const IndexPage: FC<{
   data: GatsbyTypes.HomePageDataQuery;
   location: Location;
 }> = props => {
-  const { title } = props.data.site?.siteMetadata!;
+  const { body } = props.data.mdx!;
   const [shouldDisplayShadow, setShouldDisplayShadow] =
     useState<boolean>(false);
 
@@ -22,151 +23,7 @@ const IndexPage: FC<{
           setShouldDisplayShadow((e.target as HTMLElement).scrollTop > 0)
         }
       >
-        <h1>{title}</h1>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vitae
-          ipsum omnis quos beatae suscipit! Dignissimos, quia dicta, a eum
-          tempore quas veniam nostrum magnam, explicabo unde tempora consequatur
-          libero.
-        </p>
+        <MDXRenderer>{body}</MDXRenderer>
       </ContentWrapper>
     </ContentContainer>
   );
@@ -174,11 +31,8 @@ const IndexPage: FC<{
 
 export const query = graphql`
   query HomePageData {
-    site {
-      siteMetadata {
-        title
-        description
-      }
+    mdx(fileAbsolutePath: { regex: "/main.mdx/" }) {
+      body
     }
   }
 `;
@@ -186,8 +40,9 @@ export const query = graphql`
 const ContentWrapper = styled.div({
   padding: "6px 18px",
   flex: "1 1 auto",
-  maxHeight: "calc(100vh - 61px)",
+  maxHeight: "calc(100vh - 73px)",
   overflow: "auto",
+  marginTop: 12,
 });
 
 export default IndexPage;

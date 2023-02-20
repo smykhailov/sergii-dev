@@ -85,6 +85,7 @@ export const query = graphql`
 const CategoryWrapper = styled.div({
   maxHeight: "calc(100vh - 61px)",
   overflow: "auto",
+  marginTop: 18,
 });
 
 const CategoryGroup = styled.div(props => ({

@@ -83,6 +83,7 @@ export const query = graphql`
 const TagsWrapper = styled.div({
   maxHeight: "calc(100vh - 61px)",
   overflow: "auto",
+  marginTop: 18,
 });
 
 const TagsGroup = styled.div(props => ({

@@ -8,13 +8,15 @@ const NotFoundPage: FC<{}> = () => {
     useState<boolean>(false);
 
   return (
-    <ContentContainer title="404" displayShadow={shouldDisplayShadow}>
+    <ContentContainer
+      title="404 - Not found"
+      displayShadow={shouldDisplayShadow}
+    >
       <ContentWrapper
         onScroll={e =>
           setShouldDisplayShadow((e.target as HTMLElement).scrollTop > 0)
         }
       >
-        <title>404 - Not found</title>
         <p>The page you requested not found.</p>
       </ContentWrapper>
     </ContentContainer>
@@ -24,8 +26,9 @@ const NotFoundPage: FC<{}> = () => {
 const ContentWrapper = styled.div({
   padding: "6px 18px",
   flex: "1 1 auto",
-  maxHeight: "calc(100vh - 61px)",
+  maxHeight: "calc(100vh - 73px)",
   overflow: "auto",
+  marginTop: 12,
 });
 
 export default NotFoundPage;
