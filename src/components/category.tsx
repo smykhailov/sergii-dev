@@ -8,6 +8,7 @@ import AutoSizer from "react-virtualized-auto-sizer";
 import CategoriesList from "./left-pane/categories-list";
 import ContentContainer from "./content";
 import ArticleListItem from "./article-list-item";
+import SEO from "./seo";
 
 const Row = ({
   data,
@@ -50,6 +51,12 @@ const Category: FC<{
       title={props.pageContext.category}
       displayShadow={shouldDisplayShadow}
     >
+      <SEO
+        title={`Category | ${props.pageContext.category}`}
+        author={"Sergii Mykhailov"}
+        keywords={""}
+        description={props.pageContext.category}
+      />
       <AutoSizer>
         {({ height, width }) => (
           <List

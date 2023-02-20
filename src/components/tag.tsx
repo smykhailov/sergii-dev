@@ -7,6 +7,7 @@ import AutoSizer from "react-virtualized-auto-sizer";
 import TagsList from "./left-pane/tags-list";
 import ContentContainer from "./content";
 import ArticleListItem from "./article-list-item";
+import SEO from "./seo";
 
 const Row = ({
   data,
@@ -49,6 +50,12 @@ const Tag: FC<{
       title={`#${props.pageContext.tag}`}
       displayShadow={shouldDisplayShadow}
     >
+      <SEO
+        title={`Tag | ${props.pageContext.tag}`}
+        author={"Sergii Mykhailov"}
+        keywords={""}
+        description={props.pageContext.tag}
+      />
       <AutoSizer>
         {({ height, width }) => (
           <List
