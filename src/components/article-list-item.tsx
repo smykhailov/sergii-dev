@@ -11,6 +11,7 @@ import styled from "@emotion/styled";
 import { Link, navigate } from "gatsby";
 import slugify from "slugify";
 import { formatDate } from "@core/date";
+import SEO from "./seo";
 
 const ArticleListItem: FC<{
   id: string;
@@ -62,6 +63,12 @@ const ArticleListItem: FC<{
 
   return (
     <div style={{ ...props.style, padding: "6px 18px" }}>
+      <SEO
+        title={`Category | ${props.title}`}
+        author={"Sergii Mykhailov"}
+        keywords={props.tags?.map(tag => tag).join(", ") || ""}
+        description={""}
+      />
       <ArticleItemContainer
         key={props.id}
         tabIndex={0}
