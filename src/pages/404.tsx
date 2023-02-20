@@ -2,8 +2,13 @@ import React, { FC, useState } from "react";
 
 import ContentContainer from "@components/content";
 import styled from "@emotion/styled";
+import SEO from "@components/seo";
+import { graphql } from "gatsby";
 
-const NotFoundPage: FC<{}> = () => {
+const NotFoundPage: FC<{
+  data: GatsbyTypes.Page404DataQuery;
+}> = props => {
+  const siteMetadata = props.data.site?.siteMetadata!;
   const [shouldDisplayShadow, setShouldDisplayShadow] =
     useState<boolean>(false);
 
@@ -17,11 +22,34 @@ const NotFoundPage: FC<{}> = () => {
           setShouldDisplayShadow((e.target as HTMLElement).scrollTop > 0)
         }
       >
+        <SEO
+          title={`404 | ${siteMetadata.title}` || ""}
+          author={siteMetadata.author || ""}
+          description={siteMetadata.description || ""}
+          keywords={siteMetadata.keywords || ""}
+        />
+
         <p>The page you requested not found.</p>
       </ContentWrapper>
     </ContentContainer>
   );
 };
+
+export const query = graphql`
+  query Page404Data {
+    site {
+      siteMetadata {
+        title
+        author
+        description
+        keywords
+      }
+    }
+    mdx(fileAbsolutePath: { regex: "/main.mdx/" }) {
+      body
+    }
+  }
+`;
 
 const ContentWrapper = styled.div({
   padding: "6px 18px",

@@ -4,12 +4,14 @@ import { MDXRenderer } from "gatsby-plugin-mdx";
 
 import ContentContainer from "@components/content";
 import styled from "@emotion/styled";
+import SEO from "@components/seo";
 
 const CVPage: FC<{
   data: GatsbyTypes.CVPageDataQuery;
   location: Location;
 }> = props => {
   const { body } = props.data.mdx!;
+  const siteMetadata = props.data.site?.siteMetadata!;
   const [shouldDisplayShadow, setShouldDisplayShadow] =
     useState<boolean>(false);
 
@@ -23,6 +25,13 @@ const CVPage: FC<{
           setShouldDisplayShadow((e.target as HTMLElement).scrollTop > 0)
         }
       >
+        <SEO
+          title={`CV | ${siteMetadata.title}` || ""}
+          author={siteMetadata.author || ""}
+          description={siteMetadata.description || ""}
+          keywords={siteMetadata.keywords || ""}
+        />
+
         <MDXRenderer>{body}</MDXRenderer>
       </ContentWrapper>
     </ContentContainer>
@@ -31,6 +40,14 @@ const CVPage: FC<{
 
 export const query = graphql`
   query CVPageData {
+    site {
+      siteMetadata {
+        title
+        author
+        description
+        keywords
+      }
+    }
     mdx(fileAbsolutePath: { regex: "/resume.mdx/" }) {
       body
     }

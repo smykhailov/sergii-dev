@@ -21,7 +21,6 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     node.internal.type === "Mdx" &&
     node.fileAbsolutePath.includes("/articles/")
   ) {
-    console.log(`!!!`, node.fileAbsolutePath);
     // .substring(12) - removes date from slug
     // 2020-10-24-first -> first
     const value = createFilePath({ node, getNode }).substring(12);

@@ -4,12 +4,14 @@ import { MDXRenderer } from "gatsby-plugin-mdx";
 
 import ContentContainer from "@components/content";
 import styled from "@emotion/styled";
+import SEO from "@components/seo";
 
 const IndexPage: FC<{
   data: GatsbyTypes.HomePageDataQuery;
   location: Location;
 }> = props => {
   const { body } = props.data.mdx!;
+  const siteMetadata = props.data.site?.siteMetadata!;
   const [shouldDisplayShadow, setShouldDisplayShadow] =
     useState<boolean>(false);
 
@@ -23,6 +25,13 @@ const IndexPage: FC<{
           setShouldDisplayShadow((e.target as HTMLElement).scrollTop > 0)
         }
       >
+        <SEO
+          title={`${siteMetadata.title} | ${siteMetadata.jobTitle}`}
+          author={siteMetadata.author || ""}
+          description={siteMetadata.description || ""}
+          keywords={siteMetadata.keywords || ""}
+        />
+
         <MDXRenderer>{body}</MDXRenderer>
       </ContentWrapper>
     </ContentContainer>
@@ -31,6 +40,15 @@ const IndexPage: FC<{
 
 export const query = graphql`
   query HomePageData {
+    site {
+      siteMetadata {
+        title
+        author
+        description
+        keywords
+        jobTitle
+      }
+    }
     mdx(fileAbsolutePath: { regex: "/main.mdx/" }) {
       body
     }

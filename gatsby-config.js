@@ -6,8 +6,12 @@ const { githubProjectsQuery } = require("./github-api");
 
 module.exports = {
   siteMetadata: {
-    title: "Sergii Mykhailov - Software Engineer",
+    title: "Sergii Mykhailov",
+    jobTitle: "Principal Software Engineer",
     description: "Work and Life",
+    author: "Sergii Mykhailov",
+    keywords:
+      "Sergii Mykhailov, Software Engineer, Principal Software Engineer, Principal Engineer, Software Architect, Software Developer, Architecture, Software Design, Best Practices, Clean Code, Clean Architecture, SOLID, DDD, CQRS, Event Sourcing, Microservices, Cloud, Azure, CI/CD, DevOps, Agile, TDD, BDD, F#, C#, TypeScript, JavaScript, React, Angular, Node.js, .NET, ASP.NET, ASP.NET Core, .NET Core",
     linkedin: {
       url: "https://www.linkedin.com/in/smykhailov/",
       description: "Sergii's LinkedIn Profile",
@@ -23,6 +27,35 @@ module.exports = {
     "gatsby-plugin-typescript-checker",
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-sharp",
+    {
+      resolve: `gatsby-plugin-google-gtag`,
+      options: {
+        // You can add multiple tracking ids and a pageview event will be fired for all of them.
+        trackingIds: [
+          "G-W6NQKCSCE2", // Google Analytics / GA
+          // "AW-CONVERSION_ID", // Google Ads / Adwords / AW
+          // "DC-FLOODIGHT_ID", // Marketing Platform advertising products (Display & Video 360, Search Ads 360, and Campaign Manager)
+        ],
+        // // This object gets passed directly to the gtag config command
+        // // This config will be shared across all trackingIds
+        // gtagConfig: {
+        //   optimize_id: "OPT_CONTAINER_ID",
+        //   anonymize_ip: true,
+        //   cookie_expires: 0,
+        // },
+        // // This object is used for configuration specific to this plugin
+        // pluginConfig: {
+        //   // Puts tracking script in the head instead of the body
+        //   head: false,
+        //   // Setting this parameter is also optional
+        //   respectDNT: true,
+        //   // Avoids sending pageview hits from custom paths
+        //   exclude: ["/preview/**", "/do-not-track/me/too/"],
+        //   // Defaults to https://www.googletagmanager.com
+        //   origin: "YOUR_SELF_HOSTED_ORIGIN",
+        // },
+      },
+    },
     {
       resolve: "gatsby-plugin-mdx",
       options: {
