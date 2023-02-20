@@ -9,7 +9,7 @@ module.exports = {
     title: "Sergii Mykhailov - Software Engineer",
     description: "Work and Life",
     linkedin: {
-      url: "https://www.linkedin.com/in/sergiimykhailov/",
+      url: "https://www.linkedin.com/in/smykhailov/",
       description: "Sergii's LinkedIn Profile",
     },
     github: {

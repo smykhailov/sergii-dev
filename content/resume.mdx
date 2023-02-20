@@ -1,6 +1,6 @@
 ---
 title: CV - Sergii Mykhailov
-date: 2023-02-13T00:09:29Z
+date: 2023-02-20T00:09:29Z
 published: false
 ---
 
@@ -13,7 +13,6 @@ published: false
 // ensuring the availability and stability of systems, and maintaining strong relationships with
 // stakeholders. Committed to staying current with the latest technologies and industry trends,
 // and eager to apply my skills and knowledge to challenging complex projects.
-
 const CV = () => {
   const me = {
     name: 'Sergii Mykhailov',
@@ -21,7 +20,7 @@ const CV = () => {
     location: 'Prague, Czech Republic',
     website: 'https://sergii.dev/',
     github: 'https://github.com/smykhailov/',
-    linkedin: 'https://www.linkedin.com/in/sergiimykhailov/',
+    linkedin: 'https://www.linkedin.com/in/smykhailov/',
   };
 
   const mySkills = ['Leading', 'Architecture', 'Design', 'Development', 'Maintenance', 'Support'];
@@ -49,6 +48,10 @@ const CV = () => {
         - Leading 4 cross-functional teams, responsible for the development of
           the Microsoft Teams Web Client application.
         - Designing and implementing new features and improvements to the existing.
+        - Defining best practices and standards for the development of the application.
+        - Maintaining developer's efficiency and code sanity by providing tools and automation.
+        - Design and evangelize accessibility story of MS Teams Web Client.
+        - Mentoring and coaching team members.
         `,
     },
     {
@@ -58,7 +61,14 @@ const CV = () => {
       from: '2010-12-01',
       to: '2013-09-30',
       description: `
-
+        - Design and development backend part of highly scalability IP Video CMS (C# 4.0, NHibernate 3.0).
+        - Design and implementation of PartialSerializer for the WCF services (possibility to
+          serialize only needed fields dynamically of the object to SOAP).
+        - Design and implementing database with using mixture of relational
+          and EAV models (MS SQL Server 2008).
+        - Implemented second level cache mechanism for better performance of application.
+        - Design and implementation of Silverlight video player with DRM (C# 4.0, Silverlight 5).
+        - Implementing payment gateway for the Video On Demand Store portal (Java 1.6, XML).
         `,
     },
     {
@@ -68,7 +78,15 @@ const CV = () => {
       from: '2007-09-01',
       to: '2010-11-30',
       description: `
-
+        - Design and development multi-tiers web-based application for collecting, storing
+          and displaying statistics from the network modules via protocols SOAP, HTTP, FTP,
+          TCP, UDP (C#, ASP.NET 2.0, jQuery 1.3).
+        - Design and development statistic modules for the Real Time Server (server-router) (C#).
+        - Architect, design and implementat of enterprise applications (ASP.NET MVC 1.0,
+          ASP.NET MVC 3.0, C# 1.1-4.0, MSSQL Server 2005).
+        - Finalization of the application to generate XML scripts for mobile operators’
+          stations (XML, Delphi 7.0).
+        - Significantly improved own knowledge of protocols usage and web architecture routines.
         `,
     },
     {
@@ -78,7 +96,14 @@ const CV = () => {
       from: '2005-07-01',
       to: '2007-08-31',
       description: `
-
+        - Developed Web Configurators to manage telecommunication stations (C#, ASP.NET 2.0,
+          MSSQL Server 2005, MySQL 4.0).
+        - Design and development an application template for Web Configurators (C#, ASP.NET 2.0).
+        - Development Customer Self Care web application to track information of calls, SMS messages
+          and billing (C#, ASP.NET 2.0).
+        - Development of three-tier applications for managing telecommunications equipment
+          (C#, Delphi 5.0).
+        - Significantly improved own knowledge of ASP.NET, ADO.NET, and database design.
         `,
     },
     {
@@ -88,16 +113,56 @@ const CV = () => {
       from: '2004-05-01',
       to: '2005-06-30',
       description: `
-
+        - Modules development for banking software (ASP.NET 1.1, C#, Delphi 5.0): design and
+          implementation user interface, and data access classes. Significantly improved
+          own knowledge of OOP and OOD.
+        - Wrote SQL queries to create financial reports available for operators (Delphi 5.0,
+          Interbase 1.5, ANSI SQL).
+        - Database server’s maintenance (MS SQL Server 2000, Interbase 1.5, SQL): jobs scheduling,
+          performance optimization.
+        - Web server maintenance, and security support (IIS 6.1).
+        - SQL, Web and Windows 2000 Servers installation, maintenance and support: data backup /
+          restoration, DBA tasks scripting
+        `,
+    },
+    {
+      company: 'Khmelnitsky National University',
+      position: 'IT-specialist, Junior Web Developer',
+      location: 'Khmelnytskyi, Ukraine',
+      from: '2001-09-01',
+      to: '2004-04-30',
+      description: `
+        - Operating systems installation and configuration (Windows NT/XP, Red Hat Linux 8.1).
+        - Software installation, configuration and support (Apache 2.0, MySQL 3.23).
+        - Maintenance and implementing departments’ website (Apache 2.0, HTML, CSS, JavaScript).
         `,
     },
   ];
 
+  const myEducation = [
+    {
+      institution: 'Khmelnytskyi National University',
+      degree: 'Master’s degree in Radio Engineering (diploma with honors)',
+      location: 'Khmelnytskyi, Ukraine',
+      from: '2003-09-01',
+      to: '2004-06-30',
+    },
+    {
+      institution: 'Khmelnytskyi National University',
+      degree: 'Bachelor’s degree in Radio Engineering (diploma with honors)',
+      location: 'Khmelnytskyi, Ukraine',
+      from: '1999-09-01',
+      to: '2003-06-30',
+    },
+  ];
+
+  // Initialize CV
   me.skills = mySkills;
   me.technologies = myTechnologies;
   me.languages = myLanguages;
   me.spokenLanguages = mySpokenLanguages;
   me.interests = myInterests;
   me.experience = myExperience;
+  me.education = myEducation;
 }();
 ```
