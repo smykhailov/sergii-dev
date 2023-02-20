@@ -7,6 +7,7 @@ import AutoSizer from "react-virtualized-auto-sizer";
 import ProjectsList from "@components/left-pane/projects-list";
 import ContentContainer from "@components/content";
 import ProjectListItem from "@components/project-list-item";
+import SEO from "@components/seo";
 
 const Row = ({
   data,
@@ -32,11 +33,18 @@ const ProjectsPage: FC<{
   location: Location;
 }> = props => {
   const { edges } = props.data.allGithubData.edges[0]?.node.data?.search!;
+  const siteMetadata = props.data.site?.siteMetadata!;
   const [shouldDisplayShadow, setShouldDisplayShadow] =
     useState<boolean>(false);
 
   return (
     <ContentContainer title="Projects" displayShadow={shouldDisplayShadow}>
+      <SEO
+        title={`Projects | ${siteMetadata.title}` || ""}
+        author={siteMetadata.author || ""}
+        keywords={siteMetadata.keywords || ""}
+        description={`Projects | ${siteMetadata.title}` || ""}
+      />
       <AutoSizer>
         {({ height, width }) => (
           <List
@@ -57,6 +65,14 @@ const ProjectsPage: FC<{
 
 export const query = graphql`
   query GitHubProjectsListPageData {
+    site {
+      siteMetadata {
+        title
+        author
+        description
+        keywords
+      }
+    }
     allGithubData {
       edges {
         node {

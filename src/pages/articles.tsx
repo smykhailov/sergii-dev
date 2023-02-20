@@ -7,6 +7,7 @@ import AutoSizer from "react-virtualized-auto-sizer";
 import ArticlesList from "@components/left-pane/articles-list";
 import ContentContainer from "@components/content";
 import ArticleListItem from "@components/article-list-item";
+import SEO from "@components/seo";
 
 const Row = ({
   data,
@@ -38,11 +39,18 @@ const ArticlesPage: FC<{
   location: Location;
 }> = props => {
   const { edges } = props.data.allMdx;
+  const siteMetadata = props.data.site?.siteMetadata!;
   const [shouldDisplayShadow, setShouldDisplayShadow] =
     useState<boolean>(false);
 
   return (
     <ContentContainer title="Articles" displayShadow={shouldDisplayShadow}>
+      <SEO
+        title={`Articles | ${siteMetadata.title}` || ""}
+        author={siteMetadata.author || ""}
+        keywords={siteMetadata.keywords || ""}
+        description={`Articles | ${siteMetadata.title}` || ""}
+      />
       <AutoSizer>
         {({ height, width }) => (
           <List
@@ -63,6 +71,14 @@ const ArticlesPage: FC<{
 
 export const query = graphql`
   query ArticlesPageData {
+    site {
+      siteMetadata {
+        title
+        author
+        description
+        keywords
+      }
+    }
     allMdx(
       sort: { fields: [frontmatter___date], order: DESC }
       filter: { frontmatter: { published: { eq: true } } }

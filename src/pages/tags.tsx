@@ -6,11 +6,13 @@ import TagsList from "@components/left-pane/tags-list";
 import ContentContainer from "@components/content";
 import ArticleListItem from "@components/article-list-item";
 import slugify from "slugify";
+import SEO from "@components/seo";
 
 const TagsPage: FC<{
   data: GatsbyTypes.CategoriesPageDataQuery;
   location: Location;
 }> = props => {
+  const siteMetadata = props.data.site?.siteMetadata!;
   const [shouldDisplayShadow, setShouldDisplayShadow] =
     useState<boolean>(false);
 
@@ -21,6 +23,14 @@ const TagsPage: FC<{
           setShouldDisplayShadow((e.target as HTMLElement).scrollTop > 0)
         }
       >
+        <SEO
+          title={`Tags | ${siteMetadata.title}` || ""}
+          author={siteMetadata.author || ""}
+          keywords={props.data.allMdx.group
+            .map(group => group.fieldValue!)
+            .join(", ")}
+          description={`Tags | ${siteMetadata.title}` || ""}
+        />
         {props.data.allMdx.group.map(group => {
           return (
             <React.Fragment key={group.fieldValue}>
@@ -53,6 +63,13 @@ const TagsPage: FC<{
 
 export const query = graphql`
   query TagsPageData {
+    site {
+      siteMetadata {
+        title
+        author
+        description
+      }
+    }
     allMdx(
       sort: { fields: [frontmatter___date], order: DESC }
       filter: { frontmatter: { published: { eq: true } } }
@@ -83,6 +100,7 @@ export const query = graphql`
 const TagsWrapper = styled.div({
   maxHeight: "calc(100vh - 61px)",
   overflow: "auto",
+  marginTop: 18,
 });
 
 const TagsGroup = styled.div(props => ({

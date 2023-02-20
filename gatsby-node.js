@@ -17,7 +17,10 @@ exports.onCreateWebpackConfig = ({ stage, actions }) => {
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
 
-  if (node.internal.type === "Mdx") {
+  if (
+    node.internal.type === "Mdx" &&
+    node.fileAbsolutePath.includes("/articles/")
+  ) {
     // .substring(12) - removes date from slug
     // 2020-10-24-first -> first
     const value = createFilePath({ node, getNode }).substring(12);
@@ -106,6 +109,10 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       node.frontmatter.categories.forEach(category => {
         categorySet.add(category);
       });
+    }
+
+    if (!node?.fields?.slug) {
+      return;
     }
 
     createPage({

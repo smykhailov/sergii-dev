@@ -9,12 +9,14 @@ import ContentContainer from "./content";
 import Comments from "./comments";
 import { formatDate } from "@core/date";
 import slugify from "slugify";
+import SEO from "./seo";
 
 const Article: FC<{
   data: GatsbyTypes.ArticleByIdQuery;
   location: Location;
 }> = props => {
-  const { frontmatter, body } = props.data.mdx!;
+  const { frontmatter, body, excerpt } = props.data.mdx!;
+  const siteMetadata = props.data.site?.siteMetadata!;
   const [shouldDisplayShadow, setShouldDisplayShadow] =
     useState<boolean>(false);
 
@@ -28,6 +30,13 @@ const Article: FC<{
           setShouldDisplayShadow((e.target as HTMLElement).scrollTop > 0)
         }
       >
+        <SEO
+          title={frontmatter?.title || ""}
+          author={siteMetadata.author || ""}
+          description={excerpt || ""}
+          keywords={frontmatter?.keywords?.map(k => k).join(", ") || ""}
+        />
+
         <header>
           <h1>{frontmatter?.title}</h1>
           <SubtitleContainer>
@@ -61,12 +70,20 @@ const Article: FC<{
 
 export const query = graphql`
   query ArticleById($id: String!) {
+    site {
+      siteMetadata {
+        title
+        author
+      }
+    }
     mdx(id: { eq: $id }) {
       body
+      excerpt
       frontmatter {
         title
         date
         tags
+        keywords
       }
       fields {
         slug
@@ -81,7 +98,7 @@ export const query = graphql`
 `;
 
 const ContentWrapper = styled.div({
-  padding: "6px 18px",
+  padding: "18px",
   flex: "1 1 auto",
   maxHeight: "calc(100vh - 61px)",
   overflow: "auto",

@@ -6,11 +6,13 @@ import CategoriesList from "@components/left-pane/categories-list";
 import ContentContainer from "@components/content";
 import ArticleListItem from "@components/article-list-item";
 import slugify from "slugify";
+import SEO from "@components/seo";
 
 const CategoriesPage: FC<{
   data: GatsbyTypes.CategoriesPageDataQuery;
   location: Location;
 }> = props => {
+  const siteMetadata = props.data.site?.siteMetadata!;
   const [shouldDisplayShadow, setShouldDisplayShadow] =
     useState<boolean>(false);
 
@@ -21,6 +23,15 @@ const CategoriesPage: FC<{
           setShouldDisplayShadow((e.target as HTMLElement).scrollTop > 0)
         }
       >
+        <SEO
+          title={`Categories | ${siteMetadata.title}` || ""}
+          author={siteMetadata.author || ""}
+          keywords={props.data.allMdx.group
+            .map(group => group.fieldValue!)
+            .join(", ")}
+          description={`Categories | ${siteMetadata.title}` || ""}
+        />
+
         {props.data.allMdx.group.map(group => {
           return (
             <React.Fragment key={group.fieldValue}>
@@ -55,6 +66,14 @@ const CategoriesPage: FC<{
 
 export const query = graphql`
   query CategoriesPageData {
+    site {
+      siteMetadata {
+        title
+        author
+        description
+        keywords
+      }
+    }
     allMdx(
       sort: { fields: [frontmatter___date], order: DESC }
       filter: { frontmatter: { published: { eq: true } } }
@@ -85,6 +104,7 @@ export const query = graphql`
 const CategoryWrapper = styled.div({
   maxHeight: "calc(100vh - 61px)",
   overflow: "auto",
+  marginTop: 18,
 });
 
 const CategoryGroup = styled.div(props => ({
