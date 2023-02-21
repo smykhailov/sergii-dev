@@ -10,6 +10,7 @@ import AppBar from "@components/app-bar";
 import { AppContext, defaultContextValue, useAppContext } from "./app-context";
 import { fonts, getConfig } from "@core/config";
 import { clone } from "lodash";
+import { useBreakpoint } from "gatsby-plugin-breakpoints";
 
 const Layout: FC<{ aside?: React.ReactChild; location: Location }> = props => {
   const [config, setConfig] = useState(
@@ -35,6 +36,7 @@ const UILayout: FC<{
 }> = props => {
   const [theme, setTheme] = useState(null);
   const { config } = useAppContext();
+  const breakpoints = useBreakpoint();
 
   useEffect(() => {
     import(`../themes/${config.theme}`)
@@ -89,7 +91,10 @@ const UILayout: FC<{
           <Global styles={globalStyles(theme)} />
           <Container>
             <AppBar location={props.location} />
-            {props.aside && <Aside>{props.aside}</Aside>}
+            {props.aside &&
+              !breakpoints.xs &&
+              !breakpoints.sm &&
+              !breakpoints.md && <Aside>{props.aside}</Aside>}
             <Content>{props.children}</Content>
           </Container>
           <Footer />

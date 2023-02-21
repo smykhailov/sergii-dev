@@ -10,6 +10,7 @@ module.exports = {
     jobTitle: "Principal Software Engineer",
     description: "Work and Life",
     author: "Sergii Mykhailov",
+    siteUrl: "https://sergii.dev/",
     keywords:
       "Sergii Mykhailov, Software Engineer, Principal Software Engineer, Principal Engineer, Software Architect, Software Developer, Architecture, Software Design, Best Practices, Clean Code, Clean Architecture, SOLID, DDD, CQRS, Event Sourcing, Microservices, Cloud, Azure, CI/CD, DevOps, Agile, TDD, BDD, F#, C#, TypeScript, JavaScript, React, Angular, Node.js, .NET, ASP.NET, ASP.NET Core, .NET Core",
     linkedin: {
@@ -26,6 +27,8 @@ module.exports = {
     "gatsby-plugin-typescript",
     "gatsby-plugin-typescript-checker",
     "gatsby-plugin-react-helmet",
+    "gatsby-plugin-breakpoints",
+    "gatsby-plugin-sitemap",
     "gatsby-plugin-sharp",
     {
       resolve: `gatsby-plugin-google-gtag`,
