@@ -10,7 +10,7 @@ const SEO: FC<{
 }> = props => (
   <Helmet
     htmlAttributes={{
-      lang: "en",
+      lang: "en-us",
     }}
   >
     <title>{props.title}</title>
@@ -21,6 +21,8 @@ const SEO: FC<{
     <meta property="og:title" content={props.title} />
     <meta property="og:image" content="https://sergii.dev/logo.png" />
     <meta property="og:description" content={props.description} />
+
+    <meta http-equiv="content-language" content="en-us"></meta>
 
     <link rel="manifest" href="/site.webmanifest" />
   </Helmet>
