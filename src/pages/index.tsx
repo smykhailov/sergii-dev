@@ -56,11 +56,10 @@ export const query = graphql`
 `;
 
 const ContentWrapper = styled.div({
-  padding: "6px 18px",
+  padding: "18px",
   flex: "1 1 auto",
   maxHeight: "calc(100vh - 73px)",
   overflow: "auto",
-  marginTop: 12,
 });
 
 export default IndexPage;
