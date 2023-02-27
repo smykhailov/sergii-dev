@@ -1,6 +1,4 @@
 User-Agent: *
 Allow: /
-Disallow: /categories/
 Disallow: /categories/*
-Disallow: /tags/
 Disallow: /tags/*
