@@ -6,8 +6,12 @@ const typography = new Typography({
   boldWeight: 700,
   scaleRatio: 1.5,
   overrideStyles: ({ rhythm }) => ({
+    "h1,h2,h3,h4,h5,h6,p": {
+      marginBottom: rhythm(1 / 1.8),
+    },
     "h1,h2,h3,h4,h5,h6": {
-      marginBottom: rhythm(1 / 1.4),
+      marginBottom: rhythm(0.2),
+      lineHeight: 2,
     },
 
     // blockquote: {

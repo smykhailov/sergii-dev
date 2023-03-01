@@ -2,9 +2,11 @@ import { Theme } from "@emotion/react";
 
 const darkPlusTheme: Theme = {
   fontSize: "13px",
-  fontFace: "Segoe UI",
+  fontFace:
+    "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
   articleFontSize: "16px",
-  articleFontFace: "Segoe UI",
+  articleFontFace:
+    "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
 
   colors: {
     backgroundPrimary: "rgb(30, 30, 30)",

@@ -32,9 +32,9 @@ const getBrowserColorScheme = () => {
 export const defaultConfig: TConfig = {
   theme: getBrowserColorScheme(),
   editorFontFace: "segoe-ui",
-  editorFontSize: 13,
+  editorFontSize: 14,
   articleFontFace: "segoe-ui",
-  articleFontSize: 14,
+  articleFontSize: 16,
 };
 
 type TKeyValuePair<K extends string> = { [key in K]: string };

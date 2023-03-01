@@ -130,7 +130,8 @@ const Aside = styled.aside(props => ({
   minWidth: "320px",
   backgroundColor: props.theme.colors.backgroundSecondary,
   color: props.theme.colors.textColor,
-  fontFamily: "Segoe WPC, Segoe UI, sans-serif",
+  fontFamily:
+    "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
   fontSize: props.theme.fontSize,
   fontWeight: 400,
   lineHeight: 22,

@@ -65,7 +65,8 @@ const FooterContainer = styled.footer(props => ({
   justifyContent: "space-between",
   color: props.theme.colors.footer.textColor,
   backgroundColor: props.theme.colors.footer.backgroundColor,
-  fontFamily: "Segoe WPC, Segoe UI, sans-serif",
+  fontFamily:
+    "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
   fontSize: 13,
   paddingLeft: 6,
   paddingRight: 6,
