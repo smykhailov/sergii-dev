@@ -17,7 +17,7 @@ const SEO: FC<{
     <meta property="og:image" content="https://sergii.dev/logo.png" />
     <meta property="og:description" content={props.description || ""} />
 
-    <meta http-equiv="content-language" content="en-us"></meta>
+    <meta httpEquiv="content-language" content="en-us"></meta>
   </>
 );
 

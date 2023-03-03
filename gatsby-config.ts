@@ -1,4 +1,8 @@
 import type { GatsbyConfig } from "gatsby";
+import dotenv from "dotenv";
+dotenv.config();
+
+const { githubProjectsQuery } = require("./github-api");
 
 const wrapESMPlugin = (name: string) =>
   function wrapESM(opts: any) {
@@ -81,6 +85,26 @@ const config: GatsbyConfig = {
         },
         emitPluginDocuments: {
           "./src/generated/gatsby-plugin-documents.graphql": true,
+        },
+      },
+    },
+    {
+      resolve: `gatsby-source-github-api`,
+      options: {
+        token: process.env.GH_PAT,
+        // graphQLQuery: [githubProjectsQuery, githubCommentsQuery],
+        graphQLQuery: githubProjectsQuery,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-gitalk`,
+      options: {
+        config: {
+          clientID: process.env.GH_COMMENTS_CLIENT_ID,
+          clientSecret: process.env.GH_COMMENTS_CLIENT_SECRET,
+          repo: "sergii-dev",
+          owner: "smykhailov",
+          admin: ["smykhailov"],
         },
       },
     },

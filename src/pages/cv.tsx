@@ -3,7 +3,7 @@ import { graphql, HeadFC, PageProps } from "gatsby";
 import styled from "@emotion/styled";
 
 import ContentContainer from "@components/content";
-import SEO from "@components/SEO";
+import SEO from "@components/seo";
 import Resume from "../../content/resume.mdx";
 
 const CVPage: FC<PageProps> = () => {
@@ -48,11 +48,14 @@ const ContentWrapper = styled.div({
 
 export default CVPage;
 
-export const Head: HeadFC<GatsbyTypes.CVPageDataQuery> = props => (
-  <SEO
-    title={`CV | props.data.site?.siteMetadata?.title`}
-    description={props.data.site?.siteMetadata?.description}
-    keywords={props.data.site?.siteMetadata?.keywords}
-    author={props.data.site?.siteMetadata?.author}
-  />
-);
+export const Head: HeadFC<GatsbyTypes.CVPageDataQuery> = props => {
+  const siteMetadata = props.data.site?.siteMetadata!;
+  return (
+    <SEO
+      title={`CV | ${siteMetadata.title}`}
+      description={siteMetadata.description}
+      keywords={siteMetadata.keywords}
+      author={siteMetadata.author}
+    />
+  );
+};

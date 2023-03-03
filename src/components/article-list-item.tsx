@@ -5,22 +5,25 @@ import React, {
   useEffect,
   useState,
   CSSProperties,
+  PropsWithChildren,
 } from "react";
+import { Link, navigate } from "gatsby";
 import styled from "@emotion/styled";
 
-import { Link, navigate } from "gatsby";
 import slugify from "slugify";
 import { formatDate } from "@core/date";
 
-const ArticleListItem: FC<{
-  id: string;
-  slug: string;
-  title: string;
-  date: string;
-  timeToRead: string;
-  tags?: GatsbyTypes.Maybe<readonly GatsbyTypes.Maybe<string>[]>;
-  style?: CSSProperties;
-}> = props => {
+const ArticleListItem: FC<
+  PropsWithChildren<{
+    id: string;
+    slug: string;
+    title: string;
+    date: string;
+    timeToRead: string;
+    tags?: GatsbyTypes.Maybe<readonly GatsbyTypes.Maybe<string>[]>;
+    style?: CSSProperties;
+  }>
+> = props => {
   const [commentsCount, setCommentsCount] = useState(0);
 
   useEffect(() => {
@@ -99,7 +102,7 @@ const ArticleListItem: FC<{
   );
 };
 
-const ItemButton: FC<{ to: string }> = props => {
+const ItemButton: FC<PropsWithChildren<{ to: string }>> = props => {
   const onClickHandler = (event: MouseEvent<HTMLDivElement>) => {
     event.preventDefault();
     navigate(props.to);

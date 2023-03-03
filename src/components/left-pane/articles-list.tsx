@@ -56,13 +56,12 @@ const useArticlesListQuery = () => {
   const { allMdx } = useStaticQuery<GatsbyTypes.ArticlesListQuery>(graphql`
     query ArticlesList {
       allMdx(
-        sort: { fields: [frontmatter___date], order: DESC }
+        sort: { frontmatter: { date: DESC } }
         filter: { frontmatter: { published: { eq: true } } }
       ) {
         edges {
           node {
             id
-            slug
             excerpt(pruneLength: 80)
             frontmatter {
               title

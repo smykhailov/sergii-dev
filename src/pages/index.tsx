@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 
 import ContentContainer from "@components/content";
 import Main from "../../content/main.mdx";
-import SEO from "@components/SEO";
+import SEO from "@components/seo";
 
 const IndexPage: React.FC<PageProps> = () => {
   const [shouldDisplayShadow, setShouldDisplayShadow] =
@@ -50,11 +50,14 @@ const ContentWrapper = styled.div({
 
 export default IndexPage;
 
-export const Head: HeadFC<GatsbyTypes.HomePageDataQuery> = props => (
-  <SEO
-    title={props.data.site?.siteMetadata?.title}
-    description={props.data.site?.siteMetadata?.description}
-    keywords={props.data.site?.siteMetadata?.keywords}
-    author={props.data.site?.siteMetadata?.author}
-  />
-);
+export const Head: HeadFC<GatsbyTypes.HomePageDataQuery> = props => {
+  const siteMetadata = props.data.site?.siteMetadata!;
+  return (
+    <SEO
+      title={siteMetadata.title}
+      description={siteMetadata.description}
+      keywords={siteMetadata.keywords}
+      author={siteMetadata.author}
+    />
+  );
+};

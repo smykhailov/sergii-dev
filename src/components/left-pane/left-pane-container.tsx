@@ -1,13 +1,21 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, {
+  FC,
+  PropsWithChildren,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import styled from "@emotion/styled";
 import { useTheme } from "@emotion/react";
 
 const titleHeight = 35;
 
-const LeftPaneContainer: FC<{
-  title: string;
-  offsetTop: number;
-}> = props => {
+const LeftPaneContainer: FC<
+  PropsWithChildren<{
+    title: string;
+    offsetTop: number;
+  }>
+> = props => {
   const theme = useTheme();
   const [displayShadow, setShouldDisplayShadow] = useState(false);
   const containerEl = useRef<HTMLDivElement>(null);

@@ -57,11 +57,11 @@ const useTagsListQuery = () => {
   const { allMdx } = useStaticQuery<GatsbyTypes.TagsListQuery>(graphql`
     query TagsList {
       allMdx(
-        sort: { fields: [frontmatter___tags], order: ASC }
+        sort: { frontmatter: { tags: ASC } }
         filter: { frontmatter: { published: { eq: true } } }
       ) {
-        distinct(field: frontmatter___tags)
-        group(field: frontmatter___tags) {
+        distinct(field: { frontmatter: { tags: SELECT } })
+        group(field: { frontmatter: { tags: SELECT } }) {
           totalCount
         }
       }

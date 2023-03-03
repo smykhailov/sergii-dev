@@ -3,7 +3,7 @@ import React, { FC, useState } from "react";
 import ContentContainer from "@components/content";
 import styled from "@emotion/styled";
 import { graphql, HeadFC } from "gatsby";
-import SEO from "@components/SEO";
+import SEO from "@components/seo";
 
 const NotFoundPage: FC = () => {
   const [shouldDisplayShadow, setShouldDisplayShadow] =
@@ -47,11 +47,15 @@ const ContentWrapper = styled.div({
 
 export default NotFoundPage;
 
-export const Head: HeadFC<GatsbyTypes.Page404DataQuery> = props => (
-  <SEO
-    title={`404 | ${props.data.site?.siteMetadata?.title}`}
-    description={props.data.site?.siteMetadata?.description}
-    keywords={props.data.site?.siteMetadata?.keywords}
-    author={props.data.site?.siteMetadata?.author}
-  />
-);
+export const Head: HeadFC<GatsbyTypes.Page404DataQuery> = props => {
+  const siteMetadata = props.data.site?.siteMetadata!;
+
+  return (
+    <SEO
+      title={`404 | ${siteMetadata.title}`}
+      description={siteMetadata.description}
+      keywords={siteMetadata.keywords}
+      author={siteMetadata.author}
+    />
+  );
+};
