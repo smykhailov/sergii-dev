@@ -36,7 +36,7 @@ const ArticlesList: FC<{ location: Location }> = props => {
               <Link
                 to={slug}
                 className={isActive ? "active" : undefined}
-                title={title}
+                title={title!}
               >
                 <p>
                   <strong>{title}</strong>

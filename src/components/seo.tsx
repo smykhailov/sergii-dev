@@ -8,6 +8,7 @@ const SEO: FC<{
   keywords?: string | null;
 }> = props => (
   <>
+    <html lang="en-us" />
     <title>{props.title}</title>
     <meta name="author" content={props.author || ""} />
     <meta name="description" content={props.description || ""} />
