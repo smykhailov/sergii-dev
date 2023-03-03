@@ -2,6 +2,10 @@ import React, { FC, useCallback, useState } from "react";
 import { Link } from "gatsby";
 import styled from "@emotion/styled";
 
+import { isRouteActive } from "@core/routing";
+import { saveConfig, TConfig } from "@core/config";
+import { useAppContext } from "./app-context";
+
 import HomeIcon from "../assets/home.svg";
 import ArticlesIcon from "../assets/files.svg";
 import CategoriesIcon from "../assets/file-submodule.svg";
@@ -10,9 +14,6 @@ import ProjectsIcon from "../assets/source-control.svg";
 import CVIcon from "../assets/person.svg";
 import SettingsIcon from "../assets/settings-gear.svg";
 import SettingsDialog from "./settings-dialog";
-import { isRouteActive } from "@core/routing";
-import { saveConfig, TConfig } from "@core/config";
-import { useAppContext } from "./app-context";
 
 const AppBar: FC<{ location: Location }> = props => {
   const [isSettingsDialogOpen, setSettingsDialogOpen] = useState(false);

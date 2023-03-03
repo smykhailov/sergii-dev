@@ -1,4 +1,11 @@
-import React, { FC, useEffect, useMemo, useState } from "react";
+import React, {
+  FC,
+  PropsWithChildren,
+  ReactNode,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 import { Global, css, ThemeProvider, Theme } from "@emotion/react";
 import styled from "@emotion/styled";
@@ -12,7 +19,9 @@ import { fonts, getConfig } from "@core/config";
 import { clone } from "lodash";
 import { useBreakpoint } from "gatsby-plugin-breakpoints";
 
-const Layout: FC<{ aside?: React.ReactChild; location: Location }> = props => {
+const Layout: FC<
+  PropsWithChildren<{ aside?: ReactNode; location: Location }>
+> = props => {
   const [config, setConfig] = useState(
     getConfig() || defaultContextValue.config
   );
@@ -30,10 +39,12 @@ const Layout: FC<{ aside?: React.ReactChild; location: Location }> = props => {
   );
 };
 
-const UILayout: FC<{
-  aside?: React.ReactChild;
-  location: Location;
-}> = props => {
+const UILayout: FC<
+  PropsWithChildren<{
+    aside?: ReactNode;
+    location: Location;
+  }>
+> = props => {
   const [theme, setTheme] = useState(null);
   const { config } = useAppContext();
   const breakpoints = useBreakpoint();
@@ -214,6 +225,11 @@ const globalStyles = (props: Theme) => css`
     box-sizing: border-box;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    padding: 0;
+    margin: 0;
   }
 
   body > #___gatsby {
