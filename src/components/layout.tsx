@@ -14,7 +14,7 @@ import Footer from "@components/footer";
 import AppBar from "@components/app-bar";
 import { AppContext, defaultContextValue, useAppContext } from "./app-context";
 import { fonts, getConfig } from "@core/config";
-import { clone } from "lodash";
+import clone from "lodash/clone";
 import { useBreakpoint } from "gatsby-plugin-breakpoints";
 
 const Layout: FC<
