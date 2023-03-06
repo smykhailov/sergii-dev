@@ -1,8 +1,8 @@
 import React from "react";
 import Layout from "./src/components/layout";
 
-export function wrapPageElement({ element, props }) {
-  const Aside = props?.pageResources?.component?.Aside;
+export function wrapPageElement({ props, element }) {
+  const Aside = element?.type?.Aside;
 
   if (Aside) {
     return (
