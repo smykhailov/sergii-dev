@@ -1,8 +1,7 @@
-import React, { FC, useState } from "react";
+import React, { FC, PropsWithChildren, useState } from "react";
 import styled from "@emotion/styled";
 
-import { graphql, Link } from "gatsby";
-import { MDXRenderer } from "gatsby-plugin-mdx";
+import { graphql, HeadFC, Link } from "gatsby";
 
 import ArticlesList from "@components/left-pane/articles-list";
 import ContentContainer from "./content";
@@ -11,12 +10,13 @@ import { formatDate } from "@core/date";
 import slugify from "slugify";
 import SEO from "./seo";
 
-const Article: FC<{
-  data: GatsbyTypes.ArticleByIdQuery;
-  location: Location;
-}> = props => {
-  const { frontmatter, body, excerpt } = props.data.mdx!;
-  const siteMetadata = props.data.site?.siteMetadata!;
+const Article: FC<
+  PropsWithChildren<{
+    data: GatsbyTypes.ArticleByIdQuery;
+    location: Location;
+  }>
+> = props => {
+  const { frontmatter } = props.data.mdx!;
   const [shouldDisplayShadow, setShouldDisplayShadow] =
     useState<boolean>(false);
 
@@ -30,13 +30,6 @@ const Article: FC<{
           setShouldDisplayShadow((e.target as HTMLElement).scrollTop > 0)
         }
       >
-        <SEO
-          title={frontmatter?.title || ""}
-          author={siteMetadata.author || ""}
-          description={excerpt || ""}
-          keywords={frontmatter?.keywords?.map(k => k).join(", ") || ""}
-        />
-
         <header>
           <h1>{frontmatter?.title}</h1>
           <SubtitleContainer>
@@ -54,9 +47,7 @@ const Article: FC<{
             </p>
           </SubtitleContainer>
         </header>
-        <main>
-          <MDXRenderer>{body}</MDXRenderer>
-        </main>
+        <main>{props.children}</main>
         <Comments
           slug={props.data.mdx?.fields?.slug!}
           title={frontmatter?.title!}
@@ -77,7 +68,6 @@ export const query = graphql`
       }
     }
     mdx(id: { eq: $id }) {
-      body
       excerpt
       frontmatter {
         title
@@ -134,3 +124,16 @@ const SubtitleContainer = styled.div({
 });
 
 export default Article;
+
+export const Head: HeadFC<GatsbyTypes.ArticleByIdQuery> = props => {
+  const siteMetadata = props.data.site?.siteMetadata!;
+  const { frontmatter, excerpt } = props.data.mdx!;
+  return (
+    <SEO
+      title={frontmatter?.title}
+      author={siteMetadata.author}
+      description={excerpt}
+      keywords={frontmatter?.keywords?.map(k => k).join(", ") || ""}
+    />
+  );
+};

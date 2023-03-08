@@ -30,7 +30,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions;
-  const postPage = path.resolve("./src/components/article.tsx");
+  const articlePage = path.resolve("./src/components/article.tsx");
   const tagPage = path.resolve("./src/components/tag.tsx");
   const categoryPage = path.resolve("./src/components/category.tsx");
   const projectPage = path.resolve("./src/components/project.tsx");
@@ -47,6 +47,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             }
             fields {
               slug
+            }
+            internal {
+              contentFilePath
             }
           }
         }
@@ -91,9 +94,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const categorySet = new Set();
 
   // Create blog post pages.
-  const posts = mdxResult.data.allMdx.edges;
+  const articles = mdxResult.data.allMdx.edges;
 
-  posts.forEach(({ node }) => {
+  articles.forEach(({ node }) => {
     if (node.frontmatter.tags) {
       node.frontmatter.tags.forEach(tag => {
         tagSet.add(tag);
@@ -112,7 +115,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
     createPage({
       path: node.fields.slug,
-      component: postPage,
+      component: `${articlePage}?__contentFilePath=${node.internal.contentFilePath}}`,
       context: { id: node.id },
     });
 

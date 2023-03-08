@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 
-import { graphql } from "gatsby";
+import { graphql, HeadFC } from "gatsby";
 
 import { FixedSizeList as List, ListChildComponentProps } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
@@ -51,12 +51,6 @@ const Category: FC<{
       title={props.pageContext.category}
       displayShadow={shouldDisplayShadow}
     >
-      <SEO
-        title={`Category | ${props.pageContext.category}`}
-        author={"Sergii Mykhailov"}
-        keywords={""}
-        description={props.pageContext.category}
-      />
       <AutoSizer>
         {({ height, width }) => (
           <List
@@ -77,8 +71,14 @@ const Category: FC<{
 
 export const query = graphql`
   query CategoryArticlesByCategory($category: String!) {
+    site {
+      siteMetadata {
+        title
+        author
+      }
+    }
     allMdx(
-      sort: { fields: [frontmatter___date], order: DESC }
+      sort: { frontmatter: { date: DESC } }
       filter: {
         frontmatter: { categories: { eq: $category }, published: { eq: true } }
       }
@@ -109,3 +109,18 @@ export const query = graphql`
 (Category as any).Aside = CategoriesList;
 
 export default Category;
+
+export const Head: HeadFC<
+  GatsbyTypes.CategoryArticlesByCategoryQuery,
+  { category: string }
+> = props => {
+  const siteMetadata = props.data.site?.siteMetadata!;
+  return (
+    <SEO
+      title={`Category | ${props.pageContext.category}`}
+      author={siteMetadata.author}
+      keywords={props.pageContext.category}
+      description={props.pageContext.category}
+    />
+  );
+};

@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { graphql, Link } from "gatsby";
+import { graphql, HeadFC, Link } from "gatsby";
 import styled from "@emotion/styled";
 
 import CategoriesList from "@components/left-pane/categories-list";
@@ -12,7 +12,6 @@ const CategoriesPage: FC<{
   data: GatsbyTypes.CategoriesPageDataQuery;
   location: Location;
 }> = props => {
-  const siteMetadata = props.data.site?.siteMetadata!;
   const [shouldDisplayShadow, setShouldDisplayShadow] =
     useState<boolean>(false);
 
@@ -23,15 +22,6 @@ const CategoriesPage: FC<{
           setShouldDisplayShadow((e.target as HTMLElement).scrollTop > 0)
         }
       >
-        <SEO
-          title={`Categories | ${siteMetadata.title}` || ""}
-          author={siteMetadata.author || ""}
-          keywords={props.data.allMdx.group
-            .map(group => group.fieldValue!)
-            .join(", ")}
-          description={`Categories | ${siteMetadata.title}` || ""}
-        />
-
         {props.data.allMdx.group.map(group => {
           return (
             <React.Fragment key={group.fieldValue}>
@@ -75,10 +65,10 @@ export const query = graphql`
       }
     }
     allMdx(
-      sort: { fields: [frontmatter___date], order: DESC }
+      sort: { frontmatter: { date: DESC } }
       filter: { frontmatter: { published: { eq: true } } }
     ) {
-      group(field: frontmatter___categories) {
+      group(field: { frontmatter: { categories: SELECT } }) {
         fieldValue
         nodes {
           id
@@ -131,3 +121,17 @@ const CategoryGroup = styled.div(props => ({
 (CategoriesPage as any).Aside = CategoriesList;
 
 export default CategoriesPage;
+
+export const Head: HeadFC<GatsbyTypes.CategoriesPageDataQuery> = props => {
+  const siteMetadata = props.data.site?.siteMetadata!;
+  return (
+    <SEO
+      title={`Categories | ${siteMetadata.title}` || ""}
+      author={siteMetadata.author || ""}
+      keywords={props.data.allMdx.group
+        .map(group => group.fieldValue!)
+        .join(", ")}
+      description={`Categories | ${siteMetadata.title}` || ""}
+    />
+  );
+};
