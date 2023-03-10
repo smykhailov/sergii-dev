@@ -16,6 +16,7 @@ import { AppContext, defaultContextValue, useAppContext } from "./app-context";
 import { fonts, getConfig } from "@core/config";
 import clone from "lodash/clone";
 import { useBreakpoint } from "gatsby-plugin-breakpoints";
+import ArticlesList from "./left-pane/articles-list";
 
 const Layout: FC<
   PropsWithChildren<{ aside?: ReactNode; location: Location }>
@@ -73,6 +74,12 @@ const UILayout: FC<
     return null;
   }
 
+  const aside = location.pathname.includes("/articles/") ? (
+    <ArticlesList location={props.location} />
+  ) : (
+    props.aside
+  );
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -80,10 +87,9 @@ const UILayout: FC<
           <Global styles={globalStyles(theme)} />
           <Container>
             <AppBar location={props.location} />
-            {props.aside &&
-              !breakpoints.xs &&
-              !breakpoints.sm &&
-              !breakpoints.md && <Aside>{props.aside}</Aside>}
+            {aside && !breakpoints.xs && !breakpoints.sm && !breakpoints.md && (
+              <Aside>{aside}</Aside>
+            )}
             <Content>{props.children}</Content>
           </Container>
           <Footer />
