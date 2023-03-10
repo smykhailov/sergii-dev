@@ -4,15 +4,6 @@ dotenv.config();
 
 const { githubProjectsQuery } = require("./github-api");
 
-const wrapESMPlugin = (name: string) =>
-  function wrapESM(opts: any) {
-    return async (...args: any) => {
-      const mod = await import(name);
-      const plugin = mod.default(opts);
-      return plugin(...args);
-    };
-  };
-
 const config: GatsbyConfig = {
   siteMetadata: {
     title: "Sergii Mykhailov",
@@ -126,11 +117,6 @@ const config: GatsbyConfig = {
         ],
         mdxOptions: {
           remarkPlugins: [
-            // Add GitHub Flavored Markdown (GFM) support
-            // wrapESMPlugin(`remark-gfm`),
-            // To pass options, use a 2-element array with the
-            // configuration in an object in the second element
-            // wrapESMPlugin(`remark-external-links`)({ target: false }),
             require("gatsby-remark-vscode").remarkPlugin,
             {
               theme: {
@@ -150,8 +136,13 @@ const config: GatsbyConfig = {
             },
           ],
           rehypePlugins: [
-            // require("rehype-slug"),
-            // [require("rehype-autolink-headings"), { behavior: "wrap" }],
+            require("rehype-slug"),
+            [
+              require("rehype-autolink-headings"),
+              {
+                behavior: "append",
+              },
+            ],
           ],
         },
       },

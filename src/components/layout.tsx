@@ -254,6 +254,12 @@ const globalStyles = (props: Theme) => css`
   ::-webkit-scrollbar-thumb:hover {
     background-color: ${props.colors.scrollBar.thumbBackgroundHoverColor};
   }
+
+  a > span.icon-link:after {
+    content: "#";
+    padding-left: 0.25em;
+    vertical-align: text-bottom;
+  }
 `;
 
 export default Layout;
