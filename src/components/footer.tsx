@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 
 import GitHubIcon from "../assets/github.svg";
 import LinkedInIcon from "../assets/linkedin.svg";
+import RSSIcon from "../assets/rss.svg";
 
 const Footer = () => {
   const data = useFooterDataQuery();
@@ -13,6 +14,16 @@ const Footer = () => {
       <p>&copy; Sergii Mykhailov, {new Date().getFullYear()}</p>
 
       <div>
+        <p className="actionable">
+          <a
+            href={`${data?.siteMetadata?.siteUrl!}/rss.xml`}
+            target="_blank"
+            rel="noreferrer"
+            title="RSS feed"
+          >
+            <RSSIcon />
+          </a>
+        </p>
         <p className="actionable">
           <a
             href={data?.siteMetadata?.linkedin?.url!}
@@ -44,6 +55,7 @@ const useFooterDataQuery = () => {
     query FooterData {
       site {
         siteMetadata {
+          siteUrl
           linkedin {
             url
             description
