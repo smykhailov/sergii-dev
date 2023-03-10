@@ -42,7 +42,7 @@ export const query = graphql`
 const ContentWrapper = styled.div({
   padding: "18px",
   flex: "1 1 auto",
-  maxHeight: "calc(100vh - 73px)",
+  maxHeight: "calc(100vh - 61px)",
   overflow: "auto",
 });
 

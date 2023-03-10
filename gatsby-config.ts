@@ -67,6 +67,59 @@ const config: GatsbyConfig = {
       },
     },
     {
+      resolve: "gatsby-plugin-feed",
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                title
+                description
+                siteUrl
+                site_url: siteUrl
+              }
+            }
+          }
+        `,
+        feeds: [
+          {
+            title: "Sergii Mykhailov Blog RSS Feed",
+            output: "rss.xml",
+            query: `
+            {
+              allMdx(
+                sort: {frontmatter: {date: ASC}}
+                filter: {frontmatter: {published: {eq: true}}}
+              ) {
+                nodes {
+                  excerpt(pruneLength: 1000)
+                  frontmatter {
+                    title
+                    categories
+                    date
+                  }
+                  fields {
+                    slug
+                  }
+                }
+              }
+            }
+            `,
+            serialize: ({ query: { site, allMdx } }) => {
+              return allMdx.nodes.map(node => {
+                return Object.assign({}, node.frontmatter, {
+                  url: `${site.siteMetadata.siteUrl}${node.fields.slug}`,
+                  guid: `${site.siteMetadata.siteUrl}${node.fields.slug}`,
+                  description: node.excerpt,
+                  pubDate: node.date
+                });
+              });
+            },
+          },
+        ],
+      },
+    },
+    {
       resolve: "gatsby-plugin-typegen",
       options: {
         outputPath: "./src/generated/gatsby-types.d.ts",
@@ -185,4 +238,3 @@ const config: GatsbyConfig = {
 };
 
 export default config;
-
