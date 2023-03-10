@@ -259,7 +259,6 @@ const globalStyles = (props: Theme) => css`
   a > span.icon-link:after {
     content: "#";
     padding-left: 0.25em;
-    vertical-align: text-bottom;
   }
 `;
 
