@@ -31,7 +31,7 @@ const ProjectsList: FC<{ location: Location }> = props => {
                 <Link
                   to={slug}
                   className={isActive ? "active" : undefined}
-                  title={item?.node?.name}
+                  title={item?.node?.name!}
                 >
                   <strong>{item?.node?.name}</strong>
                   <p>{item?.node?.description}</p>

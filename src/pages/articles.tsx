@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { graphql } from "gatsby";
+import { graphql, HeadFC } from "gatsby";
 
 import { FixedSizeList as List, ListChildComponentProps } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
@@ -39,24 +39,17 @@ const ArticlesPage: FC<{
   location: Location;
 }> = props => {
   const { edges } = props.data.allMdx;
-  const siteMetadata = props.data.site?.siteMetadata!;
   const [shouldDisplayShadow, setShouldDisplayShadow] =
     useState<boolean>(false);
 
   return (
     <ContentContainer title="Articles" displayShadow={shouldDisplayShadow}>
-      <SEO
-        title={`Articles | ${siteMetadata.title}` || ""}
-        author={siteMetadata.author || ""}
-        keywords={siteMetadata.keywords || ""}
-        description={`Articles | ${siteMetadata.title}` || ""}
-      />
       <AutoSizer>
         {({ height, width }) => (
           <List
             height={height}
             itemCount={edges.length}
-            itemData={{ location, edges }}
+            itemData={{ location: props.location, edges }}
             itemSize={134}
             width={width}
             onScroll={e => setShouldDisplayShadow(e.scrollOffset > 0)}
@@ -80,7 +73,7 @@ export const query = graphql`
       }
     }
     allMdx(
-      sort: { fields: [frontmatter___date], order: DESC }
+      sort: { frontmatter: { date: DESC } }
       filter: { frontmatter: { published: { eq: true } } }
     ) {
       edges {
@@ -108,3 +101,15 @@ export const query = graphql`
 (ArticlesPage as any).Aside = ArticlesList;
 
 export default ArticlesPage;
+
+export const Head: HeadFC<GatsbyTypes.ArticlesPageDataQuery> = props => {
+  const siteMetadata = props.data.site?.siteMetadata!;
+  return (
+    <SEO
+      title={`Articles | ${siteMetadata.title}`}
+      description={`Articles | ${siteMetadata.title}`}
+      keywords={siteMetadata.keywords}
+      author={siteMetadata.author}
+    />
+  );
+};

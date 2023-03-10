@@ -1,17 +1,13 @@
-import React, { FC, useState } from "react";
-import { graphql } from "gatsby";
-import { MDXRenderer } from "gatsby-plugin-mdx";
+import { useState } from "react";
+import { graphql, HeadFC, PageProps } from "gatsby";
+
+import styled from "@emotion/styled";
 
 import ContentContainer from "@components/content";
-import styled from "@emotion/styled";
+import Main from "../../content/main.mdx";
 import SEO from "@components/seo";
 
-const IndexPage: FC<{
-  data: GatsbyTypes.HomePageDataQuery;
-  location: Location;
-}> = props => {
-  const { body } = props.data.mdx!;
-  const siteMetadata = props.data.site?.siteMetadata!;
+const IndexPage: React.FC<PageProps> = () => {
   const [shouldDisplayShadow, setShouldDisplayShadow] =
     useState<boolean>(false);
 
@@ -25,14 +21,7 @@ const IndexPage: FC<{
           setShouldDisplayShadow((e.target as HTMLElement).scrollTop > 0)
         }
       >
-        <SEO
-          title={`${siteMetadata.title} | ${siteMetadata.jobTitle}`}
-          author={siteMetadata.author || ""}
-          description={siteMetadata.description || ""}
-          keywords={siteMetadata.keywords || ""}
-        />
-
-        <MDXRenderer>{body}</MDXRenderer>
+        <Main />
       </ContentWrapper>
     </ContentContainer>
   );
@@ -49,9 +38,6 @@ export const query = graphql`
         jobTitle
       }
     }
-    mdx(fileAbsolutePath: { regex: "/main.mdx/" }) {
-      body
-    }
   }
 `;
 
@@ -63,3 +49,15 @@ const ContentWrapper = styled.div({
 });
 
 export default IndexPage;
+
+export const Head: HeadFC<GatsbyTypes.HomePageDataQuery> = props => {
+  const siteMetadata = props.data.site?.siteMetadata!;
+  return (
+    <SEO
+      title={siteMetadata.title}
+      description={siteMetadata.description}
+      keywords={siteMetadata.keywords}
+      author={siteMetadata.author}
+    />
+  );
+};

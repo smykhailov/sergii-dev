@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { graphql } from "gatsby";
+import { graphql, HeadFC } from "gatsby";
 
 import { FixedSizeList as List, ListChildComponentProps } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
@@ -33,24 +33,17 @@ const ProjectsPage: FC<{
   location: Location;
 }> = props => {
   const { edges } = props.data.allGithubData.edges[0]?.node.data?.search!;
-  const siteMetadata = props.data.site?.siteMetadata!;
   const [shouldDisplayShadow, setShouldDisplayShadow] =
     useState<boolean>(false);
 
   return (
     <ContentContainer title="Projects" displayShadow={shouldDisplayShadow}>
-      <SEO
-        title={`Projects | ${siteMetadata.title}` || ""}
-        author={siteMetadata.author || ""}
-        keywords={siteMetadata.keywords || ""}
-        description={`Projects | ${siteMetadata.title}` || ""}
-      />
       <AutoSizer>
         {({ height, width }) => (
           <List
             height={height}
             itemCount={edges!.length}
-            itemData={{ location, edges }}
+            itemData={{ location: props.location, edges }}
             itemSize={110}
             width={width}
             onScroll={e => setShouldDisplayShadow(e.scrollOffset > 0)}
@@ -99,3 +92,17 @@ export const query = graphql`
 (ProjectsPage as any).Aside = ProjectsList;
 
 export default ProjectsPage;
+
+export const Head: HeadFC<
+  GatsbyTypes.GitHubProjectsListPageDataQuery
+> = props => {
+  const siteMetadata = props.data.site?.siteMetadata!;
+  return (
+    <SEO
+      title={`Projects | ${siteMetadata.title}` || ""}
+      author={siteMetadata.author || ""}
+      keywords={siteMetadata.keywords || ""}
+      description={`Projects | ${siteMetadata.title}` || ""}
+    />
+  );
+};

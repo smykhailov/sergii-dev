@@ -1,5 +1,5 @@
-import { getConfig, TConfig } from "@core/config";
 import { createContext, useContext } from "react";
+import { getConfig, TConfig } from "@core/config";
 
 type TAppContext = {
   config: TConfig;

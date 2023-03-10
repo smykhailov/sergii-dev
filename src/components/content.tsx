@@ -1,11 +1,13 @@
-import React, { FC } from "react";
+import React, { FC, PropsWithChildren } from "react";
 import styled from "@emotion/styled";
 import { useTheme } from "@emotion/react";
 
-const ContentContainer: FC<{
-  title: string;
-  displayShadow?: boolean;
-}> = props => {
+const ContentContainer: FC<
+  PropsWithChildren<{
+    title: string;
+    displayShadow?: boolean;
+  }>
+> = props => {
   const theme = useTheme();
 
   return (

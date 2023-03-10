@@ -1,4 +1,4 @@
-import { startsWith } from "lodash";
+import startsWith from "lodash/startsWith";
 
 export const isRouteActive: (slug: string, location: Location) => boolean = (
   slug,

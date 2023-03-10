@@ -1,17 +1,12 @@
 import React, { FC, useState } from "react";
-import { graphql } from "gatsby";
-import { MDXRenderer } from "gatsby-plugin-mdx";
+import { graphql, HeadFC, PageProps } from "gatsby";
+import styled from "@emotion/styled";
 
 import ContentContainer from "@components/content";
-import styled from "@emotion/styled";
 import SEO from "@components/seo";
+import Resume from "../../content/resume.mdx";
 
-const CVPage: FC<{
-  data: GatsbyTypes.CVPageDataQuery;
-  location: Location;
-}> = props => {
-  const { body } = props.data.mdx!;
-  const siteMetadata = props.data.site?.siteMetadata!;
+const CVPage: FC<PageProps> = () => {
   const [shouldDisplayShadow, setShouldDisplayShadow] =
     useState<boolean>(false);
 
@@ -25,14 +20,7 @@ const CVPage: FC<{
           setShouldDisplayShadow((e.target as HTMLElement).scrollTop > 0)
         }
       >
-        <SEO
-          title={`CV | ${siteMetadata.title}` || ""}
-          author={siteMetadata.author || ""}
-          description={siteMetadata.description || ""}
-          keywords={siteMetadata.keywords || ""}
-        />
-
-        <MDXRenderer>{body}</MDXRenderer>
+        <Resume />
       </ContentWrapper>
     </ContentContainer>
   );
@@ -48,9 +36,6 @@ export const query = graphql`
         keywords
       }
     }
-    mdx(fileAbsolutePath: { regex: "/resume.mdx/" }) {
-      body
-    }
   }
 `;
 
@@ -62,3 +47,15 @@ const ContentWrapper = styled.div({
 });
 
 export default CVPage;
+
+export const Head: HeadFC<GatsbyTypes.CVPageDataQuery> = props => {
+  const siteMetadata = props.data.site?.siteMetadata!;
+  return (
+    <SEO
+      title={`CV | ${siteMetadata.title}`}
+      description={siteMetadata.description}
+      keywords={siteMetadata.keywords}
+      author={siteMetadata.author}
+    />
+  );
+};

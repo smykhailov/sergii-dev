@@ -57,11 +57,11 @@ const useCategoriesListQuery = () => {
   const { allMdx } = useStaticQuery<GatsbyTypes.CategoriesListQuery>(graphql`
     query CategoriesList {
       allMdx(
-        sort: { fields: [frontmatter___categories], order: ASC }
+        sort: { frontmatter: { categories: ASC } }
         filter: { frontmatter: { published: { eq: true } } }
       ) {
-        distinct(field: frontmatter___categories)
-        group(field: frontmatter___categories) {
+        distinct(field: { frontmatter: { categories: SELECT } })
+        group(field: { frontmatter: { categories: SELECT } }) {
           totalCount
         }
       }

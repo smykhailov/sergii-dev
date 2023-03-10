@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 
-import { graphql } from "gatsby";
+import { graphql, HeadFC } from "gatsby";
 
 import { FixedSizeList as List, ListChildComponentProps } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
@@ -50,18 +50,12 @@ const Tag: FC<{
       title={`#${props.pageContext.tag}`}
       displayShadow={shouldDisplayShadow}
     >
-      <SEO
-        title={`Tag | ${props.pageContext.tag}`}
-        author={"Sergii Mykhailov"}
-        keywords={""}
-        description={props.pageContext.tag}
-      />
       <AutoSizer>
         {({ height, width }) => (
           <List
             height={height}
             itemCount={edges.length}
-            itemData={{ location, edges }}
+            itemData={{ location: props.location, edges }}
             itemSize={134}
             width={width}
             onScroll={e => setShouldDisplayShadow(e.scrollOffset > 0)}
@@ -76,8 +70,14 @@ const Tag: FC<{
 
 export const query = graphql`
   query CategoryArticlesByTag($tag: String!) {
+    site {
+      siteMetadata {
+        title
+        author
+      }
+    }
     allMdx(
-      sort: { fields: [frontmatter___date], order: DESC }
+      sort: { frontmatter: { date: DESC } }
       filter: { frontmatter: { tags: { eq: $tag }, published: { eq: true } } }
     ) {
       edges {
@@ -105,3 +105,18 @@ export const query = graphql`
 (Tag as any).Aside = TagsList;
 
 export default Tag;
+
+export const Head: HeadFC<
+  GatsbyTypes.CategoryArticlesByCategoryQuery,
+  { tag: string }
+> = props => {
+  const siteMetadata = props.data.site?.siteMetadata!;
+  return (
+    <SEO
+      title={`Tag | ${props.pageContext.tag}`}
+      author={siteMetadata.author}
+      keywords={props.pageContext.tag}
+      description={props.pageContext.tag}
+    />
+  );
+};

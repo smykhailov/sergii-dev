@@ -1,9 +1,9 @@
 import React from "react";
+import { graphql, useStaticQuery } from "gatsby";
 import styled from "@emotion/styled";
 
 import GitHubIcon from "../assets/github.svg";
 import LinkedInIcon from "../assets/linkedin.svg";
-import { graphql, useStaticQuery } from "gatsby";
 
 const Footer = () => {
   const data = useFooterDataQuery();
@@ -15,10 +15,10 @@ const Footer = () => {
       <div>
         <p className="actionable">
           <a
-            href={data?.siteMetadata?.linkedin?.url}
+            href={data?.siteMetadata?.linkedin?.url!}
             target="_blank"
             rel="noreferrer"
-            title={data?.siteMetadata?.linkedin?.description}
+            title={data?.siteMetadata?.linkedin?.description!}
           >
             <LinkedInIcon />
           </a>
@@ -26,10 +26,10 @@ const Footer = () => {
 
         <p className="actionable">
           <a
-            href={data?.siteMetadata?.github?.url}
+            href={data?.siteMetadata?.github?.url!}
             target="_blank"
             rel="noreferrer"
-            title={data?.siteMetadata?.github?.description}
+            title={data?.siteMetadata?.github?.description!}
           >
             <GitHubIcon />
           </a>

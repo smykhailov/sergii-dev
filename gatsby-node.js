@@ -1,41 +1,36 @@
 const path = require("path");
 const { createFilePath } = require("gatsby-source-filesystem");
 const slugify = require("slugify");
-
-exports.onCreateWebpackConfig = ({ stage, actions }) => {
-  if (stage.startsWith("develop")) {
-    actions.setWebpackConfig({
-      resolve: {
-        alias: {
-          "react-dom": "@hot-loader/react-dom",
-        },
-      },
-    });
-  }
-};
+const readingTime = require(`reading-time`);
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
 
   if (
     node.internal.type === "Mdx" &&
-    node.fileAbsolutePath.includes("/articles/")
+    node.internal.contentFilePath.includes("/articles/")
   ) {
     // .substring(12) - removes date from slug
     // 2020-10-24-first -> first
     const value = createFilePath({ node, getNode }).substring(12);
 
     createNodeField({
-      name: "slug",
       node,
+      name: "slug",
       value: `/articles/${value}`,
+    });
+
+    createNodeField({
+      node,
+      name: `readingTime`,
+      value: readingTime(node.body),
     });
   }
 };
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions;
-  const postPage = path.resolve("./src/components/article.tsx");
+  const articlePage = path.resolve("./src/components/article.tsx");
   const tagPage = path.resolve("./src/components/tag.tsx");
   const categoryPage = path.resolve("./src/components/category.tsx");
   const projectPage = path.resolve("./src/components/project.tsx");
@@ -52,6 +47,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             }
             fields {
               slug
+            }
+            internal {
+              contentFilePath
             }
           }
         }
@@ -96,9 +94,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const categorySet = new Set();
 
   // Create blog post pages.
-  const posts = mdxResult.data.allMdx.edges;
+  const articles = mdxResult.data.allMdx.edges;
 
-  posts.forEach(({ node }) => {
+  articles.forEach(({ node }) => {
     if (node.frontmatter.tags) {
       node.frontmatter.tags.forEach(tag => {
         tagSet.add(tag);
@@ -117,7 +115,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
     createPage({
       path: node.fields.slug,
-      component: postPage,
+      component: `${articlePage}?__contentFilePath=${node.internal.contentFilePath}`,
       context: { id: node.id },
     });
 

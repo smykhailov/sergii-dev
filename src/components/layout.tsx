@@ -1,18 +1,26 @@
-import React, { FC, useEffect, useMemo, useState } from "react";
+import React, {
+  FC,
+  PropsWithChildren,
+  ReactNode,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 import { Global, css, ThemeProvider, Theme } from "@emotion/react";
 import styled from "@emotion/styled";
-
-import { Helmet } from "react-helmet";
 
 import Footer from "@components/footer";
 import AppBar from "@components/app-bar";
 import { AppContext, defaultContextValue, useAppContext } from "./app-context";
 import { fonts, getConfig } from "@core/config";
-import { clone } from "lodash";
+import clone from "lodash/clone";
 import { useBreakpoint } from "gatsby-plugin-breakpoints";
+import ArticlesList from "./left-pane/articles-list";
 
-const Layout: FC<{ aside?: React.ReactChild; location: Location }> = props => {
+const Layout: FC<
+  PropsWithChildren<{ aside?: ReactNode; location: Location }>
+> = props => {
   const [config, setConfig] = useState(
     getConfig() || defaultContextValue.config
   );
@@ -30,10 +38,12 @@ const Layout: FC<{ aside?: React.ReactChild; location: Location }> = props => {
   );
 };
 
-const UILayout: FC<{
-  aside?: React.ReactChild;
-  location: Location;
-}> = props => {
+const UILayout: FC<
+  PropsWithChildren<{
+    aside?: ReactNode;
+    location: Location;
+  }>
+> = props => {
   const [theme, setTheme] = useState(null);
   const { config } = useAppContext();
   const breakpoints = useBreakpoint();
@@ -64,37 +74,22 @@ const UILayout: FC<{
     return null;
   }
 
+  const aside = location.pathname.includes("/articles/") ? (
+    <ArticlesList location={props.location} />
+  ) : (
+    props.aside
+  );
+
   return (
     <>
-      <Helmet>
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/apple-touch-icon.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon-16x16.png"
-        />
-        <link rel="manifest" href="/site.webmanifest" />
-      </Helmet>
       <ThemeProvider theme={theme}>
         <Wrapper>
           <Global styles={globalStyles(theme)} />
           <Container>
             <AppBar location={props.location} />
-            {props.aside &&
-              !breakpoints.xs &&
-              !breakpoints.sm &&
-              !breakpoints.md && <Aside>{props.aside}</Aside>}
+            {aside && !breakpoints.xs && !breakpoints.sm && !breakpoints.md && (
+              <Aside>{aside}</Aside>
+            )}
             <Content>{props.children}</Content>
           </Container>
           <Footer />
@@ -217,6 +212,11 @@ const globalStyles = (props: Theme) => css`
     -webkit-font-smoothing: antialiased;
   }
 
+  body {
+    padding: 0;
+    margin: 0;
+  }
+
   body > #___gatsby {
     font-family: ${props.articleFontFace};
     font-size: ${props.articleFontSize};
@@ -254,6 +254,12 @@ const globalStyles = (props: Theme) => css`
 
   ::-webkit-scrollbar-thumb:hover {
     background-color: ${props.colors.scrollBar.thumbBackgroundHoverColor};
+  }
+
+  a > span.icon-link:after {
+    content: "#";
+    padding-left: 0.25em;
+    vertical-align: text-bottom;
   }
 `;
 

@@ -2,13 +2,10 @@ import React, { FC, useState } from "react";
 
 import ContentContainer from "@components/content";
 import styled from "@emotion/styled";
+import { graphql, HeadFC } from "gatsby";
 import SEO from "@components/seo";
-import { graphql } from "gatsby";
 
-const NotFoundPage: FC<{
-  data: GatsbyTypes.Page404DataQuery;
-}> = props => {
-  const siteMetadata = props.data.site?.siteMetadata!;
+const NotFoundPage: FC = () => {
   const [shouldDisplayShadow, setShouldDisplayShadow] =
     useState<boolean>(false);
 
@@ -22,13 +19,6 @@ const NotFoundPage: FC<{
           setShouldDisplayShadow((e.target as HTMLElement).scrollTop > 0)
         }
       >
-        <SEO
-          title={`404 | ${siteMetadata.title}` || ""}
-          author={siteMetadata.author || ""}
-          description={siteMetadata.description || ""}
-          keywords={siteMetadata.keywords || ""}
-        />
-
         <p>The page you requested not found.</p>
       </ContentWrapper>
     </ContentContainer>
@@ -45,9 +35,6 @@ export const query = graphql`
         keywords
       }
     }
-    mdx(fileAbsolutePath: { regex: "/main.mdx/" }) {
-      body
-    }
   }
 `;
 
@@ -59,3 +46,16 @@ const ContentWrapper = styled.div({
 });
 
 export default NotFoundPage;
+
+export const Head: HeadFC<GatsbyTypes.Page404DataQuery> = props => {
+  const siteMetadata = props.data.site?.siteMetadata!;
+
+  return (
+    <SEO
+      title={`404 | ${siteMetadata.title}`}
+      description={siteMetadata.description}
+      keywords={siteMetadata.keywords}
+      author={siteMetadata.author}
+    />
+  );
+};
