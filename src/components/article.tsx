@@ -20,8 +20,6 @@ const Article: FC<
   const [shouldDisplayShadow, setShouldDisplayShadow] =
     useState<boolean>(false);
 
-  debugger;
-
   return (
     <ContentContainer
       title={frontmatter?.title!}
@@ -71,11 +69,15 @@ export const query = graphql`
     }
     mdx(id: { eq: $id }) {
       excerpt
+      body
       frontmatter {
         title
         date
         tags
         keywords
+      }
+      internal {
+        contentFilePath
       }
       fields {
         slug

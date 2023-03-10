@@ -115,7 +115,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
     createPage({
       path: node.fields.slug,
-      component: `${articlePage}?__contentFilePath=${node.internal.contentFilePath}}`,
+      component: `${articlePage}?__contentFilePath=${node.internal.contentFilePath}`,
       context: { id: node.id },
     });
 
