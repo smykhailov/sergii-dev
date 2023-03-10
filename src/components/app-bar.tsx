@@ -99,7 +99,7 @@ const AppBar: FC<{ location: Location }> = props => {
 };
 
 const NavItem: FC<TNavItem & { location: Location }> = props => {
-  const isActive = isRouteActive(props.to, location);
+  const isActive = isRouteActive(props.to, props.location);
 
   return (
     <li>

@@ -12,7 +12,6 @@ const TagsPage: FC<{
   data: GatsbyTypes.CategoriesPageDataQuery;
   location: Location;
 }> = props => {
-  const siteMetadata = props.data.site?.siteMetadata!;
   const [shouldDisplayShadow, setShouldDisplayShadow] =
     useState<boolean>(false);
 

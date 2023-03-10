@@ -20,6 +20,8 @@ const Article: FC<
   const [shouldDisplayShadow, setShouldDisplayShadow] =
     useState<boolean>(false);
 
+  debugger;
+
   return (
     <ContentContainer
       title={frontmatter?.title!}
