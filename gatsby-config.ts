@@ -83,7 +83,7 @@ const config: GatsbyConfig = {
         `,
         feeds: [
           {
-            title: "Sergii Mykhailov Blog RSS Feed",
+            title: "Sergii Mykhailov's Blog RSS Feed",
             output: "rss.xml",
             query: `
             {
@@ -105,13 +105,13 @@ const config: GatsbyConfig = {
               }
             }
             `,
-            serialize: ({ query: { site, allMdx } }) => {
+            serialize: ({ query: { site, allMdx } }: TQuery) => {
               return allMdx.nodes.map(node => {
                 return Object.assign({}, node.frontmatter, {
                   url: `${site.siteMetadata.siteUrl}${node.fields.slug}`,
                   guid: `${site.siteMetadata.siteUrl}${node.fields.slug}`,
                   description: node.excerpt,
-                  pubDate: node.date
+                  pubDate: node.date,
                 });
               });
             },
@@ -238,3 +238,29 @@ const config: GatsbyConfig = {
 };
 
 export default config;
+
+type TQuery = {
+  query: {
+    site: {
+      siteMetadata: {
+        title: string;
+        description: string;
+        siteUrl: string;
+        site_url: string;
+      };
+    };
+    allMdx: {
+      nodes: {
+        excerpt: string;
+        date: string;
+        frontmatter: {
+          title: string;
+          categories: string[];
+        };
+        fields: {
+          slug: string;
+        };
+      }[];
+    };
+  };
+};
