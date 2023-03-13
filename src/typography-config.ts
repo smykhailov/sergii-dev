@@ -13,6 +13,9 @@ const typography = new Typography({
       marginBottom: rhythm(0.2),
       lineHeight: 2,
     },
+    li: {
+      marginBottom: rhythm(0),
+    },
 
     // blockquote: {
     //   fontSize: "1.4em",
