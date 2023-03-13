@@ -74,7 +74,7 @@ const UILayout: FC<
     return null;
   }
 
-  const aside = location.pathname.includes("/articles/") ? (
+  const aside = props.location.pathname.includes("/articles/") ? (
     <ArticlesList location={props.location} />
   ) : (
     props.aside
@@ -259,6 +259,10 @@ const globalStyles = (props: Theme) => css`
   a > span.icon-link:after {
     content: "#";
     padding-left: 0.25em;
+  }
+
+  span.gatsby-resp-image-wrapper > a.gatsby-resp-image-link {
+    margin-bottom: 0.92556rem;
   }
 `;
 

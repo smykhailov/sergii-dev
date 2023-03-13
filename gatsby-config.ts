@@ -28,11 +28,11 @@ const config: GatsbyConfig = {
   graphqlTypegen: true,
   plugins: [
     "gatsby-plugin-emotion",
-    "gatsby-plugin-image",
+    "gatsby-plugin-sharp",
     "gatsby-plugin-breakpoints",
     "gatsby-plugin-sitemap",
     {
-      resolve: `gatsby-plugin-google-gtag`,
+      resolve: "gatsby-plugin-google-gtag",
       options: {
         trackingIds: [
           "G-W6NQKCSCE2", // Google Analytics / GA
@@ -83,7 +83,7 @@ const config: GatsbyConfig = {
         `,
         feeds: [
           {
-            title: "Sergii Mykhailov Blog RSS Feed",
+            title: "Sergii Mykhailov's Blog RSS Feed",
             output: "rss.xml",
             query: `
             {
@@ -105,13 +105,13 @@ const config: GatsbyConfig = {
               }
             }
             `,
-            serialize: ({ query: { site, allMdx } }) => {
+            serialize: ({ query: { site, allMdx } }: TQuery) => {
               return allMdx.nodes.map(node => {
                 return Object.assign({}, node.frontmatter, {
                   url: `${site.siteMetadata.siteUrl}${node.fields.slug}`,
                   guid: `${site.siteMetadata.siteUrl}${node.fields.slug}`,
                   description: node.excerpt,
-                  pubDate: node.date
+                  pubDate: node.date,
                 });
               });
             },
@@ -133,7 +133,7 @@ const config: GatsbyConfig = {
       },
     },
     {
-      resolve: `gatsby-source-github-api`,
+      resolve: "gatsby-source-github-api",
       options: {
         token: process.env.GH_PAT,
         // graphQLQuery: [githubProjectsQuery, githubCommentsQuery],
@@ -141,7 +141,7 @@ const config: GatsbyConfig = {
       },
     },
     {
-      resolve: `gatsby-plugin-gitalk`,
+      resolve: "gatsby-plugin-gitalk",
       options: {
         config: {
           clientID: process.env.GH_COMMENTS_CLIENT_ID,
@@ -153,40 +153,41 @@ const config: GatsbyConfig = {
       },
     },
     {
-      resolve: `gatsby-plugin-mdx`,
+      resolve: "gatsby-plugin-mdx",
       options: {
-        extensions: [`.mdx`, `.md`],
+        extensions: [".mdx", ".md"],
         gatsbyRemarkPlugins: [
           {
-            resolve: `gatsby-remark-images`,
+            resolve: "gatsby-remark-images",
             options: {
               // It's important to specify the maxWidth (in pixels) of
               // the content container as this plugin uses this as the
               // base for generating different widths of each image.
-              maxWidth: 650,
-              quality: 90,
+              maxWidth: 910,
             },
           },
         ],
         mdxOptions: {
           remarkPlugins: [
-            require("gatsby-remark-vscode").remarkPlugin,
-            {
-              theme: {
-                default: "Default Light+",
-                dark: "Default Dark+",
-                parentSelector: {
-                  // Any CSS selector will work!
-                  "html[data-theme='light-plus']": "Solarized Light",
-                  "html[data-theme='dark-plus']": "Monokai",
-                  "html[data-theme='one-monokai']": "Monokai Dimmed",
-                  "html[data-theme='high-contrast']": "High Contrast",
+            [
+              require("gatsby-remark-vscode").remarkPlugin,
+              {
+                theme: {
+                  default: "Default Light+",
+                  dark: "Default Dark+",
+                  parentSelector: {
+                    // Any CSS selector will work!
+                    "html[data-theme='light-plus']": "Solarized Light",
+                    "html[data-theme='dark-plus']": "Monokai",
+                    "html[data-theme='one-monokai']": "Monokai Dimmed",
+                    "html[data-theme='high-contrast']": "High Contrast",
+                  },
+                },
+                inlineCode: {
+                  marker: "•",
                 },
               },
-              inlineCode: {
-                marker: "•",
-              },
-            },
+            ],
           ],
           rehypePlugins: [
             require("rehype-slug"),
@@ -200,8 +201,6 @@ const config: GatsbyConfig = {
         },
       },
     },
-    "gatsby-plugin-sharp",
-    "gatsby-transformer-sharp",
     {
       resolve: "gatsby-source-filesystem",
       options: {
@@ -238,3 +237,29 @@ const config: GatsbyConfig = {
 };
 
 export default config;
+
+type TQuery = {
+  query: {
+    site: {
+      siteMetadata: {
+        title: string;
+        description: string;
+        siteUrl: string;
+        site_url: string;
+      };
+    };
+    allMdx: {
+      nodes: {
+        excerpt: string;
+        date: string;
+        frontmatter: {
+          title: string;
+          categories: string[];
+        };
+        fields: {
+          slug: string;
+        };
+      }[];
+    };
+  };
+};
