@@ -9,6 +9,7 @@ import Comments from "./comments";
 import { formatDate } from "@core/date";
 import slugify from "slugify";
 import SEO from "./seo";
+import ShareButtons from "./common/share-button";
 
 const Article: FC<
   PropsWithChildren<{
@@ -16,9 +17,10 @@ const Article: FC<
     location: Location;
   }>
 > = props => {
-  const { frontmatter } = props.data.mdx!;
+  const { frontmatter, excerpt } = props.data.mdx!;
   const [shouldDisplayShadow, setShouldDisplayShadow] =
     useState<boolean>(false);
+  const url = typeof window !== "undefined" ? window.location.href : "";
 
   return (
     <ContentContainer
@@ -31,7 +33,14 @@ const Article: FC<
         }
       >
         <header>
-          <h1>{frontmatter?.title}</h1>
+          <Title>
+            <h1>{frontmatter?.title}</h1>
+            <ShareButtons
+              url={url}
+              title={frontmatter?.title!}
+              description={excerpt!}
+            />
+          </Title>
           <SubtitleContainer>
             <p>
               Posted on <strong>{formatDate(frontmatter?.date!)}</strong> -{" "}
@@ -96,6 +105,18 @@ const ContentWrapper = styled.div({
   flex: "1 1 auto",
   maxHeight: "calc(100vh - 61px)",
   overflow: "auto",
+});
+
+const Title = styled.div({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "end",
+
+  "& .post-meta-share-icons": { marginBottom: "0.3332rem", lineHeight: 2 },
+
+  "& button": {
+    marginLeft: "0.5rem",
+  },
 });
 
 const SubtitleContainer = styled.div({
