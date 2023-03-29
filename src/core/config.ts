@@ -47,8 +47,10 @@ export const themes: TKeyValuePair<TThemes> = {
 };
 
 export const fonts: TKeyValuePair<TFontFaces> = {
-  "segoe-ui": "Segoe UI",
-  consolas: "consolas",
+  "segoe-ui":
+    "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
+  consolas:
+    "Consolas, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Monaco, Courier New, Courier, monospace",
 };
 
 export const getConfig = (): TConfig => {
@@ -64,3 +66,4 @@ export const saveConfig = (config: TConfig): void => {
     localStorage.setItem("config", JSON.stringify(config));
   }
 };
+
