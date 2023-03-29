@@ -5,6 +5,7 @@ const typography = new Typography({
   bodyWeight: 200,
   boldWeight: 700,
   scaleRatio: 1.5,
+  headerFontFamily: ["inherit"],
   overrideStyles: ({ rhythm }) => ({
     "h1,h2,h3,h4,h5,h6,p": {
       marginBottom: rhythm(1 / 1.8),

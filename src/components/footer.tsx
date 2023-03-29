@@ -80,6 +80,7 @@ const FooterContainer = styled.footer(props => ({
   paddingLeft: 6,
   paddingRight: 6,
   borderTop: props.theme.colors.border,
+  fontFamily: props.theme.fontFace,
 
   "& > div": {
     display: "flex",
