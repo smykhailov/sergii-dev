@@ -242,17 +242,23 @@ const modalDialogStyles = (theme: Theme) => ({
 const HeaderContainer = styled.header(props => ({
   display: "flex",
   justifyContent: "space-between",
+  fontFamily: props.theme.fontFace,
 
   h1: {
-    fontFamily: props.theme.fontFace,
     fontSize: "1.2em",
   },
 }));
 
-const MainContainer = styled.main({
+const MainContainer = styled.main(props => ({
   display: "flex",
   flexDirection: "column",
-});
+  fontFamily: props.theme.fontFace,
+
+  "& select": {
+    textOverflow: "ellipsis",
+    maxWidth: "400px",
+  },
+}));
 
 const ActionContainer = styled.footer(props => ({
   display: "flex",

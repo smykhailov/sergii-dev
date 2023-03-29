@@ -1,12 +1,12 @@
 import { Theme } from "@emotion/react";
 
 const highContrastTheme: Theme = {
-  fontSize: "13px",
+  fontSize: "14px",
   fontFace:
-    "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
+    "Segoe UI, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
   articleFontSize: "16px",
   articleFontFace:
-    "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
+    "Segoe UI, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
 
   colors: {
     backgroundPrimary: "rgb(0, 0, 0)",
