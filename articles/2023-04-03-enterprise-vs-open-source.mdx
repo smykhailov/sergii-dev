@@ -1,0 +1,35 @@
+---
+title: Enterprise vs Open-Source
+date: 2023-04-03T18:27:25Z
+published: true
+categories:
+  - Engineering
+tags:
+  - open-source
+  - enterprise
+keywords:
+  - engineering
+  - fundamentals
+  - open-source
+  - enterprise
+---
+
+Being a long time enterprise developer I have a lot of experience in building **maintainable**
+and **scalable** systems. The main focus os my work for long time was on **backend** and **infrastructure**. And some time ago I started to work with open-source too. I quickly learned that they are two very different worlds: **enterprise** and **open-source software (OSS)**. And because of their different nature, rules applied in one don't necessary work in another.
+
+This is because they differentiate in core scenarios:
+
+- Enterprise has stricter requirements on security, data retention, compliance, privacy, etc. Often it also has a longer maintenance period.
+- OSS world adopts faster changes, better flexibility (more ways to do the same thing), simplicity, etc.
+
+The core scenarios of OSS are nice to have in enterprise as well, but they are not enough. Compliance, reliability, privacy, security and scale are key in that domain.
+
+Based on the different nature of the problems solved by these two different worlds, the software development is different for them. When one tries to apply patterns from OSS projects it doesn't automatically mean that they will work in the enterprise world the same way. I'd even say more, in most cases applying such approaches fail. The same is true for the opposite case. Not a lot from OSS world likes to use or work with enterprise tools and libraries. And it would be really strange if they would. It is like trying to cut your home garden with a big tractor. Funny right? The same funny will be to use just shovel to dig the huge field. The fact that a tool is "in vogue" and being talked about by everyone and used in all OSS projects doesn't mean it is enough or that it will work as expected for an enterprise grade product.
+
+So, why do we apply this style of work in software development? The same principles works in the other branches too. The closest one for software development is buildings development. They have a good law: skyscraper cannot be built by hut blueprint. Why do we in our industry do it?
+
+Why did I rise this topic, because I see how difficult is to adapt some of the very well-known OSS libraries for the enterprise product. For example, [Cypress](https://www.cypress.io/) is very nice tool and works for majority of the OSS projects, but it has huge disadvantage in the enterprise world. It doesn't allow to dispatch native keyboard event, this makes impossible to automate the regression verification with keyboard navigation feature, which is the core for **accessibility**. The request to implement this feature stays in their backlog for many years. On the other side, Selenium/WebDriver covers such a core scenario and allows to test accessibility functionality much more convenient. But it is not vogue, it is old project and a lot of resistance comes from the team members during discussions which tool to use and which is more suitable. Fortunately, there is a tool which works great in both worlds - [Playwright](https://playwright.dev/) and this is great example of successful symbiosis of OSS and enterprise worlds.
+
+In general I think we want enterprise products to be a cool, fast and modern and so we tend to use the cool fast tools the other cool and fast products. But an enterprise product needs to be much more than that and that should be reflected in very careful choice of tools, libraries, frameworks. There are a lot of great products in the enterprise world, really great to see that enterprise world contributes back to the OSS and brings goodness of one world to another.
+
+Saying that, I propose to use appropriate tools, libraries and think in advance which one suits better for enterprise product, which one is better for OSS or smaller project. The choice should be based on core scenarios and not on the amount of stars and contributor. Always wisely choose tools, frameworks, libraries based on the scenarios they should fulfill, not based on the hype.
