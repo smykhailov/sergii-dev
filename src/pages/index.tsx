@@ -12,10 +12,7 @@ const IndexPage: React.FC<PageProps> = () => {
     useState<boolean>(false);
 
   return (
-    <ContentContainer
-      title="Sergii Mykhailov"
-      displayShadow={shouldDisplayShadow}
-    >
+    <ContentContainer title="Welcome" displayShadow={shouldDisplayShadow}>
       <ContentWrapper
         onScroll={e =>
           setShouldDisplayShadow((e.target as HTMLElement).scrollTop > 0)
