@@ -1,5 +1,6 @@
 import type { GatsbyConfig } from "gatsby";
 import dotenv from "dotenv";
+import { getSrc } from "gatsby-plugin-image";
 dotenv.config();
 
 const { githubProjectsQuery } = require("./github-api");
@@ -31,6 +32,8 @@ const config: GatsbyConfig = {
     "gatsby-plugin-sharp",
     "gatsby-plugin-breakpoints",
     "gatsby-plugin-sitemap",
+    "gatsby-transformer-sharp",
+    "gatsby-plugin-image",
     {
       resolve: "gatsby-plugin-google-gtag",
       options: {
@@ -85,6 +88,11 @@ const config: GatsbyConfig = {
           {
             title: "Sergii Mykhailov's Blog RSS Feed",
             output: "rss.xml",
+            link: "https://sergii.dev/",
+            image: "https://sergii.dev/static/logo.png",
+            custom_namespaces: {
+              media: "http://search.yahoo.com/mrss/",
+            },
             query: `
             {
               allMdx(
@@ -97,6 +105,11 @@ const config: GatsbyConfig = {
                     title
                     categories
                     date
+                    featuredImage {
+                      childImageSharp {
+                        gatsbyImageData(width: 800)
+                      }
+                    }
                   }
                   fields {
                     slug
@@ -107,11 +120,22 @@ const config: GatsbyConfig = {
             `,
             serialize: ({ query: { site, allMdx } }: TQuery) => {
               return allMdx.nodes.map(node => {
+                const thumbnail = getSrc(node.frontmatter.featuredImage);
+                const mediaThumbnail = thumbnail
+                  ? {
+                      "media:thumbnail": {
+                        _attr: {
+                          url: `${site.siteMetadata.siteUrl}${thumbnail}`,
+                        },
+                      },
+                    }
+                  : undefined;
                 return Object.assign({}, node.frontmatter, {
                   url: `${site.siteMetadata.siteUrl}${node.fields.slug}`,
                   guid: `${site.siteMetadata.siteUrl}${node.fields.slug}`,
                   description: node.excerpt,
                   pubDate: node.date,
+                  custom_elements: [mediaThumbnail],
                 });
               });
             },
