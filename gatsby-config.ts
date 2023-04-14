@@ -1,6 +1,6 @@
 import type { GatsbyConfig } from "gatsby";
 import dotenv from "dotenv";
-import { getSrc } from "gatsby-plugin-image";
+import { IGatsbyImageData, getSrc } from "gatsby-plugin-image";
 dotenv.config();
 
 const { githubProjectsQuery } = require("./github-api");
@@ -279,6 +279,11 @@ type TQuery = {
         frontmatter: {
           title: string;
           categories: string[];
+          featuredImage: {
+            childImageSharp: {
+              gatsbyImageData: IGatsbyImageData;
+            };
+          };
         };
         fields: {
           slug: string;
