@@ -5,6 +5,8 @@ import ProjectsList from "./left-pane/projects-list";
 import ContentContainer from "./content";
 import styled from "@emotion/styled";
 import SEO from "./seo";
+import { HeadFC } from "gatsby";
+import OpenExternalLinkIcon from "../assets/open-external-link.svg";
 
 const Project: FC<{
   pageContext: {
@@ -25,14 +27,15 @@ const Project: FC<{
           setShouldDisplayShadow((e.target as HTMLElement).scrollTop > 0)
         }
       >
-        <SEO
-          title={props.pageContext.data.name || ""}
-          author={"Sergii Mykhailov"}
-          description={props.pageContext.data.description || ""}
-          keywords={""}
-        />
-
         <main>
+          <OpenExternalLink>
+            <a
+              href={props.pageContext.data.url!}
+              title={props.pageContext.data.name!}
+            >
+              <OpenExternalLinkIcon />
+            </a>
+          </OpenExternalLink>
           <ReactMarkdownWithHtml>
             {props.pageContext.data.object?.text!}
           </ReactMarkdownWithHtml>
@@ -49,6 +52,26 @@ const ContentWrapper = styled.div({
   overflow: "auto",
 });
 
+const OpenExternalLink = styled.span({
+  position: "absolute",
+  top: 70,
+  right: 20,
+});
+
 (Project as any).Aside = ProjectsList;
 
 export default Project;
+
+export const Head: HeadFC<
+  GatsbyTypes.GitHubProjectsListPageDataQuery,
+  { data: { name: string } }
+> = props => {
+  return (
+    <SEO
+      title={`Project | ${props.pageContext.data.name}`}
+      author="Sergii Mykhailov"
+      keywords={props.pageContext.data.name}
+      description={props.pageContext.data.name}
+    />
+  );
+};
