@@ -44,7 +44,7 @@ const ProjectsPage: FC<{
             height={height}
             itemCount={edges!.length}
             itemData={{ location: props.location, edges }}
-            itemSize={110}
+            itemSize={126}
             width={width}
             onScroll={e => setShouldDisplayShadow(e.scrollOffset > 0)}
           >

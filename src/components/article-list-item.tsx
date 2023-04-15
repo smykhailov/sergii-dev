@@ -57,7 +57,7 @@ const ArticleListItem: FC<
     };
   }, [props.slug]);
 
-  const onKeyPressHandler = (event: KeyboardEvent<HTMLDivElement>) => {
+  const onKeyDownHandler = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Enter" || event.key === " ") {
       navigate(props.slug);
     }
@@ -68,7 +68,7 @@ const ArticleListItem: FC<
       <ArticleItemContainer
         key={props.id}
         tabIndex={0}
-        onKeyPress={onKeyPressHandler}
+        onKeyDown={onKeyDownHandler}
       >
         <ItemButton to={props.slug}>
           <ArticleItemHeader>
@@ -114,7 +114,7 @@ const ItemButton: FC<PropsWithChildren<{ to: string }>> = props => {
 const ArticleItemContainer = styled.div(props => ({
   display: "flex",
   flexDirection: "column",
-  margin: "9px 0",
+  margin: "8px 0",
   padding: "12px",
   backgroundColor: props.theme.colors.main.titleContainerBackgroundColor,
 

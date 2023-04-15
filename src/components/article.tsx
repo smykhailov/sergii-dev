@@ -2,6 +2,7 @@ import React, { FC, PropsWithChildren, useState } from "react";
 import styled from "@emotion/styled";
 
 import { graphql, HeadFC, Link } from "gatsby";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 
 import ArticlesList from "@components/left-pane/articles-list";
 import ContentContainer from "./content";
@@ -21,6 +22,9 @@ const Article: FC<
   const [shouldDisplayShadow, setShouldDisplayShadow] =
     useState<boolean>(false);
   const url = typeof window !== "undefined" ? window.location.href : "";
+  const image = frontmatter?.featuredImage
+    ? getImage(frontmatter.featuredImage as any)
+    : undefined;
 
   return (
     <ContentContainer
@@ -56,6 +60,7 @@ const Article: FC<
             </p>
           </SubtitleContainer>
         </header>
+        {image && <GatsbyImage image={image} alt={frontmatter?.title || ""} />}
         <main>{props.children}</main>
         <Comments
           slug={props.data.mdx?.fields?.slug!}
@@ -84,6 +89,11 @@ export const query = graphql`
         date
         tags
         keywords
+        featuredImage {
+          childImageSharp {
+            gatsbyImageData(width: 600)
+          }
+        }
       }
       internal {
         contentFilePath
