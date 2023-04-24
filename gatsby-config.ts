@@ -130,12 +130,17 @@ const config: GatsbyConfig = {
                       },
                     }
                   : undefined;
+                const featuredImage = thumbnail
+                  ? {
+                      featuredImage: `${site.siteMetadata.siteUrl}${thumbnail}`,
+                    }
+                  : undefined;
                 return Object.assign({}, node.frontmatter, {
                   url: `${site.siteMetadata.siteUrl}${node.fields.slug}`,
                   guid: `${site.siteMetadata.siteUrl}${node.fields.slug}`,
                   description: node.excerpt,
                   pubDate: node.date,
-                  custom_elements: [mediaThumbnail],
+                  custom_elements: [mediaThumbnail, featuredImage],
                 });
               });
             },
