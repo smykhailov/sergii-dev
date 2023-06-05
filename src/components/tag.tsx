@@ -56,7 +56,7 @@ const Tag: FC<{
             height={height}
             itemCount={edges.length}
             itemData={{ location: props.location, edges }}
-            itemSize={134}
+            itemSize={154}
             width={width}
             onScroll={e => setShouldDisplayShadow(e.scrollOffset > 0)}
           >

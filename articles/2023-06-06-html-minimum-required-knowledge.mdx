@@ -1,0 +1,72 @@
+---
+title: HTML - The minimum required knowledge
+date: 2023-06-05T18:15:19Z
+published: true
+featuredImage: ./images/2023-06-06-html-minimum-required-knowledge/cover.jpg
+categories:
+  - Fundamentals
+  - Development
+tags:
+  - developments
+  - code
+  - html
+keywords:
+  - html
+  - html basics
+  - html tags
+  - html attributes
+---
+
+After [dev environment setup](/articles/web-dev-tools), the first thing you need to learn is HTML. HTML is the language that is used to create the skeleton of a web page. It is the first thing that you need to learn to start your web development journey.
+
+## HTML Overview
+
+HTML stands for HyperText Markup Language. It is the standard language for creating web pages and web applications. HTML describes the structure and content of a web page using tags and attributes. Tags are keywords enclosed in angle brackets (`<` and `>`) that define how the content should be displayed. Attributes are additional information that modify the behavior or appearance of a tag.
+
+For example, the following HTML code defines a web page with a title, a heading and a paragraph:
+
+```html
+<html>
+  <head>
+    <title>My first web page</title>
+  </head>
+  <body>
+    <h1>Hello, world!</h1>
+    <p>This is a simple web page written in HTML.</p>
+  </body>
+</html>
+```
+
+The `<html>` tag indicates the start and end of the HTML document. The `<head>` tag contains information about the web page, such as the `<title>` tag that defines the title of the web page. The `<body>` tag contains the main content of the web page, such as the `<h1>` tag that defines a heading and the `<p>` tag that defines a paragraph.
+
+But we are running to fast. First of all we need to understand what is a tag and what is an attribute.
+
+## HTML Tags and Attributes
+
+If you are new to web development, you might wonder what an HTML tag is and how it works. Let's get to the basics of HTML tags.
+
+An HTML tag is a piece of markup language that indicates the start and end of an HTML element in a web page. An HTML element is a part of the web page content that can be formatted and displayed by a web browser. For example, the `<p>` tag is used to create a paragraph element, and the `<img>` tag is used to insert an image element.
+
+An HTML tag usually consists of an opening tag and a closing tag, with the content of the element in between. The opening tag has the name of the element inside angle brackets - `<tag_name>`. The closing tag has the same name with a slash before it - `</tag_name>`. Some tags, such as `<img>`, do not have a closing tag and are called self-closing tags. And you should specify the slash before the closing angle bracket - `<img />`.
+
+The following diagram shows how tags are used in HTML elements:
+
+```html
+<tag_name> content </tag_name>
+```
+
+Some tags have attributes that provide additional information about the element. An HTML attribute is a modifier of an HTML element that provides additional information about the element or changes its behavior in some way. Attributes are specified inside the start tag of an element, after the element name, and have the form of `name="value"` pairs.
+
+For example, in the following HTML code, the `<img>` element has three attributes: `src`, `alt`, and `width`.
+
+```html
+<img src="logo.png" alt="Company logo" width="100" />
+```
+
+The `src` attribute specifies the source URL of the image file to display. The `alt` attribute provides an alternative text for the image in case it cannot be loaded or displayed. The `width` attribute sets the width of the image in pixels.
+
+HTML attributes are an essential part of HTML, as they allow web developers to customize and enhance their web pages and web applications. By using HTML attributes, you can create more interactive and user-friendly web experiences.
+
+## HTML Document Structure
+
+An HTML document is a text file that contains HTML tags and attributes. It is the basic building block of a web page. An HTML document is composed of four major parts: the document type declaration, the `<html>` element, and the `<head>` and `<body>` elements.
