@@ -68,6 +68,15 @@ const Main = styled.main(() => ({
   flex: "1 1 auto",
   flexDirection: "column",
   height: 0,
+
+  "& h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a": {
+    display: "none",
+  },
+
+  "& h1:hover > a, h2:hover > a, h3:hover > a, h4:hover > a, h5:hover > a, h6:hover > a":
+    {
+      display: "inline-block",
+    },
 }));
 
 const Article = styled.article(() => ({
