@@ -1,0 +1,370 @@
+---
+title: Git and GitHub - The minimum required knowledge
+date: 2023-07-04T15:45:04Z
+published: true
+featuredImage: ./images/2023-07-04-git-and-github-minimum-required-knowledge/cover.jpg
+categories:
+  - Fundamentals
+  - Tooling
+tags:
+  - development
+  - tools
+  - git
+keywords:
+  - git
+  - github
+  - git commands
+  - git basics
+  - git fundamentals
+---
+
+It is a good idea to store your work on a remote server. This way you can access it from anywhere and you have a backup in case your computer crashes. In this article I will explain the minimum required knowledge to get started with Git and GitHub.
+
+## Git
+
+**Git** is a powerful and popular tool for managing software projects. It allows developers to collaborate on code, track changes, and create multiple versions of their work. In this blog post, we will give you an overview of some of the most fundamental concepts and commands of Git. Git is a distributed version control system, which means that every developer has a full copy of the project history on their local machine. This makes it easy to work offline, switch between branches, and merge changes with other developers. Git also has a remote repository, which is a central place where developers can store and share their code.
+
+Git works by creating snapshots of your files every time you make a **commit**, which is a record of the changes you made. These snapshots are linked together in a timeline called the **git history**. You can view the history with the command `git log`, which shows you the commit messages, authors, and dates.
+
+One of the key concepts of the Git are branches, which are parallel versions of your code. You can use branches to work on different features or bug fixes without affecting the main branch, which is usually called `master`. You can switch between branches with the command `git checkout`, which updates your working directory to match the branch you specified. You can also create a new branch with the command `git checkout -b`, which combines `git branch` and `git checkout`.
+
+When you are ready to merge your changes from one branch to another, you can use the command `git merge`, which combines the snapshots of both branches and creates a new commit. If there are any conflicts between the branches, you will have to resolve them manually before completing the merge.
+
+### Creating branches
+
+To create a new branch in git, use the command:
+
+```sh
+git branch <branch-name>
+```
+
+This will create a new branch that points to the same commit as your current branch. For example, if you are on the `master` branch and you want to create a new branch called `feature1`, run:
+
+```sh
+git branch feature1
+```
+
+To switch to the new branch, type the following command in the terminal:
+
+```sh
+git checkout <branch-name>
+```
+
+This will update your working directory and staging area to match the state of the branch. For example, if you want to switch to `feature1` branch, you have to run:
+
+```sh
+git checkout feature1
+```
+
+You can also combine these two commands into one by using the `-b` option:
+
+```sh
+git checkout -b <branch-name>
+```
+
+This will create and switch to the new branch in one step.
+
+### Merging branches
+
+To merge two branches in git, you can use the command:
+
+```sh
+git merge <branch-name>
+```
+
+This will combine the changes from the specified branch into your current branch. For example, if you are on the `master` branch and you want to merge `feature1` branch into it, you run:
+
+```sh
+git merge feature1
+```
+
+Git will try to merge the branches automatically, but sometimes there may be conflicts that need to be resolved manually. Conflicts occur when two branches have made different changes to the same file or line of code. Git will mark these conflicts with special symbols in the affected files, such as `<<<<<<<`, `=======`, and `>>>>>>>`. You need to edit these files and choose which version of the code you want to keep. Then you need to add and commit the resolved files.
+
+### Deleting branches
+
+To delete a branch in git, you use the command:
+
+```sh
+git branch -d <branch-name>
+```
+
+This will delete the branch locally, but only if it has been merged into another branch. For example, if you have merged `feature1` branch into `master` branch, you can delete `feature1` branch by running:
+
+```sh
+git branch -d feature1
+```
+
+If you want to delete a branch that has not been merged into another branch, you can use the `-D` option:
+
+```sh
+git branch -D <branch-name>
+```
+
+This will force delete the branch locally, but be careful as this may result in losing some unmerged changes.
+
+To delete a branch remotely, you can use the following command:
+
+```sh
+git push <remote-name> --delete <branch-name>
+```
+
+This will delete the branch from the remote repository, such as GitHub or Bitbucket. For example, if you want to delete `feature1` branch from origin remote repository, you can run:
+
+```sh
+git push origin --delete feature1
+```
+
+### Use cases and best practices for branching
+
+Branching can be used for various purposes and scenarios in software development. Here are some common use cases and best practices for branching:
+
+- Use a `main` or `master` branch as the default and stable branch of your project. This branch should always contain working and tested code that can be deployed or released at any time.
+- Use feature branches to develop new features or enhancements for your project. These branches should be created from the `main` or `master` branch and merged back into it when they are done. Feature branches should have descriptive names that indicate what they are about, such as `feature-login` or `feature-cart`.
+- Use bugfix branches to fix bugs or errors in your project. These branches should be created from the `main` or `master` branch and merged back into it when they are done. Bugfix branches should have names that start with `bugfix-` or `fix-`, such as `bugfix-signup` or `fix-checkout`.
+- Use experimental branches to try out new ideas or technologies for your project. These branches should be created from the `main` or `master` branch and deleted when they are no longer needed. Experimental branches should have names that start with `exp-` or `test-`, such as `exp-react` or `test-api`.
+- Use release branches to prepare your code for deployment or release. These branches should be created from the main or master branch and merged back into it and other branches when they are done. Release branches should have names that reflect the version or date of the release, such as `release-1.0` or `release-2021-06-19`.
+- Use hotfix branches to fix urgent or critical issues in your deployed or released code. These branches should be created from the release branches and merged back into it and other branches as soon as possible. Hotfix branches should have names that start with `hotfix-` or `emergency-`, such as `hotfix-login` or `emergency-checkout`.
+- Use a consistent naming convention for your branches. This will help you and other developers to identify the purpose and status of each branch easily. You can use prefixes, suffixes, hyphens, underscores, or other symbols to separate different parts of the branch name.
+- Use short and meaningful names for your branches. This will help you and other developers to remember and refer to each branch easily. You can use keywords, acronyms, abbreviations, or numbers to make your branch names concise and clear.
+
+## How do I use Git?
+
+To use Git, you need to have a repository, which is a project folder that contains your files and the git history. You can create a new repository with the command `git init`, which initializes an empty git directory in your current folder. You can also clone an existing repository from a remote server with the command `git clone`, which copies the repository to your local machine.
+
+To add files to your repository, you need to use two commands: `git add` and `git commit`. The command `git add` adds file contents to the staging area, which is a temporary area where you can prepare your changes before committing them. The command `git commit` creates a new snapshot of your files and saves it to the git history with a message describing what you did.
+
+To share your changes with other developers, you need to use two commands: `git push` and `git pull`. The command `git push` uploads your local commits to the remote repository, where others can see them. The command `git pull` downloads and integrates remote changes into your local branch, where you can review them.
+
+### git config
+
+This command lets you configure your git settings, such as your username, email address, editor, etc. You can use the `--global` option to apply the settings to all your repositories, or use the `--local` option to apply them only to the current repository.
+
+```bash
+# Set your name and email for all repositories
+
+git config --global user.name "John Doe"
+git config --global user.email "john.doe@example.com"
+
+# Set your editor for the current repository
+
+git config --local core.editor "vim"
+```
+
+You can also use `git config --list` to see all your settings, or `git config <key>` to see the value of a specific setting.
+
+### git init
+
+This command creates a new git repository in the current directory. It initializes a hidden `.git` folder that contains all the necessary files and information for your repository.
+
+```bash
+# Create a new repository in the current directory
+git init
+```
+
+You can also specify a directory name as an argument to create a new repository in that directory.
+
+```bash
+# Create a new repository in a new directory called "my-project"
+git init my-project
+```
+
+### git clone
+
+This command copies an existing git repository from a remote source, such as GitHub, to your local machine. It creates a new directory with the same name as the repository and downloads all its files and history.
+
+```bash
+# Clone the repository from GitHub
+git clone https://github.com/username/repo-name.git
+```
+
+You can also specify a different directory name as an argument to clone the repository into that directory.
+
+```bash
+# Clone the repository into a new directory called "my-repo"
+git clone https://github.com/username/repo-name.git my-repo
+```
+
+### git add
+
+This command adds files or changes to the staging area, which is a temporary area where you can prepare your commits. You can use `.` to add all the files in the current directory, or specify one or more file names or patterns as arguments.
+
+```bash
+# Add all files in the current directory
+git add .
+
+# Add only files with .txt extension
+git add *.txt
+
+# Add only a specific file
+git add README.md
+```
+
+### git commit
+
+This command records your changes in the repository history and creates a new commit with a message that describes what you did. You can use `-m` option to provide a message inline, or omit it to open your editor and write a longer message.
+
+```bash
+# Commit with a short message
+git commit -m "Fix bug #123"
+
+# Commit with a longer message using editor
+git commit
+```
+
+You can also use `-a` option to automatically add all the files that have been modified or deleted, without using `git add` first.
+
+```bash
+# Commit all changes with a message
+git commit -a -m "Update documentation"
+```
+
+### git status
+
+This command shows you the current state of your working directory and staging area. It tells you which files have been modified, added, deleted, renamed, or staged since your last commit. It also tells you if your local branch is ahead or behind of its remote counterpart.
+
+```bash
+# Show status of files and branches
+git status
+
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+(use "git restore --staged <file>..." to unstage)
+modified: index.html
+new file: style.css
+
+Changes not staged for commit:
+(use "git add <file>..." to update what will be committed)
+(use "git restore <file>..." to discard changes in working directory)
+modified: script.js
+
+Untracked files:
+(use "git add <file>..." to include in what will be committed)
+image.png
+```
+
+### git diff
+
+This command shows you the differences between your working directory and staging area, or between your staging area and last commit, or between any two commits. It highlights the lines that have been added, deleted, or modified. You can use `--staged` option to compare the staged files with the last commit, or specify the commit hashes or branch names as arguments to compare them.
+
+```bash
+# Show differences between working directory and staging area
+git diff
+
+# Show differences between staging area and last commit
+git diff --staged
+
+# Show differences between two commits
+git diff 3a2b5c 7d6f9a
+
+# Show differences between two branches
+git diff main dev
+```
+
+### git log
+
+This command shows you the history of your commits, starting from the most recent one. It displays the commit hash, author, date, and message for each commit. You can use various options to customize the output, such as `--oneline` to show only the hash and message, `--graph` to show a graphical representation of the branches and merges, `--decorate` to show the branch and tag names, or `--all` to show all the commits from all the branches. For example:
+
+```bash
+# Show commit history with default format
+git log
+
+commit 7d6f9a8f4e8c8a1f8e4c9aee7f18e9b590bd94f1 (HEAD -> main, origin/main)
+Author: John Doe <john.doe@example.com>
+Date: Mon Jun 19 16:32:08 2023 +0000
+
+Add image file
+
+commit 3a2b5c3f4e8c8a1f8e4c9aee7f18e9b590bd94f1
+Author: John Doe <john.doe@example.com>
+Date: Mon Jun 19 16:31:08 2023 +0000
+
+Update script file
+
+# Show commit history with one line format and graph
+git log --oneline --graph --decorate --all
+
+* 7d6f9a8 (HEAD -> main, origin/main) Add image file
+* 3a2b5c3 Update script file
+| * f4e8c8a (dev) Add new feature
+|/
+* e4c9aee Initial commit
+```
+
+### git show
+
+This command shows you the details of a specific commit, such as the author, date, message, and changes. You can specify the commit hash or branch name as an argument, or omit it to show the last commit.
+
+```bash
+# Show details of last commit
+git show
+
+commit 7d6f9a8f4e8c8a1f8e4c9aee7f18e9b590bd94f1 (HEAD -> main, origin/main)
+Author: John Doe <john.doe@example.com>
+Date: Mon Jun 19 16:32:08 2023 +0000
+
+Add image file
+
+diff --git a/image.png b/image.png
+new file mode 100644
+index 0000000..803da16
+Binary files /dev/null and b/image.png differ
+
+# Show details of a specific commit
+git show 3a2b5c3
+
+commit 3a2b5c3f4e8c8a1f8e4c9aee7f18e9b590bd94f1
+Author: John Doe <john.doe@example.com>
+Date: Mon Jun 19 16:31:08 2023 +0000
+
+Update script file
+
+diff --git a/script.js b/script.js
+index e69de29..fc02f24 100644
+--- a/script.js
++++ b/script.js
+@@ -0,0 +1,3 @@
++console.log("Hello, world!");
++
++alert("This is a test");
+```
+
+### git tag
+
+This command lets you create, list, or delete tags in your repository. Tags are labels that you can assign to specific commits to mark them as important or as milestones. You can use `-a` option to create an annotated tag with a message, or `-d` option to delete a tag. For example:
+
+```bash
+# Create an annotated tag with a message
+git tag -a v1.0 -m "First release"
+
+# List all tags in the repository
+git tag
+
+v1.0
+
+# Delete a tag from the repository
+git tag -d v1.0
+
+Deleted tag 'v1.0' (was e4c9aee)
+```
+
+### git branch
+
+This command lets you create, list, rename, or delete branches in your repository. Branches are pointers to specific commits that allow you to work on different features or tasks without affecting the main codebase. You can specify a branch name as an argument.
+
+## GitHub
+
+I recommend to store your work on [GitHub](https://github.com/), it is a platform that allows developers to collaborate on software projects using Git, a distributed version control system. GitHub provides various features and tools to help developers store, manage, track, and control changes to their code, as well as communicate and cooperate with other developers.
+
+GitHub is not only a cloud-based service that hosts Git repositories, but also a website where developers can create profiles, showcase their work, follow other developers, join communities, and contribute to open-source projects. GitHub also offers a marketplace where developers can find and purchase apps that integrate with GitHub and enhance their workflow.
+
+Some of the benefits of using GitHub are:
+
+- It makes it easy for anyone to start using Git, even if they are not familiar with the command line.
+- It enables developers to work on different parts of the code without affecting the main source code, using branches and pull requests.
+- It allows developers to review each other's code, provide feedback, and suggest improvements, using code review and issues.
+- It keeps a transparent history of all the changes made to the code, who made them, when they were made, and why they were needed, using commits and merge requests.
+- It facilitates collaboration across teams and organizations, using organizations and teams.
+
+GitHub is widely used by both individual developers and large companies for various types of software development. Whether you want to create a personal project, contribute to an existing project, or collaborate with others on a new project, GitHub can help you achieve your goals.
