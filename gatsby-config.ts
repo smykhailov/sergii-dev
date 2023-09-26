@@ -193,8 +193,11 @@ const config: GatsbyConfig = {
               // the content container as this plugin uses this as the
               // base for generating different widths of each image.
               maxWidth: 910,
+              quality: 100,
+              wrapperStyle: "margin-left: 0;",
             },
           },
+          "gatsby-remark-gifs",
         ],
         mdxOptions: {
           remarkPlugins: [
