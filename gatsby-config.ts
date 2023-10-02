@@ -197,6 +197,13 @@ const config: GatsbyConfig = {
               wrapperStyle: "margin-left: 0;",
             },
           },
+          {
+            resolve: "gatsby-remark-external-links",
+            options: {
+              target: "_blank",
+              rel: "nofollow",
+            },
+          },
           "gatsby-remark-gifs",
         ],
         mdxOptions: {

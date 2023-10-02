@@ -44,6 +44,7 @@
     "gatsby-plugin-tsconfig-paths": "^1.0.6",
     "gatsby-plugin-typegen": "^3.1.0",
     "gatsby-plugin-typography": "^5.7.0",
+    "gatsby-remark-external-links": "^0.0.4",
     "gatsby-remark-gifs": "^1.2.0",
     "gatsby-remark-images": "^7.7.0",
     "gatsby-remark-vscode": "^3.3.1",
