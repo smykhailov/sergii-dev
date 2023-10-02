@@ -1,0 +1,218 @@
+---
+title: The Businessman - Basics of Refactoring
+date: 2023-10-02 16:49:39
+published: true
+featuredImage: ./images/2023-10-02-the-businessman-basics-of-refactoring/cover.jpg
+categories:
+  - Businessman
+tags:
+  - businessman
+  - project
+  - javascript
+  - refactoring
+keywords:
+  - refactoring
+  - javascript
+  - the game
+---
+
+Refactoring is the process of improving the quality of existing code without changing its functionality.
+It can make your code more readable, maintainable, and testable, as well as reduce bugs and errors.
+In this blog post, we will explore what refactoring is, why it is important, and how to use it in JavaScript.
+
+Refactoring can be done at different levels of granularity, from renaming a variable to extracting a function
+to applying a design pattern. Some common refactoring techniques are:
+
+- **Extracting variables or constants**: This can help you avoid repeating hard-coded values or complex expressions,
+  and give them meaningful names.
+- **Extracting functions**: This can help you break down a long or complicated function into smaller and simpler ones,
+  each with a single responsibility.
+- **Renaming variables, functions, or parameters**: This can help you make your code more consistent and descriptive,
+  and avoid confusion or ambiguity.
+- **Replacing conditional logic with polymorphism**: This can help you eliminate long or nested if-else statements,
+  and use object-oriented principles to handle different behaviors based on types or states.
+- **Moving functions or variables**: This can help you organize your code better, and group related elements together.
+- **Simplifying boolean expressions**: This can help you make your code more readable and concise, and avoid unnecessary
+  or redundant conditions.
+
+Refactoring in JavaScript can be done manually or with the help of tools. Manual refactoring requires careful
+attention and testing, as you might introduce errors or change the behavior of your code unintentionally.
+Tools can automate some of the refactoring tasks, such as renaming or formatting, and alert you of potential issues or conflicts.
+Some popular tools for refactoring JavaScript are:
+
+- **[ESLint](https://eslint.org/)**: This is a linter that can detect and fix common syntax and style errors, as well as
+  enforce best practices and coding standards.
+- **[Prettier](https://prettier.io/)**: This is a formatter that can automatically format your code according to a set of rules,
+  and ensure consistency and readability.
+- **[VS Code](https://code.visualstudio.com/)**: This is an editor that has built-in support for refactoring JavaScript,
+  such as extracting variables or functions, renaming elements, or moving code around.
+
+Refactoring is not a one-time activity, but a continuous practice that should be done regularly and incrementally.
+It can help you keep your code clean and healthy, and improve your productivity and performance.
+Refactoring in JavaScript can be easier and faster with the use of tools, but it still requires human judgment and testing.
+Remember to always refactor with a purpose, and not just for the sake of it.
+
+## Apply refactoring
+
+Now, when we know what refactoring is about, Let's apply some of techniques to the code from [previous article](/articles/the-businessman-basic-interactivity/).
+
+First of all let's extract some functions. We can see a lot of repeating code to get the element and display some data:
+
+```javascript
+const todayDateElement = document.getElementById("today-date");
+const todayDayOfWeekElement = document.getElementById("today-day-of-week");
+
+todayDateElement.innerText = currentDate;
+todayDayOfWeekElement.innerText = dayOfWeek;
+```
+
+Instead of repeating this code, we can make a function that will do it for us:
+
+```javascript
+const setElementData = (elementId, data) => {
+  const element = document.getElementById(elementId);
+  element.innerText = data;
+};
+```
+
+now we can replace all the places where we were repeating the code with the function:
+
+```javascript
+setInterval(() => {
+  ...
+  setElementData('today-date', currentDate);
+  setElementData('today-day-of-week', dayOfWeek);
+  ...
+}, 2000);
+```
+
+Now it looks much cleaner and more maintainable. But still not perfect, there are still
+a lot of this functions comming in blocks, not grouped by functionality. Let's fix this by grouping
+and naming them more appropriately:
+
+```javascript
+const setTodayView = today => {
+  const currentDate = today.toLocaleDateString("en-US");
+  const dayOfWeek = today.toLocaleDateString("en-US", { weekday: "long" });
+  const dayOfWeekNum = today.getDay();
+
+  setElementData("today-date", currentDate);
+  setElementData("today-day-of-week", dayOfWeek);
+
+  updateDayOfWeekColor(dayOfWeekNum);
+};
+```
+
+Similar way we can group and name the functions that are responsible for displaying account balances, taxes and interest rates:
+
+```javascript
+const setInterestRates = () => {
+  setElementData("credit-interest-rate", creditInterestRate.toFixed(0));
+  setElementData("debit-interest-rate", debitInterestRate.toFixed(0));
+  setElementData("income-tax", incomeTax.toFixed(0));
+};
+
+const setAccountsBalance = () => {
+  setElementData("account-balance", accountBalance.toFixed(0));
+  setElementData("credit-balance", creditBalance.toFixed(0));
+  setElementData("deposit-balance", depositBalance.toFixed(0));
+  setElementData("net-income", netIncome.toFixed(0));
+};
+
+const setTaxes = () => {
+  setElementData("house-tax", houseTax.toFixed(0));
+  setElementData("land-tax", landTax.toFixed(0));
+};
+```
+
+There is one problem with this approach, the previous function depends on the global variables, and we'd like to avoid that.
+This is important, because we can decouple the functions from the global state, and make them more reusable.
+
+To do that we can pass the data as arguments to the functions:
+
+```javascript
+const setInterestRates = interestRates => {
+  setElementData(
+    "credit-interest-rate",
+    interestRates.creditInterestRate.toFixed(0)
+  );
+  setElementData(
+    "debit-interest-rate",
+    interestRates.debitInterestRate.toFixed(0)
+  );
+  setElementData("income-tax", interestRates.incomeTax.toFixed(0));
+};
+
+const setAccountsBalance = accountBalances => {
+  setElementData("account-balance", accountBalances.accountBalance.toFixed(0));
+  setElementData("credit-balance", accountBalances.creditBalance.toFixed(0));
+  setElementData("deposit-balance", accountBalances.depositBalance.toFixed(0));
+  setElementData("net-income", accountBalances.netIncome.toFixed(0));
+};
+
+const setTaxes = taxes => {
+  setElementData("house-tax", taxes.houseTax.toFixed(0));
+  setElementData("land-tax", taxes.landTax.toFixed(0));
+};
+```
+
+Now we need to refactor our global variables, and put them into structures, in the future we can move them to the separate file, to decouple data,
+buisinss logic and presentation.
+
+```javascript
+const interestRates = {
+  debitInterestRate: Math.random() * 10 + 5,
+  incomeTax: Math.random() * 9 + 1,
+  creditInterestRate: Math.random() * 10 + 5,
+};
+
+const accountBalances = {
+  accountBalance: Math.random() * 10000 + 1000,
+  creditBalance: 0,
+  depositBalance: 0,
+  netIncome: 0,
+};
+
+const taxes = {
+  houseTax: Math.random() * 19 + 1,
+  landTax: Math.random() * 19 + 1,
+};
+```
+
+Let's also extract our data coloring logic to the separate function:
+
+```javascript
+const updateDayOfWeekColor = dayOfWeekNum => {
+  const todayDayOfWeekElement = document.getElementById("today-day-of-week");
+  if (dayOfWeekNum === 0) {
+    todayDayOfWeekElement.classList.add("sunday");
+  } else if (dayOfWeekNum === 6) {
+    todayDayOfWeekElement.classList.add("saturday");
+  } else {
+    todayDayOfWeekElement.classList.remove("sunday");
+    todayDayOfWeekElement.classList.remove("saturday");
+  }
+};
+```
+
+And now our main game loop, looks nice, simple and more maintainable:
+
+```javascript
+setInterval(() => {
+  setTodayView(today);
+  setInterestRates(interestRates);
+  setAccountsBalance(accountBalances);
+  setTaxes(taxes);
+
+  today.setDate(today.getDate() + 1);
+}, 2000);
+```
+
+## Summary
+
+This is just a small example of refactoring, but it shows how we can improve our code, and make it more maintainable.
+These techniques are usefull as it allows developers to use Single Responisbility Principle (SRP), which I'll describe
+in one of the future articles.
+
+As usual you can find refactored version of the code, on the [GitHub](https://github.com/smykhailov/the-businessman/releases/tag/v0.4).
+In the next article we will continue to add more interactivity to our game.
