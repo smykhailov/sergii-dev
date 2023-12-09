@@ -7,7 +7,7 @@
     "editor.formatOnPaste": false
   },
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": "explicit"
   },
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "exclude": "{**/node_modules/**,**/bower_components/**,**/dist/**,**/build/**,**/.cache/**,**/public/**,**/.vscode/**,**/_output/**,**/vendor/**,**/*.min.*,**/*.map}"
