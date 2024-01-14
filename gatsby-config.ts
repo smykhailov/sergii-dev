@@ -86,7 +86,7 @@ const config: GatsbyConfig = {
         `,
         feeds: [
           {
-            title: "Sergii Mykhailov's Blog RSS Feed",
+            title: "Sergii Mykhailov's Blog",
             output: "rss.xml",
             link: "https://sergii.dev/",
             image: "https://sergii.dev/static/logo.png",
