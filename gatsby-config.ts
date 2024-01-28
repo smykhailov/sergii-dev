@@ -9,7 +9,8 @@ const config: GatsbyConfig = {
   siteMetadata: {
     title: "Sergii Mykhailov",
     jobTitle: "Principal Software Engineer",
-    description: "Work and Life",
+    description:
+      "sergii.dev, is a personal blog maintained by Sergii Mykhailov. The blog features articles on various topics such as software engineering, programming languages, and cloud computing.",
     author: "Sergii Mykhailov",
     siteUrl: "https://sergii.dev/",
     keywords:

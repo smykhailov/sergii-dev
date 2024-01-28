@@ -1,0 +1,366 @@
+---
+title: The Businessman - Bank Logic
+date: 2024-01-28 13:43:54
+published: true
+featuredImage: ./images/2024-01-28-the-businessman-bank-logic/cover.png
+categories:
+  - Businessman
+tags:
+  - businessman
+  - project
+  - javascript
+keywords:
+  - business logic
+  - javascript
+  - the game
+  - github compare
+  - bank logic
+  - bank
+  - lending
+  - borrowing
+  - transactions
+---
+
+The bank logic in the game is one of the most complex components, as it is responsible for handling lending and borrowing money, reacting to the player's actions, defining new keyboard handlers, validating inputs,
+and placing the data back to the game store. It is a crucial part of the game's mechanics and requires careful design and implementation to ensure that it functions correctly.
+
+The bank logic is responsible for managing the game's economy, which is a critical aspect of the game's overall experience. It must be designed to be robust and flexible, capable of handling a wide range of scenarios and player actions.
+This includes managing loans, interest rates, and other financial transactions.
+
+To achieve this, the bank logic must be carefully designed and implemented, with a focus on modularity, scalability, and maintainability. This requires a deep understanding of the game's mechanics and the underlying programming language,
+as well as a strong grasp of software engineering principles and best practices. In this article we cover only one part of it and extend, when the other parts of game logic will be implemented, as some of the actions will require other bits to be done first.
+
+There were a lot of code changes made to the bank logic, which is not surprising given its complexity. While it is not possible to cover all of the changes in this article, I will highlight the most important ones.
+If you are interested in seeing all of the changes, you can use GitHub's [compare feature](https://github.com/smykhailov/the-businessman/compare/v0.11...v0.12) to view the differences between branches and tags.
+
+## Store and Display data
+
+The first thing we need to do is to display the data. We will use the `bankData` object to store the data. Also, we fill the data with the default values.
+
+```js {numberLines: 110}
+const bankData = {
+  credit: [],
+  deposit: [],
+};
+
+for (let i = 0; i < 12; i++) {
+  bankData.credit.push({
+    amount: 0,
+    monthsToPayBack: 0,
+    returnDay: 0,
+  });
+  bankData.deposit.push({
+    amount: 0,
+    monthsToPayBack: 0,
+    returnDay: 0,
+  });
+}
+```
+
+At the first view it looks, that we duplicate the code, but it is done for purpose. If we create an object and then push it to the array, we will have the same object in the array. It means, that if we change the object, we will change all the objects in the array.
+The following code looks better, but contains runtime error, as the changes to `credit` field will be also reflected in `deposit` field and vice versa, as they are the same object.
+
+```js {numberLines: 110}
+const bankData = {
+  credit: [],
+  deposit: [],
+};
+
+for (let i = 0; i < 12; i++) {
+  const data = {
+    amount: 0,
+    monthsToPayBack: 0,
+    returnDay: 0,
+  };
+
+  bankData.credit.push(data);
+  bankData.deposit.push(data);
+}
+```
+
+To display the data we need to iterate over the arrays stored in the `bankData` and display the data on the HTML table elements, which we created in the previous article, where wi implemented all [dialogs](/articles/the-businessman-dialogs/).
+
+```js {numberLines: 248}
+const setBankData = bankData => {
+  for (let i = 1; i < bankData.credit.length + 1; i++) {
+    const credit = bankData.credit[i - 1];
+
+    const row = i <= 6 ? 1 : 2;
+    const column = i <= 6 ? i : i - 6;
+    setElementData(`credit-${row}-${column}`, credit.amount);
+  }
+
+  for (let i = 1; i < bankData.deposit.length + 1; i++) {
+    const deposit = bankData.deposit[i - 1];
+
+    const row = i <= 6 ? 1 : 2;
+    const column = i <= 6 ? i : i - 6;
+    setElementData(`deposit-${row}-${column}`, deposit.amount);
+  }
+};
+```
+
+## Display hints and inputs
+
+We have to add the hints and inputs to enter the data for lending and borrowing the money. The changes are done in the HTML, which are hidden originally and displayed only in reaction of correct action from the player.
+
+```html {numberLines: 130}
+<div id="lend-money" class="hidden text-smaller text-color-turquoise">
+  <div>
+    <label for="amount-to-lend">
+      How much money do you want to lend:
+      <input
+        id="amount-to-lend"
+        title="Amount to lend"
+        type="number"
+        min="0"
+        class="text-color-turquoise"
+      />
+    </label>
+  </div>
+  <div>
+    <label for="time-to-lend">
+      Months to pay back:
+      <input
+        id="time-to-lend"
+        title="Month to lend"
+        type="number"
+        min="1"
+        max="12"
+        class="text-color-turquoise"
+      />
+    </label>
+  </div>
+</div>
+<div id="borrow-money" class="hidden text-smaller text-color-turquoise">
+  <div>
+    <label for="amount-to-borrow">
+      How much money do you want to borrow:
+      <input
+        id="amount-to-borrow"
+        title="Amount to borrow"
+        type="number"
+        min="0"
+        class="text-color-turquoise"
+      />
+    </label>
+  </div>
+  <div>
+    <label for="time-to-borrow">
+      Months to pay back:
+      <input
+        id="time-to-borrow"
+        title="Month to borrow"
+        type="number"
+        min="1"
+        max="12"
+        class="text-color-turquoise"
+      />
+    </label>
+  </div>
+</div>
+<p id="bank-error" class="text-smaller text-color-red"></p>
+```
+
+## Handle the keyboard events
+
+The next step is to handle the keyboard events. We need to add the `keydown` event listener to the `document` object and handle the key press events. We need to react .
+
+```js {numberLines: 397}
+const assignBankWindowActions = () => {
+  let lendMoneyProcessing = false;
+  let borrowMoneyProcessing = false;
+
+  document.addEventListener(
+    "keydown",
+    e => {
+      const bankWindow = document.getElementById("bank-main");
+      // If the bank window is hidden, we don't need to handle the key press events.
+      if (bankWindow.classList.contains("hidden")) {
+        return;
+      }
+
+      const lendMoneyKeyBinding = "l";
+      const borrowMoneyKeyBinding = "b";
+
+      ...
+
+      if (  //L438
+        e.key === lendMoneyKeyBinding ||
+        (e.key === lendMoneyKeyBinding.toUpperCase() && e.shiftKey)
+      ) {
+        // If the player is already in the process of borrowing money, we can't handle lending.
+        if (borrowMoneyProcessing) {
+          return;
+        }
+
+        ...
+
+        lendMoneyProcessing = true;  //L446
+      }
+
+      if (
+        e.key === borrowMoneyKeyBinding ||
+        (e.key === borrowMoneyKeyBinding.toUpperCase() && e.shiftKey)
+      ) {
+        // If the player is already in the process of lending money, we can't handle borrowing.
+        if (lendMoneyProcessing) {
+          return;
+        }
+
+        ...
+
+        borrowMoneyProcessing = true;  //L457
+      }
+
+      // The main logic will be on the Enter and Tab keys.
+      if (e.key === "Enter" || e.key === "Tab") {
+        ...
+      }  //L528
+
+      // If the player presses the Escape key, we need to clean the data hide the bank window.
+      if (e.key === "Escape") {
+        ...
+      }
+    },
+    true
+  );
+};
+```
+
+Now, lets introuduce the clean up logic. Thei logic will be used only inside the `keydown` event handler, so we can use the JavaScript closures and define the function inside the event handler
+and will not leak the function outside of it (this process is also called **encapsulation** which we will discuss in later articles). We call this function on the `Escape` key press, also we will call it
+when the player will press the `Enter` or `Tab` keys, as we will need to clean the data and hide the bank window on the final stage of the bank transaction.
+
+```js {numberLines: 422}
+const cleanPrompts = () => {
+  lendMoney.classList.add("hidden");
+  borrowMoney.classList.add("hidden");
+
+  amountToLend.value = "";
+  amountToBorrow.value = "";
+
+  timeToLend.value = "";
+  timeToBorrow.value = "";
+
+  bankError.innerText = "";
+
+  lendMoneyProcessing = false;
+  borrowMoneyProcessing = false;
+};
+
+...
+
+if (e.key === 'Escape') {  //L530
+    cleanPrompts();
+}
+```
+
+The main logic of lending money is done in the `Enter` and `Tab` keys handling.
+
+```js {numberLines: 461}
+if (lendMoneyProcessing) {
+  // Convert the string values to numbers.
+  const amountValue = +amountToLend.value;
+  const timeValue = +timeToLend.value;
+
+  // Validate if there are enough money on the account to lend.
+  if (+amountValue > gameData.accountBalances.accountBalance) {
+    amountToLend.value = "";
+    bankError.innerText = "You do not have enough money to lend.";
+    return;
+  }
+
+  // Focus next input field.
+  if (e.target === amountToLend) {
+    timeToLend.focus();
+  }
+
+  // Validate the time to lend is in the range 1-12 month.
+  if (e.target === timeToLend) {
+    if (+timeValue > 12 || +timeValue < 1) {
+      timeToLend.value = "";
+      bankError.innerText =
+        "You cannot lend money for more than 12 months and less than 1.";
+      return;
+    }
+  }
+
+  if (amountValue > 0 && timeValue > 0 && timeValue < 13) {
+    // If the data is valid, we need to update the game data and hide the bank window.
+    gameData.bankData.deposit[timeValue - 1].amount += amountValue;
+    gameData.bankData.deposit[timeValue - 1].monthsToPayBack = timeValue;
+    // This is simplefication, the better logic would be to calculate the last day of the month, based on the month money should be returned.
+    gameData.bankData.deposit[timeValue - 1].returnDay =
+      gameData.today.getDate() > 28 ? 28 : gameData.today.getDate();
+
+    gameData.accountBalances.accountBalance -= amountValue;
+    gameData.accountBalances.depositBalance += amountValue;
+  } else {
+    return;
+  }
+}
+```
+
+The borrowing logic is a little bit simpler, as we don't need to validate the amount of money on the account, as the player can borrow any amount of money.
+
+```js {numberLines: 495}
+if (borrowMoneyProcessing) {
+  // Convert the string values to numbers.
+  const amountValue = +amountToBorrow.value;
+  const timeValue = +timeToBorrow.value;
+
+  // Focus next input field.
+  if (e.target === amountToBorrow) {
+    timeToBorrow.focus();
+  }
+
+  // Validate the time to borrow is in the range 1-12 month.
+  if (e.target === timeToBorrow) {
+    if (+timeValue > 12 || +timeValue < 1) {
+      timeToBorrow.value = "";
+      bankError.innerText =
+        "You cannot borrow money for more than 12 months and less than 1.";
+      return;
+    }
+  }
+
+  if (amountValue > 0 && timeValue > 0 && timeValue < 13) {
+    // If the data is valid, we need to update the game data and hide the bank window.
+    gameData.bankData.credit[timeValue - 1].amount += amountValue;
+    gameData.bankData.credit[timeValue - 1].monthsToPayBack = timeValue;
+    // This is simplefication, the better logic would be to calculate the last day of the month, based on the month money should be returned.
+    gameData.bankData.credit[timeValue - 1].returnDay =
+      gameData.today.getDate() > 28 ? 28 : gameData.today.getDate();
+
+    gameData.accountBalances.accountBalance += amountValue;
+    gameData.accountBalances.creditBalance += amountValue;
+  } else {
+    return;
+  }
+}
+```
+
+And the last step is to update balances, clean the data and hide the bank window.
+
+```js {numberLines: 523}
+setAccountsBalance(gameData.accountBalances);
+setBankData(gameData.bankData);
+
+cleanPrompts();
+document.getElementById("bank-main").classList.add("hidden");
+```
+
+## Summary
+
+I'm highlighting the challenges of managing bank logic despite following the Single Responsibility Principle (SRP) for functions. I intentionally kept all the logic in the same file to demonstrate how even a small project
+led by a single developer can become difficult to manage with the growth of functions. This is a common mistake made by beginners. My intent is to help beginners become professionals by applying best practices, different techniques,
+and design patterns to make their projects more maintainable, readable, and testable.
+
+In my future articles, I will describe SRP and other principles in more detail. I will also discuss design patterns and techniques that can help make projects better. Good code organization is essential for writing maintainable and testable code.
+This means structuring your codebase into logical, organized chunks. Group related functions, objects, classes, and variables together. Achieving clean code involves following a set of best practices and standards, such as using meaningful names,
+keeping functions small and focused, and using comments sparingly. Having a code base, which is readable and maintainable is essential for sustainable development.
+
+The sources of the changes as usual are on [GiHub](https://github.com/smykhailov/the-businessman/releases/tag/v0.12).
+
+In the next article, we will implement the logic for the **Exchange**. It will be similar in compexity to the bank logic, but will be able to reuse some techniques and code from the bank logic.
