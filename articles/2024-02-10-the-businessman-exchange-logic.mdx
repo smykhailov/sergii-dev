@@ -1,0 +1,219 @@
+---
+title: The Businessman - Exchange Logic
+date: 2024-02-10 14:14:03
+published: true
+featuredImage: ./images/2024-02-10-the-businessman-exchange-logic/cover.png
+categories:
+  - Businessman
+tags:
+  - businessman
+  - project
+  - javascript
+keywords:
+  - business logic
+  - javascript
+  - the game
+  - github compare
+  - exchange logic
+  - exchange
+---
+
+After we implemented the [bank logic](/articles/the-businessman-bank-logic), we can move to the next part of the game, which is the **Exchange**.
+The exchange logic will be similar in complexity to the bank logic, but we will be able to reuse some techniques and code from the bank logic.
+
+There is no so many changes in compare to the one we did in the bank logic, but as I shown in the previous article, you can look through all the changes
+just by using GitHub's [compare feature](https://github.com/smykhailov/the-businessman/compare/v0.12...v0.13).
+
+## UI changes
+
+The modifications we need to make are very small and straightforward, and they do not affect the overall structure of our code.
+We can apply the same approach that we have already implemented for the bank logic, which has proven to be effective and reliable.
+
+```html {numberLines: 331}
+<div id="buy-land" class="hidden text-smaller text-color-turquoise">
+  <div>
+    <label for="amount-land-buy">
+      How much land do you want to buy:
+      <input
+        id="amount-land-buy"
+        title="Amount of land to buy"
+        type="number"
+        min="1"
+        class="text-color-turquoise"
+      />
+    </label>
+  </div>
+</div>
+<div id="buy-oil" class="hidden text-smaller text-color-turquoise">
+  <div>
+    <label for="amount-oil-buy">
+      How much oil do you want to buy:
+      <input
+        id="amount-oil-buy"
+        title="Amount of oil to buy"
+        type="number"
+        min="0"
+        class="text-color-turquoise"
+      />
+    </label>
+  </div>
+</div>
+<p id="exchange-error" class="text-smaller text-color-red"></p>
+```
+
+## Handling exchange buy logic
+
+The logic to buy goods is similar to the one which we used in the bank logic.
+Based on "o" or "l" key press, we will show the prompt to buy oil or land.
+And on "Enter" or "Tab" key press, we will process the purchase.
+
+In this section, we will explain how to implement the logic for buying goods in our game.
+The logic for buying goods is similar to the one which we used in the bank logic,
+but with some differences. We will use the "o" or "l" keys to let the user choose between buying
+oil or land, respectively. Then, we will display a prompt that asks the user how much oil or land
+player wants to buy, and the price per unit. The player can enter the amount they want to buy
+and press the "Enter" or "Tab" keys to confirm their purchase.
+
+```js {numberLines: 537, diff}
+const assignExchangeWindowActions = () => {
+  let buyLandProcessing = false;
+  let buyOilProcessing = false;
+
+  document.addEventListener(
+    "keydown",
+    e => {
+      const exchangeWindow = document.getElementById("exchange-main");
+      if (exchangeWindow.classList.contains("hidden")) {
+        return;
+      }
+
+      const buyLandKeyBinding = "l";
+      const buyOilKeyBinding = "o";
+
+      ...
+
+      const cleanPrompts = () => {  // L559
+        ...
+
+        buyLandProcessing = false;  // L568
+        buyOilProcessing = false;
+      };
+
+      if (
+        e.key === buyLandKeyBinding ||
+        (e.key === buyLandKeyBinding.toUpperCase() && e.shiftKey)
+      ) {
+        if (buyOilProcessing) {
+          return;
+        }
+
+        buyLand.classList.remove("hidden");
+        amountLandToBuy.focus();
+
+        buyLandProcessing = true;
+      }
+
+      if (
+        e.key === buyOilKeyBinding ||
+        (e.key === buyOilKeyBinding.toUpperCase() && e.shiftKey)
+      ) {
+        if (buyLandProcessing) {
+          return;
+        }
+
+        buyOil.classList.remove("hidden");
+        amountOilToBuy.focus();
+
+        buyOilProcessing = true;
+      }
+
+      if (e.key === "Enter" || e.key === "Tab") {
+        if (buyLandProcessing) {
+          ...
+        }   //L611
+
+        if (buyOilProcessing) {
+          ...
+        }  //L629
+
+
+        cleanPrompts();
+        document.getElementById("exchange-main").classList.add("hidden");
+      }
+
+      if (e.key === "Escape") {
+        cleanPrompts();
+      }
+    },
+    true
+  );
+};
+
+const assignActionHandlers = () => {
+  assignBankWindowActions();
++   assignExchangeWindowActions();
+};
+```
+
+The purchase will be processed by checking if the user has enough money and updating their inventory accordingly.
+If the user does not have enough money, an error message will be shown. We will also handle some edge cases, such as invalid inputs or zero amounts.
+
+Here is the logic to handle the purchase of land:
+
+```js {numberLines: 595}
+if (buyLandProcessing) {
+  const amountValue = +amountLandToBuy.value;
+  const totalLandPrice = amountValue * gameData.currentMonthExchangePrices.land;
+
+  if (totalLandPrice > gameData.accountBalances.accountBalance) {
+    amountLandToBuy.value = "";
+    exchangeError.innerText = "You do not have enough money.";
+    return;
+  }
+
+  if (amountValue > 0) {
+    gameData.assets.land.amount += amountValue;
+    gameData.accountBalances.accountBalance -= totalLandPrice;
+  } else {
+    return;
+  }
+}
+```
+
+And absolutely the same logic, just with different name of input fields to purchase oil:
+
+```js {numberLines: 613}
+if (buyOilProcessing) {
+  const amountValue = +amountOilToBuy.value;
+  const totalOilPrice = amountValue * gameData.currentMonthExchangePrices.oil;
+
+  if (totalOilPrice > gameData.accountBalances.accountBalance) {
+    amountOilToBuy.value = "";
+    exchangeError.innerText = "You do not have enough money.";
+    return;
+  }
+
+  if (amountValue > 0) {
+    gameData.assets.oil.amount += amountValue;
+    gameData.accountBalances.accountBalance -= totalOilPrice;
+  } else {
+    return;
+  }
+}
+```
+
+the last step is to update the UI with the new values:
+
+```js {numberLines: 631}
+setAccountsBalance(gameData.accountBalances);
+```
+
+This concludes our tutorial on how to implement the exchange logic for our application.
+I hope you have learned something useful and enjoyed this lesson. If you have any questions or
+feedback, please feel free to leave the comment.
+
+## Summary
+
+The sources of the changes as usual are on [GiHub](https://github.com/smykhailov/the-businessman/releases/tag/v0.13).
+
+In the next article, we will implement the logic for the **Market**. It will be simpler as we already have a lot of code to reuse.
