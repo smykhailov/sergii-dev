@@ -1,0 +1,199 @@
+---
+title: The Businessman - Market Logic
+date: 2024-02-11 19:12:51
+published: true
+featuredImage: ./images/2024-02-11-the-businessman-market-logic/cover.png
+categories:
+  - Businessman
+tags:
+  - businessman
+  - project
+  - javascript
+keywords:
+  - business logic
+  - javascript
+  - the game
+  - github compare
+  - market logic
+  - market
+  - buy car
+  - buy house
+---
+
+After we implemented the [exchange logic](/articles/the-businessman-exchange-logic), the **Market** logic becomes so easy, that we just need to copy/paste and rename some variables.
+
+## UI changes
+
+We just add the input fields and error messge.
+
+```html {numberLines: 253}
+<div id="buy-car" class="hidden text-smaller text-color-turquoise">
+  <div>
+    <label for="car-num-to-buy">
+      Which car do you want to buy (1-7):
+      <input
+        id="car-num-to-buy"
+        title="Car number to buy"
+        type="number"
+        min="1"
+        max="7"
+        class="text-color-turquoise"
+      />
+    </label>
+  </div>
+</div>
+<div id="buy-house" class="hidden text-smaller text-color-turquoise">
+  <div>
+    <label for="house-num-to-buy">
+      Which house do you want to buy (1-7):
+      <input
+        id="house-num-to-buy"
+        title="House number to buy"
+        type="number"
+        min="1"
+        max="7"
+        class="text-color-turquoise"
+      />
+    </label>
+  </div>
+</div>
+<p id="market-error" class="text-smaller text-color-red"></p>
+```
+
+## Handling market buying logic
+
+The logic to buy goods is similar to the one which we used in the exchange logic.
+Based on "c" or "h" key press, we will show the prompt to buy new car or house.
+And on "Enter" or "Tab" key press, we will process the purchase.
+
+{/* prettier-ignore-start */}
+```js {numberLines: 536, diff}
+const assignMarketWindowActions = () => {
+  let buyCarProcessing = false;
+  let buyHouseProcessing = false;
+
+  document.addEventListener(
+    "keydown",
+    e => {
+      const marketWindow = document.getElementById("market-main");
+      if (marketWindow.classList.contains("hidden")) {
+        return;
+      }
+
+      const buyCarKeyBinding = "c";
+      const buyHouseKeyBinding = "h";
+
+      const marketError = document.getElementById("market-error");
+      const buyCar = document.getElementById("buy-car");
+      const buyHouse = document.getElementById("buy-house");
+
+      const carNumToBuy = document.getElementById("car-num-to-buy");
+      const houseNumToBuy = document.getElementById("house-num-to-buy");
+
+      marketError.innerText = "";
+
+      const cleanPrompts = () => {
+        buyCar.classList.add("hidden");
+        buyHouse.classList.add("hidden");
+
+        carNumToBuy.value = "";
+        houseNumToBuy.value = "";
+
+        marketError.innerText = "";
+
+        buyCarProcessing = false;
+        buyHouseProcessing = false;
+      };
+
+      if (
+        e.key === buyCarKeyBinding ||
+        (e.key === buyCarKeyBinding.toUpperCase() && e.shiftKey)
+      ) {
+        if (buyHouseProcessing) {
+          return;
+        }
+
+        buyCar.classList.remove("hidden");
+        carNumToBuy.focus();
+
+        buyCarProcessing = true;
+      }
+
+      if (
+        e.key === buyHouseKeyBinding ||
+        (e.key === buyHouseKeyBinding.toUpperCase() && e.shiftKey)
+      ) {
+        if (buyCarProcessing) {
+          return;
+        }
+
+        buyHouse.classList.remove("hidden");
+        houseNumToBuy.focus();
+
+        buyHouseProcessing = true;
+      }
+
+      if (e.key === "Enter" || e.key === "Tab") {
+        if (buyCarProcessing) {
+          const num = +carNumToBuy.value;
+          const price = gameData.availableCars[num - 1].price;
+
+          if (price > gameData.accountBalances.accountBalance) {
+            carNumToBuy.value = "";
+            marketError.innerText = "You do not have enough money.";
+            return;
+          }
+
+          if (num > 0) {
+            gameData.assets.car = gameData.availableCars[num - 1];
+            gameData.accountBalances.accountBalance -= price;
+          } else {
+            return;
+          }
+        }
+
+        if (buyHouseProcessing) {
+          const num = +houseNumToBuy.value;
+          const price = gameData.availableHouses[num - 1].price;
+
+          if (price > gameData.accountBalances.accountBalance) {
+            houseNumToBuy.value = "";
+            marketError.innerText = "You do not have enough money.";
+            return;
+          }
+
+          if (num > 0) {
+            gameData.assets.house = gameData.availableHouses[num - 1];
+            gameData.accountBalances.accountBalance -= price;
+          } else {
+            return;
+          }
+        }
+
+        setAccountsBalance(gameData.accountBalances);
+
+        cleanPrompts();
+        document.getElementById("market-main").classList.add("hidden");
+      }
+
+      if (e.key === "Escape") {
+        cleanPrompts();
+      }
+    },
+    true
+  );
+};
+
+const assignActionHandlers = () => { // L748
+  assignBankWindowActions();
++   assignMarketWindowActions();
+  assignExchangeWindowActions();
+};
+```
+{/* prettier-ignore-end */}
+
+## Summary
+
+The sources of the changes you can find on [GiHub](https://github.com/smykhailov/the-businessman/releases/tag/v0.14).
+
+In the next article, we will implement the logic for the **Assets**.
