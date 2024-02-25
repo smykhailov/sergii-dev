@@ -1,0 +1,222 @@
+---
+title: The Businessman - Assets Logic
+date: 2024-02-25 13:21:21
+published: true
+featuredImage: ./images/2024-02-25-the-businessman-assets-logic/cover.png
+categories:
+  - Businessman
+tags:
+  - businessman
+  - project
+  - javascript
+keywords:
+  - business logic
+  - javascript
+  - the game
+  - assets logic
+  - assets
+  - sell car
+  - sell house
+  - sell land
+  - sell car
+---
+
+With the [exchange logic](/articles/the-businessman-exchange-logic) and the [market logic](/articles/the-businessman-market-logic) being implemented, we can move to the next part of the game - **Assets**.
+Our work will be to implement the logic for selling cars, houses, lands and oils. And it will be so easy to do, as effectively we are going to reverse the exchange logic and sell goods instead of buying them.
+
+## UI changes
+
+We just add the input fields and error messge, the same as we've done in the market logic.
+
+```html {numberLines: 421}
+<div id="sell-land" class="hidden text-smaller text-color-turquoise">
+  <div>
+    <label for="amount-land-sell">
+      How much land do you want to sell:
+      <input
+        id="amount-land-sell"
+        title="Amount of land to sell"
+        type="number"
+        min="1"
+        class="text-color-turquoise"
+      />
+    </label>
+  </div>
+</div>
+<div id="sell-oil" class="hidden text-smaller text-color-turquoise">
+  <div>
+    <label for="amount-oil-sell">
+      How much oil do you want to sell:
+      <input
+        id="amount-oil-sell"
+        title="Amount of oil to sell"
+        type="number"
+        min="1"
+        class="text-color-turquoise"
+      />
+    </label>
+  </div>
+</div>
+<p id="assets-error" class="text-smaller text-color-red"></p>
+```
+
+## Handling assets selling logic
+
+The logic to sell goods is similar to the one which we used in the exchange logic.
+Based on "c" or "h" key press, we will automatically sell the car or house.
+With "l" and "o" key press, we will sell the land and oil. But this logic will require to enter amount of goods to be sold.
+For that "Enter" or "Tab" key press will process the selling.
+
+{/* prettier-ignore-start */}
+```js {numberLines: 750}
+const assignAssetsWindowActions = () => {
+    let sellLandProcessing = false;
+    let sellOilProcessing = false;
+
+    document.addEventListener('keydown', (e) => {
+        const assetsWindow = document.getElementById('assets-main');
+        if (assetsWindow.classList.contains('hidden')) {
+            return;
+        }
+
+        const sellHouseKeyBinding = 'h';
+        const sellCarKeyBinding = 'c';
+        const sellLandKeyBinding = 'l';
+        const sellOilKeyBinding = 'o';
+
+        const assetsError = document.getElementById('assets-error');
+        const sellLand = document.getElementById('sell-land');
+        const sellOil = document.getElementById('sell-oil');
+
+        const amountLandToSell = document.getElementById('amount-land-sell');
+        const amountOilToSell = document.getElementById('amount-oil-sell');
+
+        assetsError.innerText = '';
+
+        const cleanPrompts = () => {
+            sellLand.classList.add('hidden');
+            sellOil.classList.add('hidden');
+
+            amountLandToSell.value = '';
+            amountOilToSell.value = '';
+
+            assetsError.innerText = '';
+
+            sellLandProcessing = false;
+            sellOilProcessing = false;
+        };
+
+        if (e.key === sellHouseKeyBinding || (e.key === sellHouseKeyBinding.toUpperCase() && e.shiftKey)) {
+            gameData.accountBalances.accountBalance += gameData.assets.house.price;
+            gameData.assets.house = undefined;
+
+            setAssets(gameData.assets);
+            setAccountsBalance(gameData.accountBalances);
+            document.getElementById('assets-main').classList.add('hidden');
+            return
+        }
+
+        if (e.key === sellCarKeyBinding || (e.key === sellCarKeyBinding.toUpperCase() && e.shiftKey)) {
+            gameData.accountBalances.accountBalance += gameData.assets.car.price;
+            gameData.assets.car = undefined;
+
+            setAssets(gameData.assets);
+            setAccountsBalance(gameData.accountBalances);
+            document.getElementById('assets-main').classList.add('hidden');
+            return
+        }
+
+        if (e.key === sellLandKeyBinding || (e.key === sellLandKeyBinding.toUpperCase() && e.shiftKey)) {
+            if (sellOilProcessing) {
+                return;
+            }
+
+            sellLand.classList.remove('hidden');
+            amountLandToSell.focus();
+
+            sellLandProcessing = true;
+        }
+
+        if (e.key === sellOilKeyBinding || (e.key === sellOilKeyBinding.toUpperCase() && e.shiftKey)) {
+            if (sellLandProcessing) {
+                return;
+            }
+
+            sellOil.classList.remove('hidden');
+            amountOilToSell.focus();
+
+            sellOilProcessing = true;
+        }
+
+        if (e.key === 'Enter' || e.key === 'Tab') {
+            if (sellLandProcessing) {
+                const amountValue = +amountLandToSell.value;
+                const totalLandPrice = amountValue * gameData.currentMonthExchangePrices.land;
+
+                if (amountValue > gameData.assets.land.amount) {
+                    amountLandToSell.value = '';
+                    assetsError.innerText = 'You do not have that much land.';
+                    return;
+                }
+
+                if (amountValue > 0) {
+                    gameData.assets.land.amount -= amountValue;
+                    gameData.accountBalances.accountBalance += totalLandPrice;
+                } else {
+                    return;
+                }
+            }
+
+            if (sellOilProcessing) {
+                const amountValue = +amountOilToSell.value;
+                const totalOilPrice = amountValue * gameData.currentMonthExchangePrices.oil;
+
+                if (amountValue > gameData.assets.oil.amount) {
+                    amountOilToSell.value = '';
+                    assetsError.innerText = 'You do not have that much oil.';
+                    return;
+                }
+
+                if (amountValue > 0) {
+                    gameData.assets.oil.amount -= amountValue;
+                    gameData.accountBalances.accountBalance += totalOilPrice;
+                } else {
+                    return;
+                }
+            }
+
+            setAccountsBalance(gameData.accountBalances);
+
+            cleanPrompts();
+            document.getElementById('assets-main').classList.add('hidden');
+        }
+
+        if (e.key === 'Escape') {
+            cleanPrompts();
+        }
+    }, true);
+}
+```
+{/* prettier-ignore-end */}
+
+Also we shouldn't forget to call the `assignAssetsWindowActions` function in the `assignActionHandlers` function.
+
+{/* prettier-ignore-start */}
+```js {numberLines: 878, diff}
+const assignActionHandlers = () => {
+  assignBankWindowActions();
+  assignMarketWindowActions();
+  assignExchangeWindowActions();
++   assignAssetsWindowActions();
+};
+```
+{/* prettier-ignore-end */}
+
+There is one small change in the `setAssets` function. We need to handle properly the situation, when there is no car or house (when they are sold).
+But you can check the comparison with the previous version on [GitHub](https://github.com/smykhailov/the-businessman/compare/v0.14...v0.15).
+
+## Summary
+
+The sources of the changes, as usual, you can find on [GiHub](https://github.com/smykhailov/the-businessman/releases/tag/v0.15).
+
+In the next article, we will implement the logic part of the UI logic - **Assistant winow**. The logic there will be a little bit more complicated, as we need to display the data from different parts: assets, accounts, market and exchange.
