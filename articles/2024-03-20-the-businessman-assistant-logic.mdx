@@ -1,0 +1,139 @@
+---
+title: The Businessman - Assistant Logic
+date: 2024-03-20 21:56:16
+published: true
+featuredImage: ./images/2024-03-20-the-businessman-assistant-logic/cover.png
+categories:
+  - Businessman
+tags:
+  - businessman
+  - project
+  - javascript
+keywords:
+  - business logic
+  - javascript
+  - the game
+  - assistant logic
+  - assistant
+---
+
+The assistnat logic is both simple and complex. It is simple because we have a lot of the logic already in place. It is complex because we need to make sure that the assistant is able to handle all the different scenarios that the player can throw at it.
+
+The Assistant handles different activities that the player can do:
+
+- Buy and sell goods and that has to be tracked.
+- The player has a birthday and it has to be celebrated.
+- Landing and borrowing money, or actually the time when they should be returned by the bank or to the bank should be reminded by the assistant in the month the action happens.
+- Also, the assistant should remind on the amount of oil needed for house heating.
+
+We've already reflected some of that data on the assistant's screen. Now we need to make sure that the assistant can handle the data and the logic behind it.
+
+## The Assistant Logic
+
+First off all let's extend the form with landing and borrowing money fields, which should be hidden by default.
+
+```html {numberLines: 452}
+<p id="you-get-money-back" class="hidden"></p>
+<p id="you-should-return-money" class="hidden"></p>
+```
+
+Also we need to add the initial data which could be displayed on the assistant's screen.
+
+```javascript {numberLines: 25}
+const assistantData = {
+  oilToHeatHouse: Math.random() * 29 + 1,
+  birthday: `${(Math.random() * 11 + 1).toFixed(0)}/${(
+    Math.random() * 27 +
+    1
+  ).toFixed(0)}`,
+  landSold: 0,
+  landBought: 0,
+  landGain: 0,
+  oilSold: 0,
+  oilBought: 0,
+  oilGain: 0,
+};
+```
+
+And display them on the screen.
+
+```javascript {numberLines: 197}
+const setAssistantData = data => {
+  setElementData("oil-to-heat-house", data.oilToHeatHouse.toFixed(0));
+  setElementData("birthday", data.birthday);
+  setElementData("land-sold", data.landSold);
+  setElementData("land-bought", data.landBought);
+  setElementData("land-gain", data.landGain);
+  setElementData("oil-sold", data.oilSold);
+  setElementData("oil-bought", data.oilBought);
+  setElementData("oil-gain", data.oilGain);
+};
+```
+
+In the `setAssets` function we need to add the logic to display the date when the money should be returned to the bank or when the money should be returned by the bank.
+
+```javascript {numberLines: 221}
+const credit = gameData.bankData.credit[gameData.today.getMonth()];
+if (credit.amount !== 0) {
+  const element = setElementData(
+    "you-should-return-money",
+    `You should return money ${credit.returnDay} this month.`
+  );
+
+  if (gameData.today.getDate() < credit.returnDay) {
+    element.classList.remove("hidden");
+  } else {
+    element.classList.add("hidden");
+  }
+}
+
+const deposit = gameData.bankData.deposit[gameData.today.getMonth()];
+if (deposit.amount !== 0) {
+  const element = setElementData(
+    "you-get-money-back",
+    `Bank will return money ${deposit.returnDay} of this month.`
+  );
+
+  if (gameData.today.getDate() < deposit.returnDay) {
+    element.classList.remove("hidden");
+  } else {
+    element.classList.add("hidden");
+  }
+}
+```
+
+During implementing this screen, I realized that I've made an error in the [Bank Logic](/articles/the-businessman-bank-logic). The data has been placed into the wrong cells in the array.
+I've fixed that by introducing the function which calculates the month when the money should be returned based on the current month and the time when the money should be returned.
+This logic also counts with the year overflow.
+
+```javascript {numberLines: 475}
+const getMonthToReturn = timeValue => {
+  const currentMonth = gameData.today.getMonth();
+  // Get current month + time to lend/borrow, if it is more than 11, then we need to return it next year
+  const monthToReturn =
+    currentMonth + timeValue > 11
+      ? currentMonth + timeValue - 12
+      : currentMonth + timeValue;
+
+  return monthToReturn;
+};
+```
+
+That fix allowed me to remove `monthsToPayBack` from the `bankData` object, as the logic above is now handling that.
+
+And the last change which has been made is the logic for updating gains/losses and income balance. Here I'll show only one place how it has been done, but the logic is the same for all the other places,
+and the full version of the changes can be found on the [GitHub](https://github.com/smykhailov/the-businessman/releases/tag/v0.16).
+Also you can use [comparison tool](https://github.com/smykhailov/the-businessman/compare/v0.15...v0.16) to see the changes between the previous version of the game.
+
+```javascript {numberLines: 762}
+gameData.accountBalances.netIncome -= totalLandPrice;
+gameData.assistantData.landBought += amountValue;
+gameData.assistantData.landGain -= totalLandPrice;
+```
+
+## Summary
+
+Tha was the last UI screen we needed to implement. Now we have all the screens in place and we can start testing the game.
+Some of the logic will already work and display the correct data. The other addition will be related to the date changes logic, as when every new month starts, the taxes should be paid, and the new rates set.
+
+That will be our next task. Wait for it.
