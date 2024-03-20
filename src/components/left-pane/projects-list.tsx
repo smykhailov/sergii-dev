@@ -19,26 +19,28 @@ const ProjectsList: FC<{ location: Location }> = props => {
     <LeftPaneContainer title="Projects" offsetTop={offsetTop}>
       <Projects>
         {edges.map(e => {
-          return e.node.data?.search?.edges!.map(item => {
-            const slug = `/projects/${slugify(
-              item?.node?.name!
-            ).toLocaleLowerCase()}`;
+          return e.node.data?.repositoryOwner?.repositories?.edges!.map(
+            item => {
+              const slug = `/projects/${slugify(
+                item?.node?.name!
+              ).toLocaleLowerCase()}`;
 
-            const isActive = isRouteActive(slug, props.location);
+              const isActive = isRouteActive(slug, props.location);
 
-            return (
-              <li key={slug} ref={isActive ? activeLi : null}>
-                <Link
-                  to={slug}
-                  className={isActive ? "active" : undefined}
-                  title={item?.node?.name!}
-                >
-                  <strong>{item?.node?.name}</strong>
-                  <p>{item?.node?.description}</p>
-                </Link>
-              </li>
-            );
-          });
+              return (
+                <li key={slug} ref={isActive ? activeLi : null}>
+                  <Link
+                    to={slug}
+                    className={isActive ? "active" : undefined}
+                    title={item?.node?.name!}
+                  >
+                    <strong>{item?.node?.name}</strong>
+                    <p>{item?.node?.description}</p>
+                  </Link>
+                </li>
+              );
+            }
+          );
         })}
       </Projects>
     </LeftPaneContainer>
@@ -53,14 +55,16 @@ const useGitHubProjectsListQuery = () => {
           edges {
             node {
               data {
-                search {
-                  edges {
-                    node {
-                      name
-                      description
-                      createdAt
-                      object {
-                        text
+                repositoryOwner {
+                  repositories {
+                    edges {
+                      node {
+                        name
+                        description
+                        createdAt
+                        object {
+                          text
+                        }
                       }
                     }
                   }
