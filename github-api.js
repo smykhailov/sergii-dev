@@ -1,21 +1,22 @@
 exports.githubProjectsQuery = `
 query GithubProjects {
-  search(query: "is:public user:smykhailov", type: REPOSITORY, first: 50) {
-    repositoryCount
-    pageInfo {
-      endCursor
-      startCursor
-    }
-    edges {
-      node {
-        ... on Repository {
+  repositoryOwner(login: "smykhailov") {
+    repositories(
+      first: 50
+      ownerAffiliations: OWNER
+      visibility: PUBLIC
+      isFork: false
+      orderBy: {field: UPDATED_AT, direction: DESC}
+    ) {
+      edges {
+        node {
           name
           createdAt
           description
           url
           homepageUrl
           object(expression: "master:README.md") {
-     				... on Blob {
+            ... on Blob {
               text
             }
           }

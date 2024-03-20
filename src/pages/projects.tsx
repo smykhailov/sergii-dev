@@ -32,7 +32,9 @@ const ProjectsPage: FC<{
   data: GatsbyTypes.GitHubProjectsListPageDataQuery;
   location: Location;
 }> = props => {
-  const { edges } = props.data.allGithubData.edges[0]?.node.data?.search!;
+  const { edges } =
+    props.data.allGithubData.edges[0]?.node.data?.repositoryOwner!
+      .repositories!;
   const [shouldDisplayShadow, setShouldDisplayShadow] =
     useState<boolean>(false);
 
@@ -70,14 +72,16 @@ export const query = graphql`
       edges {
         node {
           data {
-            search {
-              edges {
-                node {
-                  name
-                  description
-                  createdAt
-                  object {
-                    text
+            repositoryOwner {
+              repositories {
+                edges {
+                  node {
+                    name
+                    description
+                    createdAt
+                    object {
+                      text
+                    }
                   }
                 }
               }

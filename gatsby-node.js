@@ -63,16 +63,16 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         edges {
           node {
             data {
-              search {
-                edges {
-                  node {
-                    name
-                    createdAt
-                    description
-                    url
-                    homepageUrl
-                    object {
-                      text
+              repositoryOwner {
+                repositories {
+                  edges {
+                    node {
+                      name
+                      description
+                      createdAt
+                      object {
+                        text
+                      }
                     }
                   }
                 }
@@ -141,7 +141,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   });
 
   const projects =
-    projectResult.data.allGithubData.edges[0].node.data.search.edges;
+    projectResult.data.allGithubData.edges[0].node.data.repositoryOwner
+      .repositories.edges;
 
   projects.forEach(({ node }) => {
     createPage({

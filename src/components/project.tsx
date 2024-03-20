@@ -10,7 +10,7 @@ import OpenExternalLinkIcon from "../assets/open-external-link.svg";
 
 const Project: FC<{
   pageContext: {
-    data: GatsbyTypes.GithubDataDataSearchEdgesNode;
+    data: GatsbyTypes.GithubDataDataRepositoryOwnerRepositoriesEdgesNode;
   };
   location: Location;
 }> = props => {
