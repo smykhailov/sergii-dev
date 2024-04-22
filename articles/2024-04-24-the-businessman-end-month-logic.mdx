@@ -1,0 +1,99 @@
+---
+title: The Businessman - End of the Month Logic
+date: 2024-04-22 19:22:09
+published: true
+featuredImage: ./images/2024-04-24-the-businessman-end-month-logic/cover.jpg
+categories:
+  - Businessman
+tags:
+  - businessman
+  - project
+  - javascript
+keywords:
+  - business logic
+  - javascript
+  - the game
+  - end of the month
+---
+
+This is the last part of the game logic. When the month ends (or, to simplify the logic of the end of the month detection, we will use the 1st day of the month),
+the all prices on the exchange and on the market must be updated. The assistant should remind the player about the amount of oil needed for the house heating.
+All the interests should be paid and new tax and interest rates should be provided. The logic itself is not difficult, but we also need to pause the game
+when the month ends or when any dialog window opens. That brings some complexity to the logic, as the pause logic will be placed in a lot of functions,
+which adds a coupling and breaks Single Responsibility Principle. But we will refactor it later and I'll show much more effective methods to handle application maintainability.
+
+There were two main changes made in this part of the game logic.
+
+## Pay Taxes
+
+The first change is the `payTaxes` function. It is called when the month ends. The function is responsible for updating the account balance.
+
+```javascript {numberLines: 141}
+const payTaxes = () => {
+  gameData.assets.oil.amount -= gameData.assistantData.oilToHeatHouse;
+
+  const oldAccountBalance = gameData.accountBalances.accountBalance;
+  if (gameData.accountBalances.netIncome > 0) {
+    gameData.accountBalances.accountBalance -=
+      (gameData.accountBalances.netIncome * gameData.interestRates.incomeTax) /
+      100;
+  }
+  gameData.accountBalances.accountBalance -=
+    (gameData.accountBalances.creditBalance *
+      gameData.interestRates.creditInterestRate) /
+    100;
+  gameData.accountBalances.accountBalance -=
+    (gameData.assets.house.price * gameData.taxes.houseTax) / 100;
+  gameData.accountBalances.accountBalance -=
+    (gameData.assets.land.amount *
+      gameData.assets.land.currentMonthPrice *
+      gameData.taxes.landTax) /
+    100;
+
+  const taxPaid = oldAccountBalance - gameData.accountBalances.accountBalance;
+  const infoDialogMsg = document.getElementById("info-message");
+  infoDialogMsg.innerText = `You paid ${taxPaid.toFixed(0)} Grobls in taxes.`;
+  open("info-dialog");
+};
+```
+
+## Update Prices and Rates
+
+The second change are the set of functions to update interest and tax rates, they are called when the month ends.
+
+```javascript {numberLines: 109}
+if (today.getDate() === 1) {
+  gameData.accountBalances.accountBalance +=
+    (gameData.accountBalances.depositBalance *
+      gameData.interestRates.depositInterestRate) /
+    100;
+  payTaxes();
+
+  if (gameData.accountBalances.accountBalance < 0) {
+    clearInterval(currentGameHandler);
+    open("end-game");
+    return;
+  }
+
+  gameData.interestRates = updateInterestRates();
+  gameData.taxes = updateTaxes();
+  gameData.availableHouses = updateHousePrices();
+  gameData.availableCars = updateCarPrices();
+  gameData.historicalExchangePrices[today.getMonth()] =
+    gameData.currentMonthExchangePrices = updateExchangePrices();
+  gameData.assistantData.oilToHeatHouse = Math.random() * 29 + 1;
+}
+```
+
+All [other changes](https://github.com/smykhailov/the-businessman/compare/v0.16...v0.17) are just refactoring to support update logic.
+
+## Next Steps
+
+This was the last part in this series. Now we have a fully functional game. If you compare the game we got with the original one,
+you'll see it has less functionality and is less polished. The idea of my articles was to show how to build a game from scratch,
+without using any libraries and frameworks. And show how simple code quiclky becomes complex and hard to maintain. That was the main intention,
+not game feature completeness.
+
+The next steps will be to refactor the code to make it more maintainable and to add more features to the game. The idea is to show how we can
+itteratively improve the code and add new features without breaking the existing ones. And how to add abstractions, which helps to hide complexities
+and make code reusable. Stay tuned for the next articles.
